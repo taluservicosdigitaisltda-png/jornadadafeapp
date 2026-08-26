@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import logoAsset from "@/assets/logo.png.asset.json";
 import appAsset from "@/assets/app.png.asset.json";
 
-export const CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFKP5";
+export const CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFFI1?UPSELL=TRUE";
 export const logoUrl = logoAsset.url;
 export const appUrl = appAsset.url;
 
