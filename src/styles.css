@@ -182,3 +182,41 @@
   font-size: 0.7rem;
   font-weight: 600;
 }
+
+.quiz-faith-bg {
+  isolation: isolate;
+  position: relative;
+}
+
+.quiz-faith-bg::before {
+  background-image:
+    linear-gradient(90deg, oklch(0.09 0.007 55 / 72%), oklch(0.09 0.007 55 / 88%) 35%, oklch(0.09 0.007 55 / 82%) 65%, oklch(0.09 0.007 55 / 72%)),
+    url("/images/quiz-biblia-cruz-bg.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: "";
+  inset: 0;
+  position: fixed;
+  z-index: -1;
+}
+
+.faith-section-bg {
+  background-color: var(--ink);
+  background-image:
+    linear-gradient(90deg, oklch(0.09 0.007 55 / 42%), oklch(0.09 0.007 55 / 90%) 38%, oklch(0.09 0.007 55 / 94%)),
+    url("/images/secao-biblia-cruz-bg.webp");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media (max-width: 640px) {
+  .quiz-faith-bg::before {
+    background-position: 42% center;
+  }
+
+  .faith-section-bg {
+    background-position: 22% center;
+  }
+}

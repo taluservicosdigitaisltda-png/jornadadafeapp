@@ -41,7 +41,7 @@ export function Quiz({ initiallyStarted = false }: { initiallyStarted?: boolean 
 
   if (!started) {
     return (
-      <main className={`${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}>
+      <main className={`${container} quiz-faith-bg flex min-h-screen flex-col items-center justify-center py-14 text-center`}>
         <BrandLogo width={220} eager />
         <p className="eyebrow mt-9 block">Palavra e oração guiada para o seu dia</p>
         <h1 className="mt-4 max-w-2xl text-2xl leading-tight text-ivory sm:text-3xl lg:text-4xl">
@@ -65,7 +65,7 @@ export function Quiz({ initiallyStarted = false }: { initiallyStarted?: boolean 
   if (finishing) {
     return (
       <main
-        className={`${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}
+        className={`${container} quiz-faith-bg flex min-h-screen flex-col items-center justify-center py-14 text-center`}
         aria-live="polite"
       >
         <BrandLogo width={180} />
@@ -79,7 +79,7 @@ export function Quiz({ initiallyStarted = false }: { initiallyStarted?: boolean 
   const question = questions[step]!;
 
   return (
-    <main className={`${container} flex min-h-screen flex-col justify-center py-12`}>
+    <main className={`${container} quiz-faith-bg flex min-h-screen flex-col justify-center py-12`}>
       <div className="mx-auto w-full max-w-2xl">
         <div className="flex items-center justify-between gap-4">
           {step === 0 ? (

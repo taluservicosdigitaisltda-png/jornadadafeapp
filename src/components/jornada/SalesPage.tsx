@@ -25,9 +25,8 @@ export function Hero() {
         <p className="mt-4 text-sm font-semibold text-gold-light">R$ 19,00 em pagamento único</p>
         <p className="mt-2 text-xs text-sand">Sem mensalidade • Acesso vitalício ao conteúdo adquirido • Garantia de 7 dias</p>
       </div>
-      <figure className="relative overflow-hidden rounded-[28px] border border-gold/35 bg-espresso shadow-2xl">
-        <img src={heroAppImage} alt="Mulher abrindo o aplicativo 5 Minutos de Fé no celular para iniciar uma oração guiada" width={1536} height={1024} loading="eager" fetchPriority="high" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" />
-        <figcaption className="absolute inset-x-4 bottom-4 rounded-2xl border border-gold/30 bg-ink/90 px-4 py-3 text-sm text-ivory shadow-xl backdrop-blur-sm">Escolha um tema, aperte o play e acompanhe uma oração guiada diretamente no celular.</figcaption>
+      <figure className="overflow-hidden rounded-[28px] border border-gold/35 bg-espresso shadow-2xl">
+        <img src={heroAppImage} alt="Celular completo exibindo a interface do aplicativo 5 Minutos de Fé e uma oração guiada" width={1536} height={1024} loading="eager" fetchPriority="high" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" />
       </figure>
     </section>
   );
@@ -45,7 +44,7 @@ export function Demo() {
   const [active, setActive] = useState(0);
   const item = demos[active]!;
   return (
-    <section className="border-y py-14 lg:py-20" style={{ background: "var(--gradient-brown)", borderColor: "oklch(0.76 0.106 79 / 25%)" }} aria-labelledby="demo-titulo">
+    <section className="faith-section-bg border-y py-14 lg:py-20" style={{ borderColor: "oklch(0.76 0.106 79 / 25%)" }} aria-labelledby="demo-titulo">
       <div className={container}>
         <p className="eyebrow">Veja como funciona no aplicativo</p>
         <h2 id="demo-titulo" className="mt-4 max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl">Escolha o que precisa, abra sua oração guiada e dê o play</h2>
@@ -144,7 +143,7 @@ export function GuidedPath() {
         <h2 id="caminho-titulo" className="mt-4 max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl">O próprio aplicativo pode guiar seus primeiros 28 dias</h2>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand">Escolha livremente uma oração ou siga a sequência sugerida no celular. O áudio, as transcrições, o diário e o histórico ajudam você a continuar sem metas rígidas.</p>
         <figure className="relative mt-9 overflow-hidden rounded-[26px] border border-gold/30 shadow-2xl">
-          <img src={contemplativeChurchImage} alt="Mulher ouvindo uma oração guiada no aplicativo 5 Minutos de Fé dentro de uma igreja" width={1536} height={1024} loading="lazy" decoding="async" className="aspect-[16/9] h-auto max-h-[400px] w-full object-cover" />
+          <img src={contemplativeChurchImage} alt="Homem lendo a Bíblia com o aplicativo 5 Minutos de Fé aberto ao lado reproduzindo uma oração guiada" width={1600} height={900} loading="lazy" decoding="async" className="aspect-[16/9] h-auto max-h-[400px] w-full object-cover" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" aria-hidden="true" />
           <figcaption className="absolute inset-x-0 bottom-0 p-5 font-display text-base text-ivory sm:p-7 sm:text-lg">Cinco minutos por vez. Um dia de cada vez.</figcaption>
         </figure>
@@ -167,7 +166,7 @@ export function ForWho() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="para-quem-titulo">
       <div className="grid items-center gap-9 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
-        <figure className="order-2 overflow-hidden rounded-[26px] border border-gold/30 bg-espresso shadow-2xl lg:order-1"><img src={dailyDevotionalImage} alt="Mulher abrindo uma oração guiada no aplicativo 5 Minutos de Fé à noite" width={1600} height={890} loading="lazy" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" /></figure>
+        <figure className="order-2 overflow-hidden rounded-[26px] border border-gold/30 bg-espresso shadow-2xl lg:order-1"><img src={dailyDevotionalImage} alt="Mulher tomando café da manhã enquanto ouve uma oração guiada no aplicativo 5 Minutos de Fé aberto ao lado" width={1536} height={1024} loading="lazy" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" /></figure>
         <div className="order-1 lg:order-2"><p className="eyebrow">O aplicativo pode ser para você</p><h2 id="para-quem-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">Para quem quer encontrar uma oração no celular sem depender de uma rotina perfeita</h2><ul className="mt-8 grid gap-4">{forWho.map((item) => <li key={item} className="flex items-start gap-3 text-base text-sand"><ConfirmBadge /><span className="min-w-0">{item}</span></li>)}</ul></div>
       </div>
     </section>
@@ -204,7 +203,7 @@ export function Offer() {
     return () => observer.disconnect();
   }, []);
   return (
-    <section id="oferta" ref={ref} className="relative overflow-hidden border-y py-14 lg:py-20" style={{ background: "var(--gradient-brown)", borderColor: "oklch(0.76 0.106 79 / 25%)" }} aria-labelledby="oferta-titulo">
+    <section id="oferta" ref={ref} className="faith-section-bg relative overflow-hidden border-y py-14 lg:py-20" style={{ borderColor: "oklch(0.76 0.106 79 / 25%)" }} aria-labelledby="oferta-titulo">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 opacity-40" style={{ background: "radial-gradient(60% 100% at 50% 0%, oklch(0.76 0.106 79 / 22%), transparent)" }} aria-hidden="true" />
       <div className={`${container} relative`}><div className="card-premium mx-auto max-w-xl rounded-[26px] p-7 text-center sm:p-10"><p className="eyebrow">Seu aplicativo de oração pode começar hoje</p><h2 id="oferta-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl">Acesso completo ao aplicativo 5 Minutos de Fé</h2><p className="mt-4 text-sm leading-relaxed text-sand">Orações narradas, reflexões bíblicas, diário, favoritos, histórico e um caminho guiado diretamente no seu celular.</p><p className="mt-6 font-display text-5xl text-gold-light sm:text-6xl">R$ 19,00</p><p className="mt-3 text-sm text-sand">Pagamento único. Sem mensalidade para acessar o conteúdo adquirido.</p><div className="mt-7"><CheckoutButton location="oferta">QUERO ACESSAR O APLICATIVO</CheckoutButton></div><p className="mt-4 text-xs text-sand">🔒 Compra processada em ambiente seguro pela Perfect Pay.</p><p className="mt-2 text-xs text-sand/80">Garantia de 7 dias conforme as condições apresentadas no checkout.</p></div></div>
     </section>
