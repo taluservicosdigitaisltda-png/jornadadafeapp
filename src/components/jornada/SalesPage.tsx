@@ -3,6 +3,11 @@ import { Link } from "@tanstack/react-router";
 
 import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
 import { Faq } from "./Faq";
+import {
+  contemplativeChurchImage,
+  dailyDevotionalImage,
+  prayerAtHomeImage,
+} from "@/assets/generated-images";
 import { track } from "@/lib/jornada";
 
 export function Hero() {
@@ -40,25 +45,44 @@ export function Hero() {
 export function Identification() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="identificacao-titulo">
-      <h2 id="identificacao-titulo" className="max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        A vontade existe. O difícil é saber como manter uma rotina.
-      </h2>
-      <div className="mt-6 grid gap-4 text-base leading-relaxed text-sand lg:max-w-3xl">
-        <p>
-          Os dias passam corridos: trabalho, casa, responsabilidades. Quando finalmente sobra um
-          instante de silêncio, vem a sensação de não saber como começar a orar.
-        </p>
-        <p>
-          Abrir a Bíblia também pode parecer difícil sem saber por onde começar, e a rotina de fé
-          acaba ficando para depois — mais uma vez.
-        </p>
+      <div className="grid items-center gap-9 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+        <div>
+          <h2 id="identificacao-titulo" className="text-2xl text-ivory sm:text-3xl lg:text-4xl">
+            A vontade existe. O difícil é saber como manter uma rotina.
+          </h2>
+          <div className="mt-6 grid gap-4 text-base leading-relaxed text-sand">
+            <p>
+              Os dias passam corridos: trabalho, casa, responsabilidades. Quando finalmente sobra
+              um instante de silêncio, vem a sensação de não saber como começar a orar.
+            </p>
+            <p>
+              Abrir a Bíblia também pode parecer difícil sem saber por onde começar, e a rotina de
+              fé acaba ficando para depois — mais uma vez.
+            </p>
+          </div>
+          <p
+            className="card-premium mt-8 rounded-[20px] p-6 font-display text-lg text-gold-light sm:p-7 sm:text-xl"
+            style={{ boxShadow: "var(--shadow-gold)" }}
+          >
+            Isso não significa falta de fé. Muitas vezes, o que falta é um caminho simples e
+            possível.
+          </p>
+        </div>
+        <figure className="overflow-hidden rounded-[26px] border border-gold/30 bg-espresso shadow-2xl">
+          <img
+            src={prayerAtHomeImage}
+            alt="Mulher em um momento tranquilo de oração em casa"
+            width={1536}
+            height={1024}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[3/2] h-auto w-full object-cover"
+          />
+          <figcaption className="border-t border-gold/20 px-5 py-4 text-xs leading-relaxed text-sand">
+            Um espaço de presença, no seu ritmo e dentro da sua rotina.
+          </figcaption>
+        </figure>
       </div>
-      <p
-        className="card-premium mt-8 rounded-[20px] p-6 font-display text-lg text-gold-light sm:p-7 sm:text-xl"
-        style={{ boxShadow: "var(--shadow-gold)" }}
-      >
-        Isso não significa falta de fé. Muitas vezes, o que falta é um caminho simples e possível.
-      </p>
     </section>
   );
 }
@@ -127,6 +151,24 @@ export function Journey() {
         <h2 id="jornada-titulo" className="mt-4 max-w-2xl text-2xl text-ivory sm:text-3xl lg:text-4xl">
           28 dias para criar espaço para sua fé na vida cotidiana
         </h2>
+        <figure className="relative mt-9 overflow-hidden rounded-[26px] border border-gold/30 shadow-2xl">
+          <img
+            src={contemplativeChurchImage}
+            alt="Interior de uma igreja iluminada pela luz dourada dos vitrais"
+            width={1600}
+            height={900}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[16/9] h-auto max-h-[430px] w-full object-cover"
+          />
+          <div
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent"
+            aria-hidden="true"
+          />
+          <figcaption className="absolute inset-x-0 bottom-0 p-5 font-display text-base text-ivory sm:p-7 sm:text-lg">
+            Uma caminhada de fé também pode começar em poucos minutos de silêncio.
+          </figcaption>
+        </figure>
         <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {journey.map((etapa) => (
             <li key={etapa.range} className="card-premium rounded-[20px] p-6">
@@ -370,18 +412,33 @@ const forWho = [
 export function ForWho() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="para-quem-titulo">
-      <p className="eyebrow">Para quem é</p>
-      <h2 id="para-quem-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        Pode fazer sentido para você se…
-      </h2>
-      <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-        {forWho.map((item) => (
-          <li key={item} className="flex items-start gap-3 text-base text-sand">
-            <ConfirmBadge />
-            <span className="min-w-0">{item}</span>
-          </li>
-        ))}
-      </ul>
+      <div className="grid items-center gap-9 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
+        <figure className="order-2 overflow-hidden rounded-[26px] border border-gold/30 bg-espresso shadow-2xl lg:order-1">
+          <img
+            src={dailyDevotionalImage}
+            alt="Pessoa vivendo um momento devocional tranquilo em sua rotina"
+            width={1536}
+            height={1024}
+            loading="lazy"
+            decoding="async"
+            className="aspect-[3/2] h-auto w-full object-cover"
+          />
+        </figure>
+        <div className="order-1 lg:order-2">
+          <p className="eyebrow">Para quem é</p>
+          <h2 id="para-quem-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
+            Pode fazer sentido para você se…
+          </h2>
+          <ul className="mt-8 grid gap-4">
+            {forWho.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-base text-sand">
+                <ConfirmBadge />
+                <span className="min-w-0">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </section>
   );
 }
