@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
-import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
+import { BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
 import { Faq } from "./Faq";
-import { contemplativeChurchImage, dailyDevotionalImage, prayerAtHomeImage } from "@/assets/generated-images";
+import { contemplativeChurchImage, dailyDevotionalImage, heroAppImage, prayerAtHomeImage } from "@/assets/generated-images";
 import { track } from "@/lib/jornada";
 
 export function Hero() {
@@ -11,20 +11,24 @@ export function Hero() {
     <section id="oferta-principal" className={`${container} grid items-center gap-12 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20`} aria-labelledby="hero-titulo">
       <div>
         <BrandLogo width={250} />
-        <p className="eyebrow mt-8 block">Seu encontro diário com a Palavra e a oração</p>
+        <p className="eyebrow mt-8 block">Aplicativo de orações guiadas para o seu celular</p>
         <h2 id="hero-titulo" className="mt-4 text-3xl leading-tight text-ivory sm:text-4xl lg:text-[2.8rem]">
           Você já separou seus 5 minutos de fé hoje?
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          Seu dia já pediu atenção de todos os lados. O 5 Minutos de Fé ajuda você a abrir um pequeno espaço para Deus, ouvir uma oração guiada e refletir sobre a Palavra — mesmo na correria e sem precisar saber como começar.
+          Abra o aplicativo, escolha o que seu coração precisa e dê o play. O 5 Minutos de Fé reúne orações guiadas, reflexões bíblicas e recursos simples para você viver esse momento pelo celular — mesmo na correria e sem precisar saber como começar.
         </p>
         <p className="mt-4 max-w-xl font-display text-lg leading-relaxed text-gold-light">
-          Uma Palavra para ouvir. Uma oração para acompanhar. Cinco minutos que podem mudar a forma como você atravessa o dia.
+          Não é apenas uma mensagem para ler: é uma experiência guiada para ouvir, acompanhar e levar com você todos os dias.
         </p>
-        <div className="mt-8 max-w-sm"><CheckoutButton location="hero">QUERO MEUS 5 MINUTOS DE FÉ</CheckoutButton></div>
-        <p className="mt-4 text-xs text-sand">Pagamento único • Acesso vitalício ao conteúdo adquirido • Garantia de 7 dias</p>
+        <div className="mt-8 max-w-sm"><CheckoutButton location="hero">QUERO MEU APLICATIVO</CheckoutButton></div>
+        <p className="mt-4 text-sm font-semibold text-gold-light">R$ 19,00 em pagamento único</p>
+        <p className="mt-2 text-xs text-sand">Sem mensalidade • Acesso vitalício ao conteúdo adquirido • Garantia de 7 dias</p>
       </div>
-      <AppMockup />
+      <figure className="relative overflow-hidden rounded-[28px] border border-gold/35 bg-espresso shadow-2xl">
+        <img src={heroAppImage} alt="Mulher abrindo o aplicativo 5 Minutos de Fé no celular para iniciar uma oração guiada" width={1536} height={1024} loading="eager" fetchPriority="high" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" />
+        <figcaption className="absolute inset-x-4 bottom-4 rounded-2xl border border-gold/30 bg-ink/90 px-4 py-3 text-sm text-ivory shadow-xl backdrop-blur-sm">Escolha um tema, aperte o play e acompanhe uma oração guiada diretamente no celular.</figcaption>
+      </figure>
     </section>
   );
 }
@@ -43,8 +47,9 @@ export function Demo() {
   return (
     <section className="border-y py-14 lg:py-20" style={{ background: "var(--gradient-brown)", borderColor: "oklch(0.76 0.106 79 / 25%)" }} aria-labelledby="demo-titulo">
       <div className={container}>
-        <p className="eyebrow">Experimente a ideia</p>
-        <h2 id="demo-titulo" className="mt-4 max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl">Se você pudesse parar por 5 minutos agora, o que seu coração precisaria?</h2>
+        <p className="eyebrow">Veja como funciona no aplicativo</p>
+        <h2 id="demo-titulo" className="mt-4 max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl">Escolha o que precisa, abra sua oração guiada e dê o play</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand">No aplicativo, você encontra rapidamente um conteúdo para o momento que está vivendo. Selecione um tema abaixo para visualizar uma prévia.</p>
         <div className="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Temas disponíveis">
           {demos.map((d, i) => <button key={d.theme} type="button" role="tab" aria-selected={active === i} aria-controls="demo-preview" onClick={() => setActive(i)} className={`min-h-11 rounded-xl border px-5 py-2.5 text-sm transition-colors ${active === i ? "border-gold bg-gold/15 text-gold-light" : "border-gold/30 text-sand hover:border-gold/60 hover:text-gold-light"}`}>{d.theme}</button>)}
         </div>
@@ -52,7 +57,7 @@ export function Demo() {
           <p className="text-xs tracking-[0.16em] text-gold uppercase">{item.theme} • {item.duration}</p>
           <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">{item.title}</h3>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand">“{item.excerpt}”</p>
-          <p className="mt-4 text-xs text-sand/70">Prévia em texto. A oração narrada completa fica disponível dentro do aplicativo.</p>
+          <p className="mt-4 text-xs text-sand/70">Esta é uma prévia. No aplicativo, a experiência completa inclui narração, oração guiada e controle de áudio.</p>
         </div>
       </div>
     </section>
@@ -64,19 +69,19 @@ export function Identification() {
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="identificacao-titulo">
       <div className="grid items-center gap-9 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <div>
-          <p className="eyebrow">Quando a fé fica para depois</p>
-          <h2 id="identificacao-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">O dia passa. Você cuida de tudo. E aquele pequeno tempo com Deus não acontece.</h2>
+          <p className="eyebrow">O aplicativo acompanha sua rotina</p>
+          <h2 id="identificacao-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">Quando faltarem tempo ou palavras, abra o celular e deixe o aplicativo conduzir esse momento.</h2>
           <div className="mt-6 grid gap-4 text-base leading-relaxed text-sand">
-            <p>Trabalho, mensagens, casa, decisões e preocupações ocupam cada espaço. Quando sobra silêncio, muitas vezes falta energia — ou faltam as palavras para começar.</p>
-            <p>Isso não significa falta de fé. Significa apenas que sua rotina precisa de uma forma mais simples, breve e possível de parar.</p>
+            <p>Trabalho, mensagens, casa, decisões e preocupações ocupam cada espaço. Por isso, o 5 Minutos de Fé foi pensado para transformar um pequeno intervalo em um momento de Palavra e oração.</p>
+            <p>Você escolhe entre paz, direção, esperança, gratidão ou força, conecta o fone se quiser e acompanha uma oração guiada de aproximadamente cinco minutos.</p>
           </div>
           <p className="card-premium mt-8 rounded-[20px] p-6 font-display text-lg text-gold-light sm:p-7 sm:text-xl" style={{ boxShadow: "var(--shadow-gold)" }}>
-            Seu dia não precisa estar perfeito para você ter um momento com Deus.
+            O aplicativo organiza o caminho. Você só precisa abrir, escolher e dar o play.
           </p>
         </div>
         <figure className="overflow-hidden rounded-[26px] border border-gold/30 bg-espresso shadow-2xl">
-          <img src={prayerAtHomeImage} alt="Mulher em um momento tranquilo de oração em casa" width={1536} height={1024} loading="lazy" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" />
-          <figcaption className="border-t border-gold/20 px-5 py-4 text-xs leading-relaxed text-sand">Antes que o mundo peça mais de você, reserve alguns minutos para sua fé.</figcaption>
+          <img src={prayerAtHomeImage} alt="Mulher ouvindo uma oração guiada no aplicativo 5 Minutos de Fé durante uma pausa no trabalho" width={1536} height={1024} loading="lazy" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" />
+          <figcaption className="border-t border-gold/20 px-5 py-4 text-xs leading-relaxed text-sand">No intervalo do trabalho ou no meio da correria: o aplicativo permanece ao alcance das suas mãos.</figcaption>
         </figure>
       </div>
     </section>
@@ -92,8 +97,8 @@ const howItWorks = [
 export function HowItWorks() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="como-funciona-titulo">
-      <p className="eyebrow">Simples de verdade</p>
-      <h2 id="como-funciona-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">Três passos. Cerca de cinco minutos. No seu ritmo.</h2>
+      <p className="eyebrow">Um aplicativo simples de usar</p>
+      <h2 id="como-funciona-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">Abra. Escolha. Dê o play. O aplicativo guia o restante.</h2>
       <ul className="mt-10 grid gap-5 md:grid-cols-3">
         {howItWorks.map((item, i) => <li key={item.title} className="card-premium rounded-[20px] p-6"><span className="font-display text-sm text-gold/70">{String(i + 1).padStart(2, "0")}</span><h3 className="mt-3 text-lg text-gold-light">{item.title}</h3><p className="mt-2 text-sm leading-relaxed text-sand">{item.text}</p></li>)}
       </ul>
@@ -115,8 +120,8 @@ const features = [
 export function Features() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="recursos-titulo">
-      <p className="eyebrow">Dentro do aplicativo</p>
-      <h2 id="recursos-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">Tudo pensado para diminuir a distância entre querer parar e realmente começar</h2>
+      <p className="eyebrow">Tudo dentro do aplicativo</p>
+      <h2 id="recursos-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">Mais do que mensagens: uma experiência completa de oração guiada no celular</h2>
       <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {features.map((f) => <li key={f.title} className="card-premium rounded-[18px] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold/60"><h3 className="text-base text-gold-light">{f.title}</h3><p className="mt-2 text-sm leading-relaxed text-sand">{f.text}</p></li>)}
       </ul>
@@ -136,10 +141,10 @@ export function GuidedPath() {
     <section className="relative border-y py-14 lg:py-20" style={{ background: "var(--gradient-brown)", borderColor: "oklch(0.76 0.106 79 / 25%)" }} aria-labelledby="caminho-titulo">
       <div className={container}>
         <p className="eyebrow">Para quem quiser ir além</p>
-        <h2 id="caminho-titulo" className="mt-4 max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl">Um caminho opcional de 28 dias para transformar cinco minutos em constância</h2>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand">Você pode escolher apenas o conteúdo de que precisa ou seguir uma sequência guiada. Não há metas rígidas nem dias bloqueados.</p>
+        <h2 id="caminho-titulo" className="mt-4 max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl">O próprio aplicativo pode guiar seus primeiros 28 dias</h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand">Escolha livremente uma oração ou siga a sequência sugerida no celular. O áudio, as transcrições, o diário e o histórico ajudam você a continuar sem metas rígidas.</p>
         <figure className="relative mt-9 overflow-hidden rounded-[26px] border border-gold/30 shadow-2xl">
-          <img src={contemplativeChurchImage} alt="Interior de uma igreja iluminada pela luz dourada dos vitrais" width={1600} height={900} loading="lazy" decoding="async" className="aspect-[16/9] h-auto max-h-[400px] w-full object-cover" />
+          <img src={contemplativeChurchImage} alt="Mulher ouvindo uma oração guiada no aplicativo 5 Minutos de Fé dentro de uma igreja" width={1536} height={1024} loading="lazy" decoding="async" className="aspect-[16/9] h-auto max-h-[400px] w-full object-cover" />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/80 via-transparent to-transparent" aria-hidden="true" />
           <figcaption className="absolute inset-x-0 bottom-0 p-5 font-display text-base text-ivory sm:p-7 sm:text-lg">Cinco minutos por vez. Um dia de cada vez.</figcaption>
         </figure>
@@ -162,8 +167,8 @@ export function ForWho() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="para-quem-titulo">
       <div className="grid items-center gap-9 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14">
-        <figure className="order-2 overflow-hidden rounded-[26px] border border-gold/30 bg-espresso shadow-2xl lg:order-1"><img src={dailyDevotionalImage} alt="Pessoa vivendo um momento tranquilo de reflexão em sua rotina" width={1536} height={1024} loading="lazy" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" /></figure>
-        <div className="order-1 lg:order-2"><p className="eyebrow">Pode ser para você</p><h2 id="para-quem-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">Para quem sente falta de um pequeno tempo com Deus — mesmo sem uma rotina perfeita</h2><ul className="mt-8 grid gap-4">{forWho.map((item) => <li key={item} className="flex items-start gap-3 text-base text-sand"><ConfirmBadge /><span className="min-w-0">{item}</span></li>)}</ul></div>
+        <figure className="order-2 overflow-hidden rounded-[26px] border border-gold/30 bg-espresso shadow-2xl lg:order-1"><img src={dailyDevotionalImage} alt="Mulher abrindo uma oração guiada no aplicativo 5 Minutos de Fé à noite" width={1600} height={890} loading="lazy" decoding="async" className="aspect-[3/2] h-auto w-full object-cover" /></figure>
+        <div className="order-1 lg:order-2"><p className="eyebrow">O aplicativo pode ser para você</p><h2 id="para-quem-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">Para quem quer encontrar uma oração no celular sem depender de uma rotina perfeita</h2><ul className="mt-8 grid gap-4">{forWho.map((item) => <li key={item} className="flex items-start gap-3 text-base text-sand"><ConfirmBadge /><span className="min-w-0">{item}</span></li>)}</ul></div>
       </div>
     </section>
   );
@@ -201,7 +206,7 @@ export function Offer() {
   return (
     <section id="oferta" ref={ref} className="relative overflow-hidden border-y py-14 lg:py-20" style={{ background: "var(--gradient-brown)", borderColor: "oklch(0.76 0.106 79 / 25%)" }} aria-labelledby="oferta-titulo">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-64 opacity-40" style={{ background: "radial-gradient(60% 100% at 50% 0%, oklch(0.76 0.106 79 / 22%), transparent)" }} aria-hidden="true" />
-      <div className={`${container} relative`}><div className="card-premium mx-auto max-w-xl rounded-[26px] p-7 text-center sm:p-10"><p className="eyebrow">Seus cinco minutos podem começar hoje</p><h2 id="oferta-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl">Acesso completo ao 5 Minutos de Fé</h2><p className="mt-4 text-sm leading-relaxed text-sand">Palavra, reflexão e oração guiada para reservar um pequeno espaço para Deus na sua rotina.</p><p className="mt-6 font-display text-5xl text-gold-light sm:text-6xl">R$ 29,90</p><p className="mt-3 text-sm text-sand">Pagamento único. Sem mensalidade para acessar o conteúdo adquirido.</p><div className="mt-7"><CheckoutButton location="oferta">QUERO MEUS 5 MINUTOS DE FÉ</CheckoutButton></div><p className="mt-4 text-xs text-sand">🔒 Compra processada em ambiente seguro pela Perfect Pay.</p><p className="mt-2 text-xs text-sand/80">Garantia de 7 dias conforme as condições apresentadas no checkout.</p></div></div>
+      <div className={`${container} relative`}><div className="card-premium mx-auto max-w-xl rounded-[26px] p-7 text-center sm:p-10"><p className="eyebrow">Seu aplicativo de oração pode começar hoje</p><h2 id="oferta-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl">Acesso completo ao aplicativo 5 Minutos de Fé</h2><p className="mt-4 text-sm leading-relaxed text-sand">Orações narradas, reflexões bíblicas, diário, favoritos, histórico e um caminho guiado diretamente no seu celular.</p><p className="mt-6 font-display text-5xl text-gold-light sm:text-6xl">R$ 19,00</p><p className="mt-3 text-sm text-sand">Pagamento único. Sem mensalidade para acessar o conteúdo adquirido.</p><div className="mt-7"><CheckoutButton location="oferta">QUERO ACESSAR O APLICATIVO</CheckoutButton></div><p className="mt-4 text-xs text-sand">🔒 Compra processada em ambiente seguro pela Perfect Pay.</p><p className="mt-2 text-xs text-sand/80">Garantia de 7 dias conforme as condições apresentadas no checkout.</p></div></div>
     </section>
   );
 }
@@ -214,7 +219,7 @@ export function Guarantee() {
 
 export function Closing() {
   return (
-    <section className={`${container} py-14 text-center lg:py-20`} aria-labelledby="encerramento-titulo"><p className="eyebrow">Antes de voltar para a correria</p><h2 id="encerramento-titulo" className="mx-auto mt-4 max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl">Você já separou seus 5 minutos de fé hoje?</h2><p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-sand">Seu dia não precisa ser perfeito. Sua oração também não. Comece apenas com um pequeno espaço sincero para Deus.</p><div className="mx-auto mt-9 max-w-sm"><CheckoutButton location="encerramento">COMEÇAR MEUS 5 MINUTOS DE FÉ</CheckoutButton></div><p className="mt-5 font-display text-lg text-gold-light">Uma Palavra. Uma oração. Um momento com Deus.</p></section>
+    <section className={`${container} py-14 text-center lg:py-20`} aria-labelledby="encerramento-titulo"><p className="eyebrow">Seu aplicativo está a um toque de distância</p><h2 id="encerramento-titulo" className="mx-auto mt-4 max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl">Na próxima vez em que faltarem tempo ou palavras, você poderá simplesmente abrir e dar o play.</h2><p className="mx-auto mt-5 max-w-2xl text-base leading-relaxed text-sand">Tenha no celular uma biblioteca de orações guiadas para diferentes momentos da sua rotina, com acesso completo por apenas R$ 19,00.</p><div className="mx-auto mt-9 max-w-sm"><CheckoutButton location="encerramento">QUERO MEU APLICATIVO</CheckoutButton></div><p className="mt-5 font-display text-lg text-gold-light">Uma Palavra. Uma oração. Cinco minutos com Deus.</p></section>
   );
 }
 

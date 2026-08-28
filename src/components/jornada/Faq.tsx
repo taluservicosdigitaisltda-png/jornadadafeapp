@@ -8,6 +8,7 @@ const faqs = [
   { q: "E se eu não conseguir usar todos os dias?", a: "Não existe cobrança nem sequência obrigatória. Você pode retomar quando puder. O caminho guiado de 28 dias é opcional e nada é bloqueado se um dia passar em branco." },
   { q: "O aplicativo pertence a algum padre ou igreja?", a: "Não. 5 Minutos de Fé é uma marca independente e não utiliza imagem, voz ou endosso de líderes religiosos." },
   { q: "Existe mensalidade?", a: "Não. O pagamento é único e dá acesso vitalício ao conteúdo adquirido, sem cobrança recorrente para continuar acessando." },
+  { q: "Qual é o valor do aplicativo?", a: "O acesso ao 5 Minutos de Fé custa R$ 19,00 em pagamento único, sem mensalidade para continuar acessando o conteúdo adquirido." },
   { q: "Posso usar pelo celular?", a: "Sim. A experiência foi desenvolvida principalmente para o celular e também funciona em outros dispositivos com navegador compatível." },
   { q: "O conteúdo promete melhorar ou transformar minha vida?", a: "Não existe promessa de resultado garantido. O aplicativo oferece um espaço guiado de oração e reflexão que pode ajudar você a viver o dia com mais presença e intenção." },
   { q: "Substitui acompanhamento religioso ou profissional?", a: "Não. O conteúdo é devocional e educacional. Ele não substitui acompanhamento pastoral, médico ou psicológico." },
