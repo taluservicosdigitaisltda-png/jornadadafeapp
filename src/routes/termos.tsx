@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/jornada/LegalPage";
 
 export const Route = createFileRoute("/termos")({
-  head: () => ({ meta: [{ title: "Termos de Uso — Jornada da Fé" }] }),
+  head: () => ({ meta: [{ title: "Termos de Uso — Pausa de Fé" }] }),
   component: TermsPage,
 });
 
@@ -11,7 +11,7 @@ function TermsPage() {
   return (
     <LegalPage title="Termos de Uso">
       <p>
-        A Jornada da Fé disponibiliza conteúdos devocionais e educacionais para uso pessoal. O
+        Pausa de Fé disponibiliza conteúdos devocionais e educacionais para uso pessoal. O
         acesso não concede autorização para copiar, revender, redistribuir ou publicar os materiais
         como se fossem próprios.
       </p>

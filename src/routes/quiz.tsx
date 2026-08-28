@@ -5,10 +5,10 @@ import { Quiz } from "@/components/jornada/Quiz";
 export const Route = createFileRoute("/quiz")({
   head: () => ({
     meta: [
-      { title: "Quiz de fé — Jornada da Fé" },
+      { title: "Encontre sua Pausa de Fé" },
       {
         name: "description",
-        content: "Responda quatro perguntas rápidas e receba uma sugestão para começar.",
+        content: "Responda três perguntas rápidas e encontre uma pausa de cinco minutos para o seu momento.",
       },
       { name: "robots", content: "noindex, follow" },
     ],

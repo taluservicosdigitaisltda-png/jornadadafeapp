@@ -77,13 +77,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Jornada da Fé — Orações e Jornada Devocional" },
+      { title: "Pausa de Fé — 5 minutos com Deus" },
       {
         name: "description",
         content:
-          "Orações narradas, reflexões bíblicas e uma jornada devocional guiada para viver no seu ritmo.",
+          "Cinco minutos de Palavra, oração guiada e reflexão para viver no seu ritmo.",
       },
-      { property: "og:site_name", content: "Jornada da Fé" },
+      { property: "og:site_name", content: "Pausa de Fé" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

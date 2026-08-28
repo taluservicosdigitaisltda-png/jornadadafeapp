@@ -1,12 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Quiz } from "@/components/jornada/Quiz";
-import ogAsset from "@/assets/og.png.asset.json";
-
-const title = "Quiz de fé — Jornada da Fé";
+const title = "Sua Pausa de Fé — 5 minutos com Deus";
 const description =
-  "Responda quatro perguntas rápidas e descubra uma sugestão de oração e reflexão para o seu momento.";
-const ogImage = `https://jornadadafeapp.lovable.app${ogAsset.url}`;
+  "Responda três perguntas rápidas e encontre uma pausa de cinco minutos com Palavra, oração guiada e reflexão para o seu momento.";
 
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -19,11 +16,9 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: ogImage },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
-      { name: "twitter:image", content: ogImage },
     ],
   }),
   component: QuizPage,
