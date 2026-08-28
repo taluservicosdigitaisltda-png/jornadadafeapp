@@ -1,7 +1,7 @@
 export const PERFECTPAY_CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFKP5";
 
-export const ANSWERS_KEY = "pausa_de_fe_quiz_answers";
-export const UTM_KEY = "pausa_de_fe_utms";
+export const ANSWERS_KEY = "cinco_minutos_de_fe_quiz_answers";
+export const UTM_KEY = "cinco_minutos_de_fe_utms";
 
 export type QuizQuestion = {
   id: "momento" | "necessidade" | "obstaculo";
@@ -12,7 +12,7 @@ export type QuizQuestion = {
 export const questions: QuizQuestion[] = [
   {
     id: "momento",
-    label: "Em qual momento você mais sente falta de uma pausa?",
+    label: "Em qual momento do dia você mais sente falta de estar com Deus?",
     options: [
       "Logo ao acordar",
       "Durante a correria do dia",
@@ -51,7 +51,7 @@ const needProfiles: Record<string, Omit<ResultProfile, "text">> = {
   Paz: {
     name: "Paz e Presença",
     content: {
-      title: "Pausa para acalmar o coração",
+      title: "5 minutos para acalmar o coração",
       excerpt:
         "Respire com calma. Você não precisa encontrar as palavras perfeitas. Por alguns minutos, apenas permaneça na presença de Deus.",
     },
@@ -59,7 +59,7 @@ const needProfiles: Record<string, Omit<ResultProfile, "text">> = {
   Direção: {
     name: "Clareza e Confiança",
     content: {
-      title: "Pausa para olhar o próximo passo",
+      title: "5 minutos para buscar direção",
       excerpt:
         "Nem toda resposta aparece de uma vez. Às vezes, a direção começa quando o coração desacelera e consegue enxergar o próximo passo possível.",
     },
@@ -67,7 +67,7 @@ const needProfiles: Record<string, Omit<ResultProfile, "text">> = {
   Esperança: {
     name: "Recomeço e Esperança",
     content: {
-      title: "Pausa para recomeçar",
+      title: "5 minutos para renovar a esperança",
       excerpt:
         "Todo recomeço parece pequeno no início. Ainda assim, pode ser exatamente ali que a esperança volta a encontrar espaço.",
     },
@@ -75,7 +75,7 @@ const needProfiles: Record<string, Omit<ResultProfile, "text">> = {
   Gratidão: {
     name: "Gratidão e Presença",
     content: {
-      title: "Pausa para reconhecer o que sustenta você",
+      title: "5 minutos de gratidão",
       excerpt:
         "Gratidão não apaga o que foi difícil. Ela abre espaço para perceber também aquilo que acolheu e sustentou você até aqui.",
     },
@@ -83,7 +83,7 @@ const needProfiles: Record<string, Omit<ResultProfile, "text">> = {
   Força: {
     name: "Força e Descanso",
     content: {
-      title: "Pausa para os dias de cansaço",
+      title: "5 minutos para encontrar força",
       excerpt:
         "Você não precisa resolver tudo neste instante. Entregue a Deus o peso que não precisa carregar sozinho e siga um passo por vez.",
     },
@@ -91,8 +91,8 @@ const needProfiles: Record<string, Omit<ResultProfile, "text">> = {
 };
 
 const momentCopy: Record<string, string> = {
-  "Logo ao acordar": "Começar o dia com uma pausa guiada pode ajudar você a seguir com mais presença e intenção.",
-  "Durante a correria do dia": "Uma pausa curta no meio da rotina pode devolver atenção ao que realmente importa.",
+  "Logo ao acordar": "Começar o dia com Palavra e oração pode ajudar você a seguir com mais presença e intenção.",
+  "Durante a correria do dia": "Cinco minutos no meio da rotina podem devolver atenção ao que realmente importa.",
   "Quando minha mente fica acelerada": "Antes de continuar tentando resolver tudo, vale criar um pequeno espaço de silêncio e oração.",
   "Antes de tomar uma decisão": "Um momento de calma pode ajudar você a olhar suas escolhas com mais serenidade.",
   "Antes de dormir": "Encerrar o dia com uma oração breve pode ser uma forma simples de entregar o que ficou pesado.",
@@ -107,10 +107,10 @@ const obstacleCopy: Record<string, string> = {
 };
 
 export const neutralResult: ResultProfile = {
-  name: "Primeira Pausa",
+  name: "Seu primeiro momento",
   text: "Um bom começo pode ser reservar cinco minutos, escolher o que seu coração precisa e apenas acompanhar uma oração narrada. Sem pressão e sem precisar saber as palavras certas.",
   content: {
-    title: "Pausa para começar",
+    title: "5 minutos para começar",
     excerpt:
       "Antes de pedir qualquer coisa, respire. Estes minutos não precisam ser perfeitos. Eles só precisam ser verdadeiros.",
   },

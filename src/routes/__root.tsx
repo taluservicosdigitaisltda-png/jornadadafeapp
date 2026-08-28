@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { faviconDataUri } from "../assets/embedded-assets";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
@@ -77,13 +78,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Pausa de Fé — 5 minutos com Deus" },
+      { title: "5 Minutos de Fé — Palavra e oração para o seu dia" },
       {
         name: "description",
         content:
           "Cinco minutos de Palavra, oração guiada e reflexão para viver no seu ritmo.",
       },
-      { property: "og:site_name", content: "Pausa de Fé" },
+      { property: "og:site_name", content: "5 Minutos de Fé" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -92,7 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "icon", type: "image/png", href: faviconDataUri },
     ],
   }),
 

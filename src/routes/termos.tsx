@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/jornada/LegalPage";
 
 export const Route = createFileRoute("/termos")({
-  head: () => ({ meta: [{ title: "Termos de Uso — Pausa de Fé" }] }),
+  head: () => ({ meta: [{ title: "Termos de Uso — 5 Minutos de Fé" }] }),
   component: TermsPage,
 });
 
@@ -11,7 +11,7 @@ function TermsPage() {
   return (
     <LegalPage title="Termos de Uso">
       <p>
-        Pausa de Fé disponibiliza conteúdos devocionais e educacionais para uso pessoal. O
+        5 Minutos de Fé disponibiliza conteúdos devocionais e educacionais para uso pessoal. O
         acesso não concede autorização para copiar, revender, redistribuir ou publicar os materiais
         como se fossem próprios.
       </p>

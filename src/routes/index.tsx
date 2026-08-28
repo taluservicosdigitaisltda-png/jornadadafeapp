@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { Quiz } from "@/components/jornada/Quiz";
-const title = "Sua Pausa de Fé — 5 minutos com Deus";
+const title = "5 Minutos de Fé — Palavra e oração para o seu dia";
 const description =
-  "Responda três perguntas rápidas e encontre uma pausa de cinco minutos com Palavra, oração guiada e reflexão para o seu momento.";
+  "Responda três perguntas rápidas e encontre uma oração guiada de aproximadamente cinco minutos para o momento que você está vivendo.";
 
 export const Route = createFileRoute("/")({
   validateSearch: (search: Record<string, unknown>) => ({

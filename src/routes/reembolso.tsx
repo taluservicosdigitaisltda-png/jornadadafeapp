@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/jornada/LegalPage";
 
 export const Route = createFileRoute("/reembolso")({
-  head: () => ({ meta: [{ title: "Política de Reembolso — Pausa de Fé" }] }),
+  head: () => ({ meta: [{ title: "Política de Reembolso — 5 Minutos de Fé" }] }),
   component: RefundPage,
 });
 

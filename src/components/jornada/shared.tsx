@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 
+import { brandLogoDataUri } from "@/assets/embedded-assets";
 import { PERFECTPAY_CHECKOUT_URL, checkoutUrl, track } from "@/lib/jornada";
 
 export const container = "mx-auto w-full max-w-[1140px] px-5 sm:px-8";
@@ -21,19 +22,19 @@ export function ConfirmBadge({ size = "sm" }: { size?: "sm" | "md" }) {
   );
 }
 
-export function BrandLogo({ width = 240, className = "", eager: _eager = false }: { width?: number; className?: string; eager?: boolean }) {
+export function BrandLogo({ width = 240, className = "", eager = false }: { width?: number; className?: string; eager?: boolean }) {
   return (
-    <div role="img" aria-label="Pausa de Fé — seu momento diário com Deus" className={`inline-flex items-center gap-3 text-left ${className}`} style={{ width, maxWidth: "100%" }}>
-      <span className="relative grid h-12 w-12 shrink-0 place-items-center rounded-full border border-gold/60 bg-gold/10" aria-hidden="true">
-        <span className="absolute h-6 w-px bg-gold-light" />
-        <span className="absolute mt-[-5px] h-px w-4 bg-gold-light" />
-        <span className="absolute inset-1 rounded-full border border-gold/20" />
-      </span>
-      <span className="min-w-0">
-        <span className="block whitespace-nowrap font-display text-[1.55rem] leading-none text-gold-light">Pausa de Fé</span>
-        <span className="mt-1 block whitespace-nowrap text-[0.55rem] font-semibold tracking-[0.2em] text-sand uppercase">Seu momento diário com Deus</span>
-      </span>
-    </div>
+    <img
+      src={brandLogoDataUri}
+      alt="5 Minutos de Fé"
+      width={900}
+      height={286}
+      loading={eager ? "eager" : "lazy"}
+      fetchPriority={eager ? "high" : "auto"}
+      decoding="async"
+      className={`block h-auto object-contain ${className}`}
+      style={{ width, maxWidth: "100%" }}
+    />
   );
 }
 
@@ -51,14 +52,14 @@ export function CheckoutButton({ children, subLabel, location, className = "" }:
 
 export function AppMockup({ className = "" }: { className?: string }) {
   return (
-    <div className={`relative mx-auto w-full max-w-[430px] ${className}`} role="img" aria-label="Tela do aplicativo Pausa de Fé com uma oração guiada de cinco minutos">
+    <div className={`relative mx-auto w-full max-w-[430px] ${className}`} role="img" aria-label="Tela do aplicativo 5 Minutos de Fé com uma oração guiada">
       <div className="absolute -inset-6 rounded-full bg-gold/10 blur-3xl" aria-hidden="true" />
       <div className="relative overflow-hidden rounded-[38px] border border-gold/40 bg-ink p-3 shadow-2xl">
         <div className="rounded-[29px] border border-gold/15 bg-espresso px-5 pb-6 pt-4">
           <div className="mx-auto mb-5 h-1.5 w-20 rounded-full bg-sand/20" aria-hidden="true" />
           <BrandLogo width={180} />
-          <p className="mt-7 text-xs tracking-[0.14em] text-gold uppercase">Sua pausa de hoje</p>
-          <h3 className="mt-2 text-2xl leading-tight text-ivory">O que seu coração precisa agora?</h3>
+          <p className="mt-7 text-xs tracking-[0.14em] text-gold uppercase">Seus 5 minutos de hoje</p>
+          <h3 className="mt-2 text-2xl leading-tight text-ivory">Como você chega a este momento?</h3>
           <div className="mt-5 flex flex-wrap gap-2">
             {["Paz", "Direção", "Esperança", "Gratidão", "Força"].map((item, index) => (
               <span key={item} className={`rounded-full border px-3 py-2 text-xs ${index === 0 ? "border-gold bg-gold/15 text-gold-light" : "border-gold/20 text-sand"}`}>{item}</span>
@@ -66,7 +67,7 @@ export function AppMockup({ className = "" }: { className?: string }) {
           </div>
           <div className="card-premium mt-6 rounded-[22px] p-5">
             <p className="text-[0.65rem] tracking-[0.16em] text-gold uppercase">Paz • 5 minutos</p>
-            <p className="mt-2 font-display text-xl text-gold-light">Pausa para acalmar o coração</p>
+            <p className="mt-2 font-display text-xl text-gold-light">5 minutos para acalmar o coração</p>
             <p className="mt-2 text-xs leading-relaxed text-sand">Uma oração guiada para respirar, silenciar e permanecer na presença de Deus.</p>
             <div className="mt-5 flex items-center gap-3">
               <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold text-ink" aria-hidden="true">▶</span>
@@ -74,7 +75,7 @@ export function AppMockup({ className = "" }: { className?: string }) {
               <span className="text-xs text-sand">02:01</span>
             </div>
           </div>
-          <p className="mt-5 text-center text-xs text-sand/80">Cinco minutos. Sem pressa. Sem cobrança.</p>
+          <p className="mt-5 text-center text-xs text-sand/80">Uma Palavra. Uma oração. Cinco minutos com Deus.</p>
         </div>
       </div>
     </div>

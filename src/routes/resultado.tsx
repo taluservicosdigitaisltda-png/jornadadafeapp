@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { ResultHeader } from "@/components/jornada/ResultHeader";
 import { Footer, SalesPage } from "@/components/jornada/SalesPage";
-const title = "Sua recomendação — Pausa de Fé";
+const title = "Sua recomendação — 5 Minutos de Fé";
 const description =
-  "Veja sua recomendação de cinco minutos e conheça o aplicativo Pausa de Fé, com orações narradas e reflexões bíblicas curtas.";
+  "Veja sua recomendação e conheça o aplicativo 5 Minutos de Fé, com orações narradas e reflexões bíblicas curtas.";
 
 export const Route = createFileRoute("/resultado")({
   head: () => ({

@@ -10,7 +10,7 @@ export function LegalPage({ title, children }: { title: string; children: ReactN
         <BrandLogo width={180} eager />
       </Link>
       <article className="card-premium mt-10 max-w-3xl rounded-[24px] p-6 sm:p-10">
-        <p className="eyebrow">Pausa de Fé</p>
+        <p className="eyebrow">5 Minutos de Fé</p>
         <h1 className="mt-4 text-3xl text-ivory sm:text-4xl">{title}</h1>
         <div className="mt-8 space-y-6 text-sm leading-relaxed text-sand sm:text-base">
           {children}

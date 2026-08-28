@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { LegalPage } from "@/components/jornada/LegalPage";
 
 export const Route = createFileRoute("/suporte")({
-  head: () => ({ meta: [{ title: "Suporte — Pausa de Fé" }] }),
+  head: () => ({ meta: [{ title: "Suporte — 5 Minutos de Fé" }] }),
   component: SupportPage,
 });
 

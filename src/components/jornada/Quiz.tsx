@@ -43,20 +43,20 @@ export function Quiz({ initiallyStarted = false }: { initiallyStarted?: boolean 
     return (
       <main className={`${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}>
         <BrandLogo width={220} eager />
-        <p className="eyebrow mt-9 block">Seu pequeno tempo com Deus</p>
+        <p className="eyebrow mt-9 block">Palavra e oração guiada para o seu dia</p>
         <h1 className="mt-4 max-w-2xl text-2xl leading-tight text-ivory sm:text-3xl lg:text-4xl">
-          Você já deu tempo para tanta coisa hoje. E para a sua fé?
+          Você já separou seus 5 minutos de fé hoje?
         </h1>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand">
-          Responda três perguntas rápidas e descubra uma Pausa de Fé de 5 minutos para o momento que você está vivendo.
+          Responda três perguntas rápidas e descubra qual oração guiada combina com o momento que você está vivendo agora.
         </p>
-        <a
-          href="/?iniciar=1"
+        <button
+          type="button"
           onClick={start}
           className="cta-gold mt-9 min-h-14 w-full max-w-sm rounded-2xl px-8 py-4 text-sm font-bold tracking-[0.1em] sm:text-base"
         >
-          ENCONTRAR MINHA PAUSA DE FÉ
-        </a>
+          DESCOBRIR MEUS 5 MINUTOS DE HOJE
+        </button>
         <p className="mt-4 text-xs text-sand">Leva menos de 1 minuto • Sem cadastro</p>
       </main>
     );
@@ -70,7 +70,7 @@ export function Quiz({ initiallyStarted = false }: { initiallyStarted?: boolean 
       >
         <BrandLogo width={180} />
         <p className="mt-8 font-display text-xl text-gold-light sm:text-2xl">
-          Preparando sua Pausa de Fé…
+          Preparando seus 5 Minutos de Fé…
         </p>
       </main>
     );
