@@ -9,6 +9,9 @@ const description =
 const ogImage = `https://jornadadafeapp.lovable.app${ogAsset.url}`;
 
 export const Route = createFileRoute("/")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    iniciar: search.iniciar === "1" || search.iniciar === 1 || search.iniciar === true,
+  }),
   head: () => ({
     meta: [
       { title },
@@ -23,5 +26,10 @@ export const Route = createFileRoute("/")({
       { name: "twitter:image", content: ogImage },
     ],
   }),
-  component: Quiz,
+  component: QuizPage,
 });
+
+function QuizPage() {
+  const { iniciar } = Route.useSearch();
+  return <Quiz initiallyStarted={iniciar} />;
+}
