@@ -4,9 +4,9 @@ import { useNavigate } from "@tanstack/react-router";
 import { BrandLogo, container } from "./shared";
 import { captureUtms, questions, saveAnswers, track, type Answers } from "@/lib/jornada";
 
-export function Quiz() {
+export function Quiz({ initiallyStarted = false }: { initiallyStarted?: boolean }) {
   const navigate = useNavigate();
-  const [started, setStarted] = useState(false);
+  const [started, setStarted] = useState(initiallyStarted);
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Answers>({});
   const [finishing, setFinishing] = useState(false);
@@ -50,13 +50,13 @@ export function Quiz() {
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand">
           Responda quatro perguntas rápidas e receba uma sugestão para começar.
         </p>
-        <button
-          type="button"
+        <a
+          href="/quiz"
           onClick={start}
           className="cta-gold mt-9 min-h-14 w-full max-w-sm rounded-2xl px-8 py-4 text-sm font-bold tracking-[0.1em] sm:text-base"
         >
           COMEÇAR
-        </button>
+        </a>
         <p className="mt-4 text-xs text-sand">Leva menos de 1 minuto • Sem cadastro</p>
       </main>
     );
@@ -82,14 +82,24 @@ export function Quiz() {
     <main className={`${container} flex min-h-screen flex-col justify-center py-12`}>
       <div className="mx-auto w-full max-w-2xl">
         <div className="flex items-center justify-between gap-4">
-          <button
-            type="button"
-            onClick={() => (step === 0 ? setStarted(false) : setStep(step - 1))}
-            className="min-h-11 rounded-xl border border-gold/40 px-4 text-sm text-gold-light transition-colors hover:bg-gold/10"
-            aria-label="Voltar para a etapa anterior"
-          >
-            ← Voltar
-          </button>
+          {step === 0 ? (
+            <a
+              href="/"
+              className="inline-flex min-h-11 items-center rounded-xl border border-gold/40 px-4 text-sm text-gold-light transition-colors hover:bg-gold/10"
+              aria-label="Voltar para o início"
+            >
+              ← Voltar
+            </a>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setStep(step - 1)}
+              className="min-h-11 rounded-xl border border-gold/40 px-4 text-sm text-gold-light transition-colors hover:bg-gold/10"
+              aria-label="Voltar para a etapa anterior"
+            >
+              ← Voltar
+            </button>
+          )}
           <p className="text-xs tracking-[0.18em] text-sand uppercase">
             {step + 1} de {questions.length}
           </p>
