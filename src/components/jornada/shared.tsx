@@ -1,11 +1,12 @@
-import type { ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 
 import logoAsset from "@/assets/logo.png.asset.json";
 import appAsset from "@/assets/app.png.asset.json";
+import { PERFECTPAY_CHECKOUT_URL, checkoutUrl, track } from "@/lib/jornada";
 
-export const CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFKP5";
 export const logoUrl = logoAsset.url;
 export const appUrl = appAsset.url;
+export const container = "mx-auto w-full max-w-[1140px] px-5 sm:px-8";
 
 export function CheckIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -40,24 +41,51 @@ export function ConfirmBadge({ size = "sm" }: { size?: "sm" | "md" }) {
   );
 }
 
-export function CtaButton({
+export function BrandLogo({
+  width = 240,
+  className = "",
+  eager = false,
+}: {
+  width?: number;
+  className?: string;
+  eager?: boolean;
+}) {
+  return (
+    <img
+      src={logoUrl}
+      alt="Jornada da Fé"
+      width={960}
+      height={360}
+      loading={eager ? "eager" : "lazy"}
+      style={{ width, maxWidth: "100%" }}
+      className={`h-auto ${className}`}
+    />
+  );
+}
+
+/** CTA that goes to the Perfect Pay checkout in the same tab, keeping UTMs. */
+export function CheckoutButton({
   children,
   subLabel,
+  location,
   className = "",
-  ariaLabel,
 }: {
   children: ReactNode;
   subLabel?: string;
+  location: string;
   className?: string;
-  ariaLabel?: string;
 }) {
+  const [href, setHref] = useState(PERFECTPAY_CHECKOUT_URL);
+
+  useEffect(() => {
+    setHref(checkoutUrl());
+  }, []);
+
   return (
     <a
-      href={CHECKOUT_URL}
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label={ariaLabel}
-      className={`cta-gold flex w-full flex-col items-center justify-center gap-0.5 rounded-2xl px-6 py-4 text-center ${className}`}
+      href={href}
+      onClick={() => track("checkout_click", { location })}
+      className={`cta-gold flex min-h-14 w-full flex-col items-center justify-center gap-0.5 rounded-2xl px-6 py-4 text-center ${className}`}
     >
       <span className="text-sm font-bold tracking-[0.08em] sm:text-base">{children}</span>
       {subLabel ? (
@@ -67,9 +95,9 @@ export function CtaButton({
   );
 }
 
-export function AppFrame({ floating = false }: { floating?: boolean }) {
+export function AppMockup({ className = "" }: { className?: string }) {
   return (
-    <div className="relative mx-auto w-full max-w-[520px]">
+    <div className={`relative mx-auto w-full max-w-[480px] ${className}`}>
       <div
         className="overflow-hidden rounded-[26px] border p-2"
         style={{
@@ -80,7 +108,7 @@ export function AppFrame({ floating = false }: { floating?: boolean }) {
       >
         <img
           src={appUrl}
-          alt="Aplicativo Jornada da Fé aberto na tela de reflexão do dia, ao lado de uma Bíblia e um rosário"
+          alt="Aplicativo Jornada da Fé aberto na tela de uma oração narrada"
           width={1240}
           height={1240}
           loading="lazy"
@@ -88,16 +116,6 @@ export function AppFrame({ floating = false }: { floating?: boolean }) {
           className="h-auto w-full rounded-[20px]"
         />
       </div>
-
-      {floating ? (
-        <div
-          className="card-premium mx-4 -mt-8 max-w-[calc(100%-2rem)] rounded-2xl px-5 py-4 sm:absolute sm:-bottom-6 sm:left-6 sm:right-auto sm:mx-0 sm:mt-0 sm:max-w-[260px]"
-          style={{ boxShadow: "var(--shadow-gold)" }}
-        >
-          <p className="font-display text-base text-gold-light">Conteúdo sempre renovado</p>
-          <p className="mt-1 text-sm text-sand">Novas reflexões todos os meses</p>
-        </div>
-      ) : null}
     </div>
   );
 }
