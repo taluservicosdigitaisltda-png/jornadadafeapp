@@ -261,6 +261,104 @@ export function Demo() {
   );
 }
 
+type Testimonial = {
+  quote: string;
+  name: string;
+  location?: string;
+  photoUrl?: string;
+};
+
+/*
+ * COMO ADICIONAR DEPOIMENTOS REAIS
+ *
+ * 1. Adicione os relatos autorizados na lista abaixo.
+ * 2. Troque SHOW_TESTIMONIALS para true.
+ * 3. Use somente nome, local e foto que o cliente autorizou publicar.
+ *
+ * Exemplo de estrutura (não é exibido na página):
+ * {
+ *   quote: "Cole aqui as palavras reais do cliente.",
+ *   name: "Primeiro nome",
+ *   location: "Cidade — UF",
+ *   photoUrl: "https://endereco-da-foto-autorizada.com/foto.jpg",
+ * },
+ */
+const SHOW_TESTIMONIALS = false;
+const testimonials: Testimonial[] = [];
+
+export function Testimonials() {
+  if (!SHOW_TESTIMONIALS || testimonials.length === 0) return null;
+
+  return (
+    <section
+      className="relative border-y py-14 lg:py-20"
+      style={{
+        background: "var(--gradient-brown)",
+        borderColor: "oklch(0.76 0.106 79 / 25%)",
+      }}
+      aria-labelledby="depoimentos-titulo"
+    >
+      <div className={container}>
+        <p className="eyebrow">Experiências reais</p>
+        <h2
+          id="depoimentos-titulo"
+          className="mt-4 max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl"
+        >
+          Relatos de quem vive a Jornada da Fé
+        </h2>
+        <p className="mt-4 max-w-2xl text-sm leading-relaxed text-sand sm:text-base">
+          Experiências compartilhadas por pessoas que autorizaram a publicação de seus relatos.
+        </p>
+
+        <ul className="mt-10 grid gap-5 md:grid-cols-3">
+          {testimonials.map((testimonial) => {
+            const initial = testimonial.name.trim().charAt(0).toUpperCase() || "J";
+
+            return (
+              <li
+                key={`${testimonial.name}-${testimonial.quote}`}
+                className="card-premium flex h-full flex-col rounded-[22px] p-6 sm:p-7"
+              >
+                <span className="font-display text-5xl leading-none text-gold/50" aria-hidden="true">
+                  “
+                </span>
+                <blockquote className="mt-2 flex-1 text-sm leading-relaxed text-ivory sm:text-base">
+                  {testimonial.quote}
+                </blockquote>
+                <div className="mt-6 flex items-center gap-3 border-t border-gold/20 pt-5">
+                  {testimonial.photoUrl ? (
+                    <img
+                      src={testimonial.photoUrl}
+                      alt=""
+                      width={48}
+                      height={48}
+                      loading="lazy"
+                      className="h-12 w-12 rounded-full border border-gold/40 object-cover"
+                    />
+                  ) : (
+                    <span
+                      className="grid h-12 w-12 shrink-0 place-items-center rounded-full border border-gold/40 bg-gold/10 font-display text-lg text-gold-light"
+                      aria-hidden="true"
+                    >
+                      {initial}
+                    </span>
+                  )}
+                  <div className="min-w-0">
+                    <p className="font-semibold text-gold-light">{testimonial.name}</p>
+                    {testimonial.location ? (
+                      <p className="mt-0.5 text-xs text-sand">{testimonial.location}</p>
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
 const forWho = [
   "Quer começar ou retomar uma rotina de oração",
   "Tem pouco tempo livre durante o dia",
@@ -468,6 +566,7 @@ export function SalesPage() {
       <Journey />
       <Features />
       <Demo />
+      <Testimonials />
       <ForWho />
       <Included />
       <Offer />
