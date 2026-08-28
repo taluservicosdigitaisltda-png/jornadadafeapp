@@ -51,7 +51,7 @@ export function Quiz({ initiallyStarted = false }: { initiallyStarted?: boolean 
           Responda quatro perguntas rápidas e receba uma sugestão para começar.
         </p>
         <a
-          href="/quiz"
+          href="/?iniciar=1"
           onClick={start}
           className="cta-gold mt-9 min-h-14 w-full max-w-sm rounded-2xl px-8 py-4 text-sm font-bold tracking-[0.1em] sm:text-base"
         >
