@@ -83,7 +83,7 @@
   --input: oklch(0.76 0.106 79 / 30%);
   --ring: oklch(0.76 0.106 79);
 
-  /* Jornada da Fé brand */
+  /* Pausa de Fé brand */
   --ink: oklch(0.12 0.009 60); /* #090705 */
   --espresso: oklch(0.185 0.019 55); /* #17100B */
   --brown: oklch(0.22 0.028 62); /* #21160D */
@@ -182,4 +182,3 @@
   font-size: 0.7rem;
   font-weight: 600;
 }
-
