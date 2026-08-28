@@ -21,7 +21,7 @@ export function Quiz() {
   }
 
   function choose(option: string) {
-    const question = questions[step];
+    const question = questions[step]!;
     const next: Answers = { ...answers, [question.id]: option };
     setAnswers(next);
     saveAnswers(next);
@@ -76,7 +76,7 @@ export function Quiz() {
     );
   }
 
-  const question = questions[step];
+  const question = questions[step]!;
 
   return (
     <main className={`${container} flex min-h-screen flex-col justify-center py-12`}>
