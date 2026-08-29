@@ -1,27 +1,46 @@
-import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { Link } from "@tanstack/react-router";
 
+import { Footer } from "./SalesPage";
 import { BrandLogo, container } from "./shared";
 
-export function LegalPage({ title, children }: { title: string; children: ReactNode }) {
+export function LegalPage({
+  eyebrow,
+  title,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  children: ReactNode;
+}) {
   return (
-    <main className={`${container} min-h-screen py-12 sm:py-16`}>
-      <Link to="/" aria-label="Voltar para o início">
-        <BrandLogo width={180} eager />
-      </Link>
-      <article className="card-premium mt-10 max-w-3xl rounded-[24px] p-6 sm:p-10">
-        <p className="eyebrow">5 Minutos de Fé</p>
-        <h1 className="mt-4 text-3xl text-ivory sm:text-4xl">{title}</h1>
-        <div className="mt-8 space-y-6 text-sm leading-relaxed text-sand sm:text-base">
+    <>
+      <main className={`${container} py-12 lg:py-16`}>
+        <BrandLogo width={170} eager />
+        <p className="eyebrow mt-8 block">{eyebrow}</p>
+        <h1 className="mt-4 max-w-3xl text-2xl leading-tight text-ivory sm:text-3xl lg:text-4xl">
+          {title}
+        </h1>
+        <div className="legal mt-8 max-w-3xl space-y-6 text-base leading-relaxed text-sand">
           {children}
         </div>
-      </article>
-      <Link
-        to="/"
-        className="mt-8 inline-flex min-h-11 items-center rounded-xl border border-gold/40 px-5 text-sm text-gold-light transition-colors hover:bg-gold/10"
-      >
-        ← Voltar para o quiz
-      </Link>
-    </main>
+        <Link
+          to="/"
+          className="mt-10 inline-flex min-h-12 items-center rounded-xl border border-gold/40 px-5 text-sm font-semibold text-gold-light transition-colors hover:bg-gold/10"
+        >
+          ← Voltar para o início
+        </Link>
+      </main>
+      <Footer />
+    </>
+  );
+}
+
+export function LegalSection({ heading, children }: { heading: string; children: ReactNode }) {
+  return (
+    <section>
+      <h2 className="text-lg text-gold-light sm:text-xl">{heading}</h2>
+      <div className="mt-3 space-y-3">{children}</div>
+    </section>
   );
 }
