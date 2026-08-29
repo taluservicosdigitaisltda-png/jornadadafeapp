@@ -1,40 +1,51 @@
 export const PERFECTPAY_CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFKP5";
 
-export const ANSWERS_KEY = "cinco_minutos_de_fe_quiz_answers";
-export const UTM_KEY = "cinco_minutos_de_fe_utms";
+export const ANSWERS_KEY = "jornada_quiz_answers";
+export const UTM_KEY = "jornada_utms";
+
+/* ---------------------------------- quiz ---------------------------------- */
 
 export type QuizQuestion = {
-  id: "momento" | "necessidade" | "obstaculo";
+  id: "busca" | "dificuldade" | "tempo" | "formato";
   label: string;
   options: string[];
 };
 
 export const questions: QuizQuestion[] = [
   {
-    id: "momento",
-    label: "Em qual momento do dia você mais sente falta de estar com Deus?",
-    options: [
-      "Logo ao acordar",
-      "Durante a correria do dia",
-      "Quando minha mente fica acelerada",
-      "Antes de tomar uma decisão",
-      "Antes de dormir",
-    ],
-  },
-  {
-    id: "necessidade",
-    label: "O que você gostaria de encontrar nesses 5 minutos?",
+    id: "busca",
+    label: "O que seu coração mais busca neste momento?",
     options: ["Paz", "Direção", "Esperança", "Gratidão", "Força"],
   },
   {
-    id: "obstaculo",
-    label: "O que normalmente impede você de manter esse momento?",
+    id: "dificuldade",
+    label: "O que mais dificulta sua caminhada hoje?",
     options: [
-      "Não sei como começar",
-      "Falta de constância",
-      "Conteúdos muito longos",
-      "Dificuldade para compreender a Bíblia",
-      "Minha rotina nunca é igual",
+      "Não sei como começar a orar",
+      "Tenho dificuldade para manter constância",
+      "Quero compreender melhor a Palavra",
+      "Minha mente anda muito acelerada",
+      "Estou vivendo uma decisão importante",
+    ],
+  },
+  {
+    id: "tempo",
+    label: "Quanto tempo você conseguiria reservar por dia?",
+    options: [
+      "Cerca de 5 minutos",
+      "Entre 5 e 10 minutos",
+      "Mais de 10 minutos",
+      "Ainda não tenho uma rotina",
+    ],
+  },
+  {
+    id: "formato",
+    label: "Como você prefere viver esse momento?",
+    options: [
+      "Ouvindo uma oração",
+      "Lendo uma reflexão",
+      "Escrevendo no meu diário",
+      "Combinando as três formas",
     ],
   },
 ];
@@ -47,83 +58,83 @@ export type ResultProfile = {
   content: { title: string; excerpt: string };
 };
 
-const needProfiles: Record<string, Omit<ResultProfile, "text">> = {
+export const results: Record<string, ResultProfile> = {
   Paz: {
     name: "Paz e Presença",
+    text: "Pelo que você respondeu, o silêncio parece ser o que mais falta nos seus dias. Um caminho possível é começar por orações curtas e narradas, que ajudam a desacelerar antes de qualquer outra coisa. Alguns minutos já são um bom começo.",
     content: {
-      title: "5 minutos para acalmar o coração",
+      title: "Oração para acalmar o coração",
       excerpt:
-        "Respire com calma. Você não precisa encontrar as palavras perfeitas. Por alguns minutos, apenas permaneça na presença de Deus.",
+        "Antes de pedir qualquer coisa, respire. Não é preciso encontrar as palavras perfeitas para permanecer em oração.",
     },
   },
   Direção: {
     name: "Clareza e Confiança",
+    text: "Você parece estar diante de escolhas que pedem calma para serem olhadas de perto. Um caminho possível é unir uma oração breve a uma reflexão bíblica sobre discernimento — não para receber respostas prontas, mas para pensar com mais serenidade.",
     content: {
-      title: "5 minutos para buscar direção",
+      title: "Reflexão: quando é preciso decidir",
       excerpt:
-        "Nem toda resposta aparece de uma vez. Às vezes, a direção começa quando o coração desacelera e consegue enxergar o próximo passo possível.",
+        "Discernir não é adivinhar o futuro. É olhar com honestidade para o que existe hoje e escolher o próximo passo possível.",
     },
   },
   Esperança: {
-    name: "Recomeço e Esperança",
+    name: "Recomeço e Perseverança",
+    text: "Recomeçar costuma exigir mais coragem do que começar. Um caminho possível é uma sequência guiada, dia após dia, que não depende de você acertar sempre. Se um dia passar em branco, a caminhada continua no seguinte.",
     content: {
-      title: "5 minutos para renovar a esperança",
+      title: "Oração de recomeço",
       excerpt:
-        "Todo recomeço parece pequeno no início. Ainda assim, pode ser exatamente ali que a esperança volta a encontrar espaço.",
+        "Todo recomeço parece pequeno por dentro. E ainda assim é ali que a caminhada volta a acontecer.",
     },
   },
   Gratidão: {
-    name: "Gratidão e Presença",
+    name: "Presença e Reconhecimento",
+    text: "Quem busca gratidão normalmente já percebe algo de bom acontecendo. Um caminho possível é reservar um momento fixo para reconhecer isso, com uma oração narrada e algumas linhas no diário.",
     content: {
-      title: "5 minutos de gratidão",
+      title: "Reflexão: o que já foi recebido",
       excerpt:
-        "Gratidão não apaga o que foi difícil. Ela abre espaço para perceber também aquilo que acolheu e sustentou você até aqui.",
+        "Gratidão não ignora o que dói. Ela apenas escolhe também enxergar aquilo que sustentou você até aqui.",
     },
   },
   Força: {
-    name: "Força e Descanso",
+    name: "Coragem e Descanso",
+    text: "Há momentos em que a força pedida não é a de fazer mais, e sim a de descansar sem culpa. Um caminho possível é alternar orações de coragem com reflexões sobre entrega, respeitando o seu ritmo.",
     content: {
-      title: "5 minutos para encontrar força",
+      title: "Oração para dias de cansaço",
       excerpt:
-        "Você não precisa resolver tudo neste instante. Entregue a Deus o peso que não precisa carregar sozinho e siga um passo por vez.",
+        "Você não precisa dar conta de tudo hoje. Entregue o peso que não é seu e siga um passo por vez.",
     },
   },
 };
 
-const momentCopy: Record<string, string> = {
-  "Logo ao acordar": "Começar o dia com Palavra e oração pode ajudar você a seguir com mais presença e intenção.",
-  "Durante a correria do dia": "Cinco minutos no meio da rotina podem devolver atenção ao que realmente importa.",
-  "Quando minha mente fica acelerada": "Antes de continuar tentando resolver tudo, vale criar um pequeno espaço de silêncio e oração.",
-  "Antes de tomar uma decisão": "Um momento de calma pode ajudar você a olhar suas escolhas com mais serenidade.",
-  "Antes de dormir": "Encerrar o dia com uma oração breve pode ser uma forma simples de entregar o que ficou pesado.",
-};
-
-const obstacleCopy: Record<string, string> = {
-  "Não sei como começar": "Por isso, sua recomendação já começa com palavras guiadas: você só precisa apertar o play.",
-  "Falta de constância": "Por isso, a proposta é simples e possível: cinco minutos, sem metas rígidas e sem culpa se um dia não acontecer.",
-  "Conteúdos muito longos": "Por isso, sua recomendação é curta e direta, pensada para caber até nos dias mais cheios.",
-  "Dificuldade para compreender a Bíblia": "Por isso, cada reflexão usa linguagem simples e indica a passagem bíblica relacionada.",
-  "Minha rotina nunca é igual": "Por isso, o conteúdo fica disponível para você escolher o melhor horário de cada dia.",
-};
-
 export const neutralResult: ResultProfile = {
-  name: "Seu primeiro momento",
-  text: "Um bom começo pode ser reservar cinco minutos, escolher o que seu coração precisa e apenas acompanhar uma oração narrada. Sem pressão e sem precisar saber as palavras certas.",
+  name: "Primeiros Passos",
+  text: "Você chegou aqui sem responder o quiz, e isso não é problema. A sugestão neutra é simples: comece por uma oração curta narrada e siga a caminhada guiada no seu ritmo. Se quiser algo mais próximo do seu momento, o quiz leva menos de um minuto.",
   content: {
-    title: "5 minutos para começar",
-    excerpt:
-      "Antes de pedir qualquer coisa, respire. Estes minutos não precisam ser perfeitos. Eles só precisam ser verdadeiros.",
+    title: "Oração para começar",
+    excerpt: "Nem sempre sabemos o que dizer. Começar é apenas reservar um instante e permanecer.",
   },
 };
 
-export function resultFor(answers: Answers): ResultProfile {
-  const need = answers.necessidade ? needProfiles[answers.necessidade] : undefined;
-  if (!need) return neutralResult;
-
-  const moment = answers.momento ? momentCopy[answers.momento] : "Cinco minutos já podem ser um começo possível.";
-  const obstacle = answers.obstaculo ? obstacleCopy[answers.obstaculo] : "Comece no seu ritmo e retome sempre que precisar.";
-  return { ...need, text: `${moment} ${obstacle}` };
+export function durationFor(tempo?: string): string {
+  switch (tempo) {
+    case "Cerca de 5 minutos":
+      return "4 min";
+    case "Entre 5 e 10 minutos":
+      return "8 min";
+    case "Mais de 10 minutos":
+      return "12 min";
+    default:
+      return "3 min";
+  }
 }
+
+export function resultFor(answers: Answers): ResultProfile {
+  const busca = answers.busca;
+  if (busca && results[busca]) return results[busca]!;
+  return neutralResult;
+}
+
+/* ------------------------------ session store ----------------------------- */
 
 export function saveAnswers(answers: Answers) {
   try {
@@ -155,9 +166,8 @@ export function captureUtms() {
   try {
     const current = window.location.search.replace(/^\?/, "");
     if (current) {
-      const params = new URLSearchParams(current);
       const stored = new URLSearchParams(sessionStorage.getItem(UTM_KEY) ?? "");
-      params.forEach((value, key) => stored.set(key, value));
+      new URLSearchParams(current).forEach((value, key) => stored.set(key, value));
       sessionStorage.setItem(UTM_KEY, stored.toString());
     }
   } catch {
@@ -168,11 +178,10 @@ export function captureUtms() {
 export function storedQueryString(): string {
   if (typeof window === "undefined") return "";
   try {
-    const current = window.location.search.replace(/^\?/, "");
-    const stored = sessionStorage.getItem(UTM_KEY) ?? "";
-    const params = new URLSearchParams(stored);
-    new URLSearchParams(current).forEach((value, key) => params.set(key, value));
-    params.delete("iniciar");
+    const params = new URLSearchParams(sessionStorage.getItem(UTM_KEY) ?? "");
+    new URLSearchParams(window.location.search.replace(/^\?/, "")).forEach((value, key) =>
+      params.set(key, value),
+    );
     return params.toString();
   } catch {
     return "";
@@ -185,6 +194,8 @@ export function checkoutUrl(): string {
   const sep = PERFECTPAY_CHECKOUT_URL.includes("?") ? "&" : "?";
   return `${PERFECTPAY_CHECKOUT_URL}${sep}${qs}`;
 }
+
+/* -------------------------------- dataLayer ------------------------------- */
 
 type DataLayerEvent = Record<string, unknown> & { event: string };
 
