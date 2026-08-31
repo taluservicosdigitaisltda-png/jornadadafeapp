@@ -6,7 +6,7 @@ import { Footer, SalesPage } from "@/components/jornada/SalesPage";
 const title = "Sua leitura de hoje — 5 Minutos de Fé";
 const description =
   "Veja a leitura devocional do seu momento, com uma oração e uma reflexão indicadas, e conheça o aplicativo 5 Minutos de Fé.";
-const ogImage = "https://app5minutosdefe.lovable.app/images/app-celular-hero-v3.webp";
+const ogImage = "https://app5minutosdefe.lovable.app/images/app-celular-hero-v4.webp";
 const url = "https://app5minutosdefe.lovable.app/resultado";
 
 export const Route = createFileRoute("/resultado")({
