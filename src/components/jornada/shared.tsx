@@ -1,12 +1,9 @@
 import { useEffect, useState, type ReactNode } from "react";
 
-import logoAsset from "@/assets/logo.png.asset.json";
-import appAsset from "@/assets/app.png.asset.json";
-import { PERFECTPAY_CHECKOUT_URL, checkoutUrl, track } from "@/lib/jornada";
+import { BRAND, PERFECTPAY_CHECKOUT_URL, checkoutUrl, track } from "@/lib/jornada";
 
-export const logoUrl = logoAsset.url;
-export const appUrl = appAsset.url;
 export const container = "mx-auto w-full max-w-[1140px] px-5 sm:px-8";
+export const heroAppImage = "/images/app-celular-hero-v3.webp";
 
 export function CheckIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
@@ -41,25 +38,60 @@ export function ConfirmBadge({ size = "sm" }: { size?: "sm" | "md" }) {
   );
 }
 
+function Ornament({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 120 8"
+      className={`h-2 w-full ${className}`}
+      aria-hidden="true"
+      preserveAspectRatio="none"
+    >
+      <line x1="0" y1="4" x2="48" y2="4" stroke="var(--gold)" strokeWidth="1" opacity="0.7" />
+      <path
+        d="M60 1 L63 4 L60 7 L57 4 Z"
+        fill="none"
+        stroke="var(--gold-light)"
+        strokeWidth="1"
+      />
+      <line x1="72" y1="4" x2="120" y2="4" stroke="var(--gold)" strokeWidth="1" opacity="0.7" />
+    </svg>
+  );
+}
+
+/** Typographic wordmark for 5 Minutos de Fé (premium placeholder until a logo file exists). */
 export function BrandLogo({
   width = 240,
   className = "",
-  eager = false,
+  align = "left",
 }: {
   width?: number;
   className?: string;
+  align?: "left" | "center";
+  /** kept for API compatibility with previous image-based logo */
   eager?: boolean;
 }) {
+  const scale = width / 240;
   return (
-    <img
-      src={logoUrl}
-      alt="Jornada da Fé"
-      width={960}
-      height={360}
-      loading={eager ? "eager" : "lazy"}
+    <div
+      className={`${align === "center" ? "mx-auto text-center" : "text-left"} ${className}`}
       style={{ width, maxWidth: "100%" }}
-      className={`h-auto ${className}`}
-    />
+      aria-label={BRAND}
+      role="img"
+    >
+      <span
+        className="block font-display leading-none text-gold-light"
+        style={{ fontSize: `${2.6 * scale}rem`, letterSpacing: "0.02em" }}
+      >
+        5
+      </span>
+      <span
+        className="mt-1 block font-display leading-tight text-ivory"
+        style={{ fontSize: `${1.12 * scale}rem`, letterSpacing: "0.06em" }}
+      >
+        Minutos de Fé
+      </span>
+      <Ornament className="mt-2" />
+    </div>
   );
 }
 
@@ -107,10 +139,10 @@ export function AppMockup({ className = "" }: { className?: string }) {
         }}
       >
         <img
-          src={appUrl}
-          alt="Aplicativo Jornada da Fé aberto na tela de uma oração narrada"
-          width={1240}
-          height={1240}
+          src={heroAppImage}
+          alt={`Aplicativo ${BRAND} aberto em uma oração guiada no celular`}
+          width={1024}
+          height={1280}
           loading="lazy"
           decoding="async"
           className="h-auto w-full rounded-[20px]"
