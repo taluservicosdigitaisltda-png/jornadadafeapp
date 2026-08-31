@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
-import { Route as QuizRouteImport } from './routes/quiz'
 import { Route as ReembolsoRouteImport } from './routes/reembolso'
 import { Route as ResultadoRouteImport } from './routes/resultado'
 import { Route as SuporteRouteImport } from './routes/suporte'
@@ -25,11 +24,6 @@ const IndexRoute = IndexRouteImport.update({
 const PrivacidadeRoute = PrivacidadeRouteImport.update({
   id: '/privacidade',
   path: '/privacidade',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QuizRoute = QuizRouteImport.update({
-  id: '/quiz',
-  path: '/quiz',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReembolsoRoute = ReembolsoRouteImport.update({
@@ -56,7 +50,6 @@ const TermosRoute = TermosRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/privacidade': typeof PrivacidadeRoute
-  '/quiz': typeof QuizRoute
   '/reembolso': typeof ReembolsoRoute
   '/resultado': typeof ResultadoRoute
   '/suporte': typeof SuporteRoute
@@ -65,7 +58,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/privacidade': typeof PrivacidadeRoute
-  '/quiz': typeof QuizRoute
   '/reembolso': typeof ReembolsoRoute
   '/resultado': typeof ResultadoRoute
   '/suporte': typeof SuporteRoute
@@ -75,7 +67,6 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/privacidade': typeof PrivacidadeRoute
-  '/quiz': typeof QuizRoute
   '/reembolso': typeof ReembolsoRoute
   '/resultado': typeof ResultadoRoute
   '/suporte': typeof SuporteRoute
@@ -84,27 +75,14 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/privacidade'
-    | '/quiz'
-    | '/reembolso'
-    | '/resultado'
-    | '/suporte'
-    | '/termos'
+    '/' | '/privacidade' | '/reembolso' | '/resultado' | '/suporte' | '/termos'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/privacidade'
-    | '/quiz'
-    | '/reembolso'
-    | '/resultado'
-    | '/suporte'
-    | '/termos'
+    '/' | '/privacidade' | '/reembolso' | '/resultado' | '/suporte' | '/termos'
   id:
     | '__root__'
     | '/'
     | '/privacidade'
-    | '/quiz'
     | '/reembolso'
     | '/resultado'
     | '/suporte'
@@ -114,7 +92,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
-  QuizRoute: typeof QuizRoute
   ReembolsoRoute: typeof ReembolsoRoute
   ResultadoRoute: typeof ResultadoRoute
   SuporteRoute: typeof SuporteRoute
@@ -135,13 +112,6 @@ declare module '@tanstack/react-router' {
       path: '/privacidade'
       fullPath: '/privacidade'
       preLoaderRoute: typeof PrivacidadeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/quiz': {
-      id: '/quiz'
-      path: '/quiz'
-      fullPath: '/quiz'
-      preLoaderRoute: typeof QuizRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reembolso': {
@@ -178,7 +148,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrivacidadeRoute: PrivacidadeRoute,
-  QuizRoute: QuizRoute,
   ReembolsoRoute: ReembolsoRoute,
   ResultadoRoute: ResultadoRoute,
   SuporteRoute: SuporteRoute,
