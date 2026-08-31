@@ -13,23 +13,42 @@ if not KEY or not REGION:
     print("AZURE_SPEECH_KEY e AZURE_SPEECH_REGION precisam estar configurados como secrets.")
     sys.exit(1)
 
-manifest_path = pathlib.Path("audio/audio_manifest.json")
+manifest_dir = pathlib.Path("audio/manifests")
 out_dir = pathlib.Path("public/audio")
 out_dir.mkdir(parents=True, exist_ok=True)
 
-items = json.loads(manifest_path.read_text(encoding="utf-8"))
+manifest_files = sorted(manifest_dir.glob("*.json"))
+if not manifest_files:
+    print("Nenhum manifesto encontrado em audio/manifests/*.json")
+    sys.exit(1)
+
+items = []
+for manifest_path in manifest_files:
+    batch = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if not isinstance(batch, list):
+        raise RuntimeError(f"Manifesto inválido: {manifest_path}")
+    items.extend(batch)
+
+seen = set()
+for item in items:
+    slug = item["slug"].strip()
+    if slug in seen:
+        raise RuntimeError(f"Slug duplicado no manifesto: {slug}")
+    seen.add(slug)
 
 endpoint = f"https://{REGION}.tts.speech.microsoft.com/cognitiveservices/v1"
+print(f"Voz: {VOICE} | Região: {REGION} | Itens: {len(items)}")
 
-for item in items:
+for index, item in enumerate(items, start=1):
     slug = item["slug"].strip()
     text = item["text"].strip()
     if not slug or not text:
+        print(f"SKIP item {index}: slug ou texto vazio")
         continue
 
     target = out_dir / f"{slug}.mp3"
     if target.exists() and target.stat().st_size > 1000:
-        print(f"SKIP {slug}: arquivo já existe")
+        print(f"SKIP {index}/{len(items)} {slug}: arquivo já existe")
         continue
 
     escaped = html.escape(text)
@@ -57,9 +76,9 @@ for item in items:
         if len(audio) < 1000:
             raise RuntimeError("Resposta de áudio muito pequena")
         target.write_bytes(audio)
-        print(f"OK {slug}: {len(audio)} bytes")
+        print(f"OK {index}/{len(items)} {slug}: {len(audio)} bytes")
     except Exception as exc:
-        print(f"ERRO {slug}: {exc}")
+        print(f"ERRO {index}/{len(items)} {slug}: {exc}")
         sys.exit(2)
 
 print("Geração concluída.")
