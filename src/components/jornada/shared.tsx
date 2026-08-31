@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 
+import logoAsset from "@/assets/logo-5min.png.asset.json";
 import { BRAND, PERFECTPAY_CHECKOUT_URL, checkoutUrl, track } from "@/lib/jornada";
 
 export const container = "mx-auto w-full max-w-[1140px] px-5 sm:px-8";
