@@ -2,9 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage, LegalSection } from "@/components/jornada/LegalPage";
 
-const title = "Suporte — Jornada da Fé";
-const description =
-  "Como obter ajuda com pagamento, acesso e uso do Aplicativo Jornada da Fé.";
+const title = "Suporte — 5 Minutos de Fé";
+const description = "Como obter ajuda com pagamento, acesso e uso do aplicativo 5 Minutos de Fé.";
 
 export const Route = createFileRoute("/suporte")({
   head: () => ({
@@ -40,8 +39,8 @@ function SupportPage() {
       </LegalSection>
       <LegalSection heading="Dúvidas sobre o conteúdo">
         <p>
-          As perguntas mais comuns sobre uso, tempo diário, jornada de 28 dias e garantia estão
-          respondidas na seção de dúvidas frequentes da página do aplicativo.
+          As perguntas mais comuns sobre uso, tempo de cada conteúdo, acesso e garantia estão
+          respondidas na seção de dúvidas frequentes da página do 5 Minutos de Fé.
         </p>
       </LegalSection>
       <LegalSection heading="Importante">

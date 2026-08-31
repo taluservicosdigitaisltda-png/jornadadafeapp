@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage, LegalSection } from "@/components/jornada/LegalPage";
 
-const title = "Política de Reembolso — Jornada da Fé";
+const title = "Política de Reembolso — 5 Minutos de Fé";
 const description =
-  "Como funciona a garantia de 7 dias e o pedido de reembolso da compra do Aplicativo Jornada da Fé.";
+  "Como funciona a garantia de 7 dias e o pedido de reembolso da compra do aplicativo 5 Minutos de Fé.";
 
 export const Route = createFileRoute("/reembolso")({
   head: () => ({
@@ -25,8 +25,8 @@ function RefundPage() {
     <LegalPage eyebrow="Documentos" title="Política de Reembolso">
       <LegalSection heading="Prazo de garantia">
         <p>
-          A compra possui garantia de 7 dias, contados a partir da confirmação do pagamento. Dentro
-          desse período você pode avaliar o conteúdo e solicitar o reembolso.
+          A compra do 5 Minutos de Fé possui garantia de 7 dias, contados a partir da confirmação do
+          pagamento. Dentro desse período você pode avaliar o conteúdo e solicitar o reembolso.
         </p>
       </LegalSection>
       <LegalSection heading="Como solicitar">

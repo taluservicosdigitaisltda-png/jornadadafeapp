@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage, LegalSection } from "@/components/jornada/LegalPage";
 
-const title = "Política de Privacidade — Jornada da Fé";
+const title = "Política de Privacidade — 5 Minutos de Fé";
 const description =
-  "Como a Jornada da Fé trata respostas do quiz, parâmetros de campanha e dados de pagamento processados pela Perfect Pay.";
+  "Como o 5 Minutos de Fé trata respostas do quiz, parâmetros de campanha e dados de pagamento processados pela Perfect Pay.";
 
 export const Route = createFileRoute("/privacidade")({
   head: () => ({
