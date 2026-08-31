@@ -2,16 +2,30 @@ name: Gerar áudios 5 Minutos de Fé
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'audio/manifests/*.json'
+      - 'scripts/generate_azure_tts.py'
+      - '.github/workflows/generate-faith-audio.yml'
 
 permissions:
   contents: write
 
+concurrency:
+  group: gerar-audios-5-minutos-de-fe
+  cancel-in-progress: false
+
 jobs:
   generate-audio:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Configurar Python
         uses: actions/setup-python@v5
@@ -24,6 +38,15 @@ jobs:
           AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
           AZURE_SPEECH_VOICE: pt-BR-MacerioMultilingualNeural
         run: python scripts/generate_azure_tts.py
+
+      - name: Validar quantidade de MP3s
+        run: |
+          count=$(find public/audio -maxdepth 1 -type f -name '*.mp3' | wc -l)
+          echo "MP3s encontrados: $count"
+          if [ "$count" -lt 48 ]; then
+            echo "Esperados 48 áudios e encontrados $count."
+            exit 1
+          fi
 
       - name: Salvar áudios no repositório
         run: |
