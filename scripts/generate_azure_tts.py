@@ -8,22 +8,30 @@ import urllib.request
 KEY = os.environ.get("AZURE_SPEECH_KEY", "").strip()
 REGION = os.environ.get("AZURE_SPEECH_REGION", "").strip()
 VOICE = os.environ.get("AZURE_SPEECH_VOICE", "pt-BR-MacerioMultilingualNeural").strip()
+MANIFEST_FILE = os.environ.get("MANIFEST_FILE", "").strip()
+OUTPUT_DIR = os.environ.get("OUTPUT_DIR", "public/audio").strip()
 
 if not KEY or not REGION:
     print("AZURE_SPEECH_KEY e AZURE_SPEECH_REGION precisam estar configurados como secrets.")
     sys.exit(1)
 
 manifest_dir = pathlib.Path("audio/manifests")
-out_dir = pathlib.Path("public/audio")
+out_dir = pathlib.Path(OUTPUT_DIR)
 out_dir.mkdir(parents=True, exist_ok=True)
 
-manifest_files = sorted(manifest_dir.glob("*.json"))
+if MANIFEST_FILE:
+    manifest_files = [pathlib.Path(MANIFEST_FILE)]
+else:
+    manifest_files = sorted(manifest_dir.glob("*.json"))
+
 if not manifest_files:
-    print("Nenhum manifesto encontrado em audio/manifests/*.json")
+    print("Nenhum manifesto encontrado.")
     sys.exit(1)
 
 items = []
 for manifest_path in manifest_files:
+    if not manifest_path.exists():
+        raise RuntimeError(f"Manifesto não encontrado: {manifest_path}")
     batch = json.loads(manifest_path.read_text(encoding="utf-8"))
     if not isinstance(batch, list):
         raise RuntimeError(f"Manifesto inválido: {manifest_path}")
@@ -37,7 +45,7 @@ for item in items:
     seen.add(slug)
 
 endpoint = f"https://{REGION}.tts.speech.microsoft.com/cognitiveservices/v1"
-print(f"Voz: {VOICE} | Região: {REGION} | Itens: {len(items)}")
+print(f"Voz: {VOICE} | Região: {REGION} | Itens: {len(items)} | Saída: {out_dir}")
 
 for index, item in enumerate(items, start=1):
     slug = item["slug"].strip()
@@ -71,7 +79,7 @@ for index, item in enumerate(items, start=1):
     )
 
     try:
-        with urllib.request.urlopen(req, timeout=120) as response:
+        with urllib.request.urlopen(req, timeout=180) as response:
             audio = response.read()
         if len(audio) < 1000:
             raise RuntimeError("Resposta de áudio muito pequena")
