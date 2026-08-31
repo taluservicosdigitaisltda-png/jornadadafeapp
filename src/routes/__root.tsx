@@ -78,13 +78,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Jornada da Fé — Orações e jornada devocional" },
+      { title: "5 Minutos de Fé — Orações guiadas e reflexões para o seu dia" },
       {
         name: "description",
         content:
-          "Orações narradas, reflexões bíblicas e uma caminhada guiada de 28 dias para viver a fé no seu ritmo.",
+          "Encontre orações guiadas e reflexões para diferentes momentos da vida em uma experiência devocional de aproximadamente 5 minutos por dia.",
       },
-      { property: "og:site_name", content: "Jornada da Fé" },
+      { property: "og:site_name", content: "5 Minutos de Fé" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
