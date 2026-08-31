@@ -1,137 +1,320 @@
 export const PERFECTPAY_CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFKP5";
 
-export const ANSWERS_KEY = "jornada_quiz_answers";
-export const UTM_KEY = "jornada_utms";
+export const BRAND = "5 Minutos de Fé";
+export const PRICE = "R$ 19,00";
+
+export const ANSWERS_KEY = "cinco_min_quiz_answers";
+export const UTM_KEY = "cinco_min_utms";
 
 /* ---------------------------------- quiz ---------------------------------- */
 
-export type QuizQuestion = {
-  id: "busca" | "dificuldade" | "tempo" | "formato";
+export type CategoryId = "paz" | "direcao" | "esperanca" | "forca" | "confianca" | "presenca";
+
+export type QuizOption = {
   label: string;
-  options: string[];
+  scores: Partial<Record<CategoryId, number>>;
+};
+
+export type QuestionId = "sentir" | "situacao" | "orar" | "momento" | "depois" | "formato" | "entrega";
+
+export type QuizQuestion = {
+  id: QuestionId;
+  label: string;
+  options: QuizOption[];
 };
 
 export const questions: QuizQuestion[] = [
   {
-    id: "busca",
-    label: "O que seu coração mais busca neste momento?",
-    options: ["Paz", "Direção", "Esperança", "Gratidão", "Força"],
-  },
-  {
-    id: "dificuldade",
-    label: "O que mais dificulta sua caminhada hoje?",
+    id: "sentir",
+    label: "Como você tem se sentido nos últimos dias?",
     options: [
-      "Não sei como começar a orar",
-      "Tenho dificuldade para manter constância",
-      "Quero compreender melhor a Palavra",
-      "Minha mente anda muito acelerada",
-      "Estou vivendo uma decisão importante",
+      { label: "Minha mente não para", scores: { paz: 3, confianca: 1 } },
+      { label: "Estou cansado(a) e sobrecarregado(a)", scores: { forca: 3, paz: 1 } },
+      { label: "Estou com medo ou inseguro(a)", scores: { confianca: 3, paz: 1 } },
+      { label: "Estou passando por um recomeço", scores: { esperanca: 3, forca: 1 } },
+      { label: "Tenho me sentido distante de Deus", scores: { presenca: 2, esperanca: 2 } },
+      { label: "Estou bem, mas quero fortalecer minha fé", scores: { presenca: 3 } },
     ],
   },
   {
-    id: "tempo",
-    label: "Quanto tempo você conseguiria reservar por dia?",
+    id: "situacao",
+    label: "Qual situação mais ocupa seus pensamentos hoje?",
     options: [
-      "Cerca de 5 minutos",
-      "Entre 5 e 10 minutos",
-      "Mais de 10 minutos",
-      "Ainda não tenho uma rotina",
+      { label: "Uma decisão importante", scores: { direcao: 3 } },
+      { label: "Problemas financeiros ou trabalho", scores: { forca: 2, confianca: 2 } },
+      { label: "Família ou relacionamento", scores: { confianca: 2, presenca: 1, paz: 1 } },
+      {
+        label: "Algo que perdi ou precisei deixar para trás",
+        scores: { esperanca: 3, forca: 1 },
+      },
+      { label: "O futuro e o que pode acontecer", scores: { confianca: 3, direcao: 1 } },
+      {
+        label: "Não existe uma situação específica, só preciso de paz",
+        scores: { paz: 3 },
+      },
+    ],
+  },
+  {
+    id: "orar",
+    label: "Quando você tenta orar, o que acontece com mais frequência?",
+    options: [
+      { label: "Não sei o que dizer", scores: { presenca: 2, paz: 1, esperanca: 1 } },
+      { label: "Minha cabeça se distrai", scores: { paz: 3 } },
+      { label: "Começo, mas não consigo manter uma rotina", scores: { esperanca: 2, presenca: 2 } },
+      { label: "Só procuro Deus quando algo aperta", scores: { confianca: 2, esperanca: 1 } },
+      { label: "Tenho vontade, mas falta tempo", scores: { forca: 2, presenca: 1 } },
+      { label: "Consigo orar e quero aprofundar esse momento", scores: { presenca: 3 } },
+    ],
+  },
+  {
+    id: "momento",
+    label: "Em qual momento do dia você mais sente que precisa parar?",
+    options: [
+      { label: "Logo ao acordar", scores: { presenca: 2, direcao: 1 } },
+      { label: "No meio da correria", scores: { paz: 2, forca: 1 } },
+      { label: "Quando algo dá errado", scores: { confianca: 2, forca: 1 } },
+      { label: "No fim do dia", scores: { forca: 2, paz: 1 } },
+      { label: "Antes de dormir", scores: { paz: 2, confianca: 1 } },
+      { label: "Não tenho um horário definido", scores: { esperanca: 2 } },
+    ],
+  },
+  {
+    id: "depois",
+    label: "O que você gostaria de sentir depois de alguns minutos de oração?",
+    options: [
+      { label: "Mais calma", scores: { paz: 3 } },
+      { label: "Mais clareza", scores: { direcao: 3 } },
+      { label: "Mais esperança", scores: { esperanca: 3 } },
+      { label: "Mais força para continuar", scores: { forca: 3 } },
+      { label: "Mais confiança em Deus", scores: { confianca: 3 } },
+      { label: "Mais gratidão e presença", scores: { presenca: 3 } },
     ],
   },
   {
     id: "formato",
-    label: "Como você prefere viver esse momento?",
+    label: "Qual formato parece mais natural para você hoje?",
     options: [
-      "Ouvindo uma oração",
-      "Lendo uma reflexão",
-      "Escrevendo no meu diário",
-      "Combinando as três formas",
+      { label: "Ouvir uma oração guiada", scores: { paz: 1, presenca: 1 } },
+      { label: "Ler uma reflexão curta", scores: { direcao: 1, presenca: 1 } },
+      { label: "Ouvir e refletir ao mesmo tempo", scores: { direcao: 1, confianca: 1 } },
+      { label: "Escrever o que estou sentindo", scores: { esperanca: 1, presenca: 1 } },
+      {
+        label: "Quero algo simples e conduzido, sem precisar pensar muito",
+        scores: { forca: 1, paz: 1 },
+      },
+    ],
+  },
+  {
+    id: "entrega",
+    label: "Se você pudesse entregar uma coisa a Deus agora, o que seria?",
+    options: [
+      { label: "Minha ansiedade e pensamentos", scores: { paz: 3 } },
+      { label: "Uma decisão", scores: { direcao: 3 } },
+      { label: "Meu cansaço", scores: { forca: 3 } },
+      { label: "Uma dor ou perda", scores: { esperanca: 3 } },
+      { label: "Meu medo do futuro", scores: { confianca: 3 } },
+      { label: "Minha família ou relacionamento", scores: { confianca: 2, presenca: 1 } },
+      { label: "Minha própria fé", scores: { presenca: 3 } },
     ],
   },
 ];
 
-export type Answers = Partial<Record<QuizQuestion["id"], string>>;
+export type Answers = Partial<Record<QuestionId, string>>;
 
-export type ResultProfile = {
+/* -------------------------------- profiles -------------------------------- */
+
+export type Profile = {
+  id: CategoryId;
+  category: string;
   name: string;
-  text: string;
-  content: { title: string; excerpt: string };
+  paragraphs: string[];
+  needs: string[];
+  prayer: string;
+  reflection: string;
+  step: string;
+  duration: string;
+  closing: string;
+  image: string;
+  imageAlt: string;
 };
 
-export const results: Record<string, ResultProfile> = {
-  Paz: {
-    name: "Paz e Presença",
-    text: "Pelo que você respondeu, o silêncio parece ser o que mais falta nos seus dias. Um caminho possível é começar por orações curtas e narradas, que ajudam a desacelerar antes de qualquer outra coisa. Alguns minutos já são um bom começo.",
-    content: {
-      title: "Oração para acalmar o coração",
-      excerpt:
-        "Antes de pedir qualquer coisa, respire. Não é preciso encontrar as palavras perfeitas para permanecer em oração.",
-    },
+export const profiles: Record<CategoryId, Profile> = {
+  paz: {
+    id: "paz",
+    category: "Paz e Desacelerar",
+    name: "Seu coração está pedindo espaço para respirar",
+    paragraphs: [
+      "Pelo que você respondeu, parece existir muito ruído interno agora. Não é necessariamente algo grave: é a soma de pensamentos que se acumulam sem pausa e de dias em que quase não sobra silêncio.",
+      "Quando a mente está acelerada, orar pode parecer mais difícil do que é. Não porque falte fé, mas porque falta um instante de calma antes das palavras.",
+      "Talvez o mais útil hoje não seja tentar resolver tudo, e sim reduzir o ritmo por alguns minutos e entregar apenas uma coisa.",
+    ],
+    needs: [
+      "Um momento curto e conduzido, sem precisar pensar muito",
+      "Respiração e silêncio antes de qualquer pedido",
+      "Uma oração simples para acalmar o pensamento",
+    ],
+    prayer: "Oração para acalmar o coração",
+    reflection: "Quando a mente não consegue desligar",
+    step: "Respire devagar por alguns instantes, escolha a preocupação que mais pesa agora e entregue apenas ela em oração.",
+    duration: "5 minutos",
+    closing: "Você não precisa silenciar tudo. Só precisa de um pequeno espaço para respirar com Deus.",
+    image: "/images/app-oracao-noite-v2.webp",
+    imageAlt: "Momento de silêncio à noite, com luz quente e Bíblia aberta",
   },
-  Direção: {
-    name: "Clareza e Confiança",
-    text: "Você parece estar diante de escolhas que pedem calma para serem olhadas de perto. Um caminho possível é unir uma oração breve a uma reflexão bíblica sobre discernimento — não para receber respostas prontas, mas para pensar com mais serenidade.",
-    content: {
-      title: "Reflexão: quando é preciso decidir",
-      excerpt:
-        "Discernir não é adivinhar o futuro. É olhar com honestidade para o que existe hoje e escolher o próximo passo possível.",
-    },
+  direcao: {
+    id: "direcao",
+    category: "Direção e Discernimento",
+    name: "Você não precisa decidir tudo de uma vez",
+    paragraphs: [
+      "Suas respostas apontam para um momento de escolhas. Existe algo esperando resposta, e a sensação é de que qualquer caminho carrega peso.",
+      "Discernir raramente acontece de uma vez. Costuma acontecer aos poucos, quando conseguimos olhar com honestidade para o que já está diante de nós.",
+      "Um bom começo é reduzir a pergunta: em vez de resolver o caminho inteiro, orar pelo próximo passo possível.",
+    ],
+    needs: [
+      "Clareza sobre o que realmente está em jogo",
+      "Uma reflexão bíblica sobre escolhas e espera",
+      "Coragem para dar apenas o próximo passo",
+    ],
+    prayer: "Oração antes de tomar uma decisão",
+    reflection: "Clareza para o próximo passo",
+    step: "Escreva em uma frase qual decisão está diante de você e ore somente pelo próximo passo possível.",
+    duration: "5 minutos",
+    closing: "Um passo por dia também é caminho.",
+    image: "/images/app-leitura-biblia-v3.webp",
+    imageAlt: "Bíblia aberta sobre a mesa em leitura reflexiva com luz de janela",
   },
-  Esperança: {
-    name: "Recomeço e Perseverança",
-    text: "Recomeçar costuma exigir mais coragem do que começar. Um caminho possível é uma sequência guiada, dia após dia, que não depende de você acertar sempre. Se um dia passar em branco, a caminhada continua no seguinte.",
-    content: {
-      title: "Oração de recomeço",
-      excerpt:
-        "Todo recomeço parece pequeno por dentro. E ainda assim é ali que a caminhada volta a acontecer.",
-    },
+  esperanca: {
+    id: "esperanca",
+    category: "Esperança e Recomeço",
+    name: "Talvez este seja um tempo de reconstruir por dentro",
+    paragraphs: [
+      "Pelo conjunto das suas respostas, você parece estar em um tempo de transição: algo mudou, terminou ou precisou ser deixado para trás.",
+      "Recomeçar costuma exigir mais coragem do que começar, porque agora você já sabe o que dói. E ainda assim, é ali que a caminhada volta a acontecer.",
+      "Talvez o que ajude não seja um plano completo, mas um passo pequeno que você consiga dar hoje.",
+    ],
+    needs: [
+      "Uma oração de recomeço, sem cobrança por resultados",
+      "Perceber o que já foi atravessado até aqui",
+      "Um passo pequeno, do tamanho do dia de hoje",
+    ],
+    prayer: "Oração para recomeçar",
+    reflection: "Sua história não terminou aqui",
+    step: "Pense no menor passo que você consegue dar hoje, sem tentar resolver o caminho inteiro.",
+    duration: "5 minutos",
+    closing: "Recomeçar em silêncio também é recomeçar.",
+    image: "/images/app-oracao-manha-v2.webp",
+    imageAlt: "Início de manhã com luz suave entrando pela janela e momento de oração",
   },
-  Gratidão: {
-    name: "Presença e Reconhecimento",
-    text: "Quem busca gratidão normalmente já percebe algo de bom acontecendo. Um caminho possível é reservar um momento fixo para reconhecer isso, com uma oração narrada e algumas linhas no diário.",
-    content: {
-      title: "Reflexão: o que já foi recebido",
-      excerpt:
-        "Gratidão não ignora o que dói. Ela apenas escolhe também enxergar aquilo que sustentou você até aqui.",
-    },
+  forca: {
+    id: "forca",
+    category: "Força e Descanso",
+    name: "Você pode estar tentando carregar mais do que precisa",
+    paragraphs: [
+      "Suas respostas falam de cansaço. Não apenas do corpo: também daquele cansaço de manter tudo funcionando enquanto ninguém percebe o esforço.",
+      "Em dias assim, a força que falta talvez não seja para fazer mais, mas para descansar sem culpa.",
+      "Uma pausa curta não resolve a rotina, mas pode devolver um pouco de ar antes do próximo passo.",
+    ],
+    needs: [
+      "Permissão para descansar sem culpa",
+      "Uma oração para dias em que a energia acabou",
+      "Deixar algo esperar por alguns minutos",
+    ],
+    prayer: "Oração para dias de cansaço",
+    reflection: "Você não precisa dar conta de tudo hoje",
+    step: "Escolha uma responsabilidade que pode esperar e permita-se alguns minutos sem resolver nada.",
+    duration: "5 minutos",
+    closing: "Descansar também é um ato de fé.",
+    image: "/images/app-pausa-trabalho-v2.webp",
+    imageAlt: "Pausa breve no meio do trabalho, com café e ambiente iluminado por luz quente",
   },
-  Força: {
-    name: "Coragem e Descanso",
-    text: "Há momentos em que a força pedida não é a de fazer mais, e sim a de descansar sem culpa. Um caminho possível é alternar orações de coragem com reflexões sobre entrega, respeitando o seu ritmo.",
-    content: {
-      title: "Oração para dias de cansaço",
-      excerpt:
-        "Você não precisa dar conta de tudo hoje. Entregue o peso que não é seu e siga um passo por vez.",
-    },
+  confianca: {
+    id: "confianca",
+    category: "Confiança e Entrega",
+    name: "Há coisas que não estão sob o seu controle",
+    paragraphs: [
+      "O que você respondeu aponta para preocupações que envolvem o futuro ou pessoas que você ama — justamente aquilo que não depende só de você.",
+      "Confiar não é ter certeza de tudo. Muitas vezes é continuar caminhando com perguntas ainda abertas.",
+      "Talvez ajude nomear o que está fora do seu alcance e transformar isso em uma frase simples de entrega.",
+    ],
+    needs: [
+      "Nomear o medo em vez de carregá-lo em silêncio",
+      "Uma oração de entrega para o que não se controla",
+      "Confiar sem exigir todas as respostas hoje",
+    ],
+    prayer: "Oração para entregar o medo do amanhã",
+    reflection: "Confiar sem ter todas as respostas",
+    step: "Nomeie o que você não consegue controlar e transforme isso em uma frase curta de entrega a Deus.",
+    duration: "5 minutos",
+    closing: "Você não precisa segurar tudo sozinho(a) hoje.",
+    image: "/images/app-oracao-igreja-v2.webp",
+    imageAlt: "Momento contemplativo em ambiente de fé, com luz dourada e silêncio",
+  },
+  presenca: {
+    id: "presenca",
+    category: "Presença e Gratidão",
+    name: "Sua fé pode crescer também nos dias comuns",
+    paragraphs: [
+      "Suas respostas indicam alguém que quer estar mais perto de Deus não apenas nas urgências, mas também na rotina.",
+      "A fé costuma se fortalecer nos dias comuns: no café da manhã, no caminho, nos poucos minutos antes de dormir.",
+      "Reservar um momento fixo, ainda que curto, tende a sustentar mais do que grandes intenções ocasionais.",
+    ],
+    needs: [
+      "Um momento fixo e simples no seu dia",
+      "Reconhecer o que já sustenta você",
+      "Uma prática curta que caiba na rotina real",
+    ],
+    prayer: "Oração de gratidão pelo dia de hoje",
+    reflection: "Perceber o que ainda sustenta você",
+    step: "Reconheça três coisas simples que estiveram presentes no seu dia e agradeça por elas.",
+    duration: "5 minutos",
+    closing: "Deus também está nos dias em que nada de extraordinário acontece.",
+    image: "/images/app-cafe-manha-v3.webp",
+    imageAlt: "Café da manhã tranquilo com leitura devocional e luz natural",
   },
 };
 
-export const neutralResult: ResultProfile = {
-  name: "Primeiros Passos",
-  text: "Você chegou aqui sem responder o quiz, e isso não é problema. A sugestão neutra é simples: comece por uma oração curta narrada e siga a caminhada guiada no seu ritmo. Se quiser algo mais próximo do seu momento, o quiz leva menos de um minuto.",
-  content: {
-    title: "Oração para começar",
-    excerpt: "Nem sempre sabemos o que dizer. Começar é apenas reservar um instante e permanecer.",
-  },
-};
+const order: CategoryId[] = ["paz", "direcao", "esperanca", "forca", "confianca", "presenca"];
 
-export function durationFor(tempo?: string): string {
-  switch (tempo) {
-    case "Cerca de 5 minutos":
-      return "4 min";
-    case "Entre 5 e 10 minutos":
-      return "8 min";
-    case "Mais de 10 minutos":
-      return "12 min";
-    default:
-      return "3 min";
-  }
+function optionFor(qid: QuestionId, label?: string): QuizOption | undefined {
+  if (!label) return undefined;
+  return questions.find((q) => q.id === qid)?.options.find((o) => o.label === label);
 }
 
-export function resultFor(answers: Answers): ResultProfile {
-  const busca = answers.busca;
-  if (busca && results[busca]) return results[busca]!;
-  return neutralResult;
+export function scoreAnswers(answers: Answers): Record<CategoryId, number> {
+  const totals = order.reduce(
+    (acc, id) => ({ ...acc, [id]: 0 }),
+    {} as Record<CategoryId, number>,
+  );
+  for (const q of questions) {
+    const option = optionFor(q.id, answers[q.id]);
+    if (!option) continue;
+    for (const [key, value] of Object.entries(option.scores)) {
+      totals[key as CategoryId] += value ?? 0;
+    }
+  }
+  return totals;
+}
+
+/** Winner = highest total; ties broken by Q7 ("entrega"), then Q5 ("depois"). */
+export function profileFor(answers: Answers): Profile {
+  const totals = scoreAnswers(answers);
+  const max = Math.max(...order.map((id) => totals[id]));
+  if (max === 0) return profiles.presenca;
+
+  const leaders = order.filter((id) => totals[id] === max);
+  if (leaders.length === 1) return profiles[leaders[0]!];
+
+  for (const qid of ["entrega", "depois"] as QuestionId[]) {
+    const option = optionFor(qid, answers[qid]);
+    if (!option) continue;
+    const preferred = leaders.find((id) => (option.scores[id] ?? 0) > 0);
+    if (preferred) return profiles[preferred];
+  }
+  return profiles[leaders[0]!];
+}
+
+export function hasAnswers(answers: Answers): boolean {
+  return Object.keys(answers).length > 0;
 }
 
 /* ------------------------------ session store ----------------------------- */
