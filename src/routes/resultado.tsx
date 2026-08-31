@@ -2,12 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { ResultHeader } from "@/components/jornada/ResultHeader";
 import { Footer, SalesPage } from "@/components/jornada/SalesPage";
-import ogAsset from "@/assets/og.png.asset.json";
 
-const title = "Seu caminho recomendado — Aplicativo Jornada da Fé";
+const title = "Sua leitura de hoje — 5 Minutos de Fé";
 const description =
-  "Veja o caminho devocional sugerido para o seu momento e conheça o Aplicativo Jornada da Fé: orações narradas, reflexões bíblicas e jornada de 28 dias.";
-const ogImage = `https://jornadadafeapp.lovable.app${ogAsset.url}`;
+  "Veja a leitura devocional do seu momento, com uma oração e uma reflexão indicadas, e conheça o aplicativo 5 Minutos de Fé.";
+const ogImage = "https://app5minutosdefe.lovable.app/images/app-celular-hero-v3.webp";
+const url = "https://app5minutosdefe.lovable.app/resultado";
 
 export const Route = createFileRoute("/resultado")({
   head: () => ({
@@ -17,12 +17,14 @@ export const Route = createFileRoute("/resultado")({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: url },
       { property: "og:image", content: ogImage },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
       { name: "twitter:image", content: ogImage },
     ],
+    links: [{ rel: "canonical", href: url }],
   }),
   component: ResultPage,
 });

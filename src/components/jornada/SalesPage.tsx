@@ -3,7 +3,30 @@ import { Link } from "@tanstack/react-router";
 
 import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
 import { Faq } from "./Faq";
-import { track } from "@/lib/jornada";
+import { BRAND, PRICE, track } from "@/lib/jornada";
+
+const priceLine = `${PRICE} • pagamento único • acesso vitalício`;
+
+export function Bridge() {
+  return (
+    <section className={`${container} py-14 lg:py-20`} aria-labelledby="ponte-titulo">
+      <h2 id="ponte-titulo" className="max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl">
+        E se você tivesse uma oração certa para cada um desses momentos?
+      </h2>
+      <div className="mt-6 grid max-w-3xl gap-4 text-base leading-relaxed text-sand sm:text-lg">
+        <p>
+          Nem todo dia pede a mesma oração. Há dias em que precisamos de paz. Em outros, de direção,
+          força, esperança ou simplesmente alguns minutos para entregar aquilo que não conseguimos
+          carregar sozinhos.
+        </p>
+        <p>
+          O {BRAND} organiza isso para você: em vez de procurar as palavras certas, você escolhe o
+          que está vivendo e recebe uma oração e uma reflexão prontas para aquele momento.
+        </p>
+      </div>
+    </section>
+  );
+}
 
 export function Hero() {
   return (
@@ -13,54 +36,62 @@ export function Hero() {
       aria-labelledby="hero-titulo"
     >
       <div>
-        <BrandLogo width={200} />
-        <p className="eyebrow mt-8 block">Aplicativo de orações e jornada devocional</p>
+        <p className="eyebrow block">App devocional • Acesso imediato</p>
         <h2
           id="hero-titulo"
-          className="mt-4 text-3xl leading-tight text-ivory sm:text-4xl lg:text-[2.8rem]"
+          className="mt-4 text-[1.9rem] leading-tight text-ivory sm:text-4xl lg:text-[2.8rem]"
         >
-          Quando faltarem palavras, tenha um caminho para começar.
+          Quando faltarem palavras, comece por aqui.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          A Jornada da Fé reúne orações narradas, reflexões bíblicas e uma caminhada guiada de 28
-          dias para ajudar você a reservar alguns minutos para Deus, no seu ritmo e sem cobranças.
+          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida — em uma
+          experiência simples que cabe em aproximadamente 5 minutos do seu dia.
         </p>
         <div className="mt-8 max-w-sm">
-          <CheckoutButton location="hero">QUERO COMEÇAR MINHA JORNADA</CheckoutButton>
+          <CheckoutButton location="hero">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
         </div>
-        <p className="mt-4 text-xs text-sand">
-          Pagamento único • Acesso vitalício ao conteúdo adquirido • Garantia de 7 dias
-        </p>
+        <p className="mt-4 text-xs text-sand">{priceLine}</p>
       </div>
       <AppMockup />
     </section>
   );
 }
 
+const moments = [
+  "Quando a mente não para",
+  "Quando o medo do amanhã aperta",
+  "Antes de uma decisão importante",
+  "Quando o dia foi pesado",
+  "Quando você precisa recomeçar",
+  "Quando só quer agradecer",
+  "Quando não sabe nem o que dizer em oração",
+];
+
 export function Identification() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="identificacao-titulo">
+      <p className="eyebrow">Para os seus dias reais</p>
       <h2
         id="identificacao-titulo"
-        className="max-w-3xl text-2xl text-ivory sm:text-3xl lg:text-4xl"
+        className="mt-4 max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl"
       >
-        A vontade existe. O difícil é saber como manter uma rotina.
+        Você abre o aplicativo de acordo com o que está vivendo agora
       </h2>
-      <div className="mt-6 grid max-w-3xl gap-4 text-base leading-relaxed text-sand">
-        <p>
-          Os dias passam corridos: trabalho, casa, responsabilidades. Quando finalmente sobra um
-          instante de silêncio, vem a sensação de não saber como começar a orar.
-        </p>
-        <p>
-          Abrir a Bíblia também pode parecer difícil sem saber por onde começar, e a rotina de fé
-          acaba ficando para depois — mais uma vez.
-        </p>
-      </div>
+      <ul className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {moments.map((m) => (
+          <li
+            key={m}
+            className="card-premium rounded-[18px] p-5 font-display text-base text-gold-light transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 sm:text-lg"
+          >
+            {m}
+          </li>
+        ))}
+      </ul>
       <p
-        className="card-premium mt-8 rounded-[20px] p-6 font-display text-lg text-gold-light sm:p-7 sm:text-xl"
+        className="card-premium mt-8 rounded-[20px] p-6 font-display text-lg text-ivory sm:p-7 sm:text-xl"
         style={{ boxShadow: "var(--shadow-gold)" }}
       >
-        Isso não significa falta de fé. Muitas vezes, o que falta é um caminho simples e possível.
+        Não é preciso saber por onde começar. Basta dizer o que você está sentindo hoje.
       </p>
     </section>
   );
@@ -68,16 +99,16 @@ export function Identification() {
 
 const howItWorks = [
   {
-    title: "Escolha seu momento",
-    text: "Selecione o tema mais próximo do que você está vivendo hoje: paz, direção, esperança, gratidão ou força.",
+    title: "Escolha o que você está vivendo",
+    text: "Ansiedade, medo, cansaço, uma decisão, um recomeço ou gratidão: você começa pelo momento, não pelo tema teológico.",
   },
   {
-    title: "Ouça e reflita",
-    text: "Uma oração narrada e uma reflexão bíblica curta ajudam a desacelerar e a dar atenção ao que importa.",
+    title: "Ouça a oração e a reflexão sugeridas",
+    text: "Uma oração guiada conduz o seu momento e uma reflexão curta ajuda a enxergar o dia com mais calma.",
   },
   {
-    title: "Construa sua caminhada",
-    text: "Siga a jornada de 28 dias e registre no diário o que quiser guardar, sem metas rígidas.",
+    title: "Dedique cerca de 5 minutos e siga seu dia",
+    text: "Sem meta, sem cobrança e sem precisar de um tempo longo que você não tem.",
   },
 ];
 
@@ -103,72 +134,24 @@ export function HowItWorks() {
   );
 }
 
-const journey = [
-  {
-    range: "Dias 1–7",
-    name: "Presença",
-    text: "Criar o hábito de parar alguns minutos e simplesmente estar ali.",
-  },
-  {
-    range: "Dias 8–14",
-    name: "Confiança",
-    text: "Reflexões sobre entrega, espera e discernimento nas escolhas.",
-  },
-  {
-    range: "Dias 15–21",
-    name: "Relacionamentos",
-    text: "Perdão, convivência, família e as relações do dia a dia.",
-  },
-  {
-    range: "Dias 22–28",
-    name: "Constância",
-    text: "Transformar a caminhada em algo que continua depois dos 28 dias.",
-  },
-];
-
-export function Journey() {
-  return (
-    <section
-      className="relative border-y py-14 lg:py-20"
-      style={{ background: "var(--gradient-brown)", borderColor: "oklch(0.76 0.106 79 / 25%)" }}
-      aria-labelledby="jornada-titulo"
-    >
-      <div className={container}>
-        <p className="eyebrow">Jornada guiada</p>
-        <h2
-          id="jornada-titulo"
-          className="mt-4 max-w-2xl text-2xl text-ivory sm:text-3xl lg:text-4xl"
-        >
-          28 dias para criar espaço para sua fé na vida cotidiana
-        </h2>
-        <ol className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {journey.map((etapa) => (
-            <li key={etapa.range} className="card-premium rounded-[20px] p-6">
-              <p className="text-xs uppercase tracking-[0.16em] text-gold">{etapa.range}</p>
-              <h3 className="mt-3 text-lg text-gold-light">{etapa.name}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-sand">{etapa.text}</p>
-            </li>
-          ))}
-        </ol>
-        <p className="mt-8 flex items-start gap-3 text-base text-ivory">
-          <ConfirmBadge />
-          Se você perder um dia, não perdeu a Jornada. Continue quando puder.
-        </p>
-      </div>
-    </section>
-  );
-}
-
 const features = [
   {
-    title: "Orações narradas",
-    text: "Áudios curtos para acompanhar em diferentes momentos do dia.",
+    title: "Orações guiadas e narradas",
+    text: "Áudios curtos que conduzem a oração quando faltam palavras.",
   },
-  { title: "Jornada de 28 dias", text: "Uma sequência guiada com um tema para cada semana." },
-  { title: "Reflexões bíblicas", text: "Textos breves com a passagem indicada para leitura." },
-  { title: "Diário de oração", text: "Espaço para escrever pedidos, gratidões e percepções." },
-  { title: "Favoritos e histórico", text: "Salve o que tocou você e retome o que já ouviu." },
-  { title: "Busca por tema", text: "Encontre conteúdos pelo assunto que precisa hoje." },
+  {
+    title: "Reflexões para situações reais",
+    text: "Textos breves sobre medo, cansaço, decisões, recomeços e gratidão.",
+  },
+  { title: "Conteúdos de cerca de 5 minutos", text: "Pensados para caber em um dia comum." },
+  { title: "Conteúdos por tema", text: "Paz, direção, esperança, força, confiança e presença." },
+  {
+    title: "Jornada guiada de 28 dias",
+    text: "Uma sequência opcional para criar constância, sem prazo para concluir.",
+  },
+  { title: "Favoritos", text: "Salve as orações que tocaram você e volte quando precisar." },
+  { title: "Histórico e progresso", text: "Retome de onde parou, sem começar tudo de novo." },
+  { title: "Diário privado", text: "Escreva pedidos, gratidões e percepções só para você." },
   { title: "Transcrições", text: "Leia o texto completo quando preferir não ouvir." },
   { title: "Lembretes opcionais", text: "Ative um aviso diário apenas se isso ajudar você." },
 ];
@@ -176,11 +159,11 @@ const features = [
 export function Features() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="recursos-titulo">
-      <p className="eyebrow">Funcionalidades</p>
+      <p className="eyebrow">O que tem dentro</p>
       <h2 id="recursos-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        O que você encontra no aplicativo
+        Recursos do aplicativo
       </h2>
-      <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((f) => (
           <li
             key={f.title}
@@ -195,7 +178,57 @@ export function Features() {
   );
 }
 
-const demos = [
+export function Emotional() {
+  return (
+    <section
+      className="faith-section-bg border-y py-14 lg:py-20"
+      style={{ borderColor: "oklch(0.76 0.106 79 / 25%)" }}
+      aria-labelledby="emocional-titulo"
+    >
+      <div className={`${container} grid items-center gap-10 lg:grid-cols-2 lg:gap-16`}>
+        <div>
+          <p className="eyebrow">Cinco minutos possíveis</p>
+          <h2
+            id="emocional-titulo"
+            className="mt-4 text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl"
+          >
+            Você não precisa esperar o dia desmoronar para lembrar da sua fé.
+          </h2>
+          <div className="mt-6 grid gap-4 text-base leading-relaxed text-sand sm:text-lg">
+            <p>
+              Esses minutos podem acontecer antes de todo mundo acordar, no intervalo do trabalho, no
+              carro parado esperando alguém, na fila, no sofá à noite.
+            </p>
+            <p>
+              Não é preciso um lugar perfeito nem uma hora silenciosa. É preciso apenas um pequeno
+              espaço — e algo pronto para conduzir você nele.
+            </p>
+          </div>
+        </div>
+        <figure
+          className="overflow-hidden rounded-[24px] border p-2"
+          style={{
+            borderColor: "oklch(0.76 0.106 79 / 35%)",
+            background: "var(--gradient-brown)",
+            boxShadow: "var(--shadow-deep)",
+          }}
+        >
+          <img
+            src="/images/app-cafe-manha-v3.webp"
+            alt={`Momento devocional no café da manhã com o aplicativo ${BRAND}`}
+            width={1024}
+            height={768}
+            loading="lazy"
+            decoding="async"
+            className="h-auto w-full rounded-[18px]"
+          />
+        </figure>
+      </div>
+    </section>
+  );
+}
+
+const samples = [
   {
     theme: "Paz",
     title: "Oração para acalmar o coração",
@@ -205,53 +238,53 @@ const demos = [
   },
   {
     theme: "Direção",
-    title: "Reflexão: quando é preciso decidir",
-    duration: "7 min",
+    title: "Antes de tomar uma decisão",
+    duration: "5 min",
     excerpt:
       "Discernir não é adivinhar o futuro. É olhar com honestidade para o que existe hoje e escolher o próximo passo possível.",
   },
   {
+    theme: "Força",
+    title: "Oração para dias de cansaço",
+    duration: "5 min",
+    excerpt:
+      "Você não precisa dar conta de tudo hoje. Deixe descansar por alguns minutos aquilo que pode esperar.",
+  },
+  {
+    theme: "Confiança",
+    title: "Quando o medo do amanhã aparece",
+    duration: "5 min",
+    excerpt:
+      "Confiar não é ter certeza de tudo. Muitas vezes é continuar caminhando com perguntas ainda abertas.",
+  },
+  {
     theme: "Esperança",
-    title: "Oração de recomeço",
-    duration: "6 min",
+    title: "Uma oração para recomeçar",
+    duration: "5 min",
     excerpt:
       "Recomeçar costuma parecer pequeno por dentro. E ainda assim é ali que a caminhada volta a acontecer.",
   },
-  {
-    theme: "Gratidão",
-    title: "Reflexão: o que já foi recebido",
-    duration: "5 min",
-    excerpt:
-      "Gratidão não ignora o que dói. Ela apenas escolhe também enxergar aquilo que sustentou você até aqui.",
-  },
-  {
-    theme: "Força",
-    title: "Oração para dias de cansaço",
-    duration: "8 min",
-    excerpt:
-      "Você não precisa dar conta de tudo hoje. Entregue o peso que não é seu e siga um passo por vez.",
-  },
 ];
 
-export function Demo() {
+export function Samples() {
   const [active, setActive] = useState(0);
-  const item = demos[active]!;
+  const item = samples[active]!;
 
   return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="demo-titulo">
-      <p className="eyebrow">Uma amostra do conteúdo</p>
-      <h2 id="demo-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        O que seu coração precisa hoje?
+    <section className={`${container} py-14 lg:py-20`} aria-labelledby="amostras-titulo">
+      <p className="eyebrow">Amostras de conteúdo</p>
+      <h2 id="amostras-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
+        Exemplos do tipo de conteúdo que você encontra
       </h2>
 
-      <div className="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Temas disponíveis">
-        {demos.map((d, i) => (
+      <div className="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Temas de exemplo">
+        {samples.map((d, i) => (
           <button
             key={d.theme}
             type="button"
             role="tab"
             aria-selected={active === i}
-            aria-controls="demo-preview"
+            aria-controls="amostra-preview"
             onClick={() => setActive(i)}
             className={`min-h-11 rounded-xl border px-5 py-2.5 text-sm transition-colors ${
               active === i
@@ -264,7 +297,7 @@ export function Demo() {
         ))}
       </div>
 
-      <div id="demo-preview" className="card-premium mt-6 rounded-[22px] p-6 sm:p-8">
+      <div id="amostra-preview" className="card-premium mt-6 rounded-[22px] p-6 sm:p-8">
         <p className="text-xs uppercase tracking-[0.16em] text-gold">
           {item.theme} • {item.duration}
         </p>
@@ -281,9 +314,10 @@ export function Demo() {
 const forWho = [
   "Quer começar ou retomar uma rotina de oração",
   "Tem pouco tempo livre durante o dia",
+  "Muitas vezes não sabe o que dizer quando vai orar",
   "Prefere ouvir pelo celular em vez de ler textos longos",
-  "Busca uma experiência sem culpa e sem cobrança",
-  "Deseja aplicar princípios bíblicos no cotidiano",
+  "Busca uma prática de fé sem culpa e sem cobrança",
+  "Quer levar a fé para situações concretas do cotidiano",
 ];
 
 export function ForWho() {
@@ -291,7 +325,7 @@ export function ForWho() {
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="para-quem-titulo">
       <p className="eyebrow">Para quem é</p>
       <h2 id="para-quem-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        Pode fazer sentido para você se…
+        O {BRAND} pode fazer sentido para você se…
       </h2>
       <ul className="mt-8 grid gap-4 sm:grid-cols-2">
         {forWho.map((item) => (
@@ -306,11 +340,11 @@ export function ForWho() {
 }
 
 const included = [
-  "Aplicativo Jornada da Fé",
+  `Acesso ao aplicativo ${BRAND}`,
+  "Biblioteca de orações guiadas e narradas",
+  "Reflexões curtas por tema e situação",
   "Jornada guiada de 28 dias",
-  "Biblioteca de orações e reflexões narradas",
-  "Diário de oração",
-  "PDFs de oração e reflexão",
+  "Diário privado, favoritos e histórico",
   "Acesso vitalício ao conteúdo adquirido",
 ];
 
@@ -371,17 +405,20 @@ export function Offer() {
         aria-hidden="true"
       />
       <div className={`${container} relative`}>
-        <div ref={ref} className="card-premium mx-auto max-w-xl rounded-[26px] p-7 text-center sm:p-10">
-          <p className="eyebrow">Comece no seu ritmo</p>
+        <div
+          ref={ref}
+          className="card-premium mx-auto max-w-xl rounded-[26px] p-7 text-center sm:p-10"
+        >
+          <p className="eyebrow">Comece hoje</p>
           <h2 id="oferta-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl">
-            Acesso completo à Jornada da Fé
+            Acesso completo ao {BRAND}
           </h2>
-          <p className="mt-6 font-display text-5xl text-gold-light sm:text-6xl">R$ 29,90</p>
+          <p className="mt-6 font-display text-5xl text-gold-light sm:text-6xl">{PRICE}</p>
           <p className="mt-3 text-sm text-sand">
-            Pagamento único. Sem mensalidade para acessar o conteúdo adquirido.
+            Pagamento único. Sem mensalidade. Acesso vitalício ao conteúdo adquirido.
           </p>
           <div className="mt-7">
-            <CheckoutButton location="oferta">QUERO ACESSAR O APLICATIVO</CheckoutButton>
+            <CheckoutButton location="oferta">QUERO ACESSAR O 5 MINUTOS DE FÉ</CheckoutButton>
           </div>
           <p className="mt-4 text-xs text-sand">
             🔒 Compra processada em ambiente seguro pela Perfect Pay.
@@ -430,12 +467,17 @@ export function Closing() {
         id="encerramento-titulo"
         className="mx-auto max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl"
       >
-        Você não precisa começar de forma perfeita. Só precisa dar o primeiro passo.
+        Talvez você não precise de mais uma promessa para mudar sua vida. Talvez precise apenas de 5
+        minutos para não atravessar tudo sozinho.
       </h2>
       <div className="mx-auto mt-9 max-w-sm">
-        <CheckoutButton location="encerramento">COMEÇAR MINHA JORNADA</CheckoutButton>
+        <CheckoutButton location="encerramento" subLabel={priceLine}>
+          COMEÇAR MEUS 5 MINUTOS DE FÉ
+        </CheckoutButton>
       </div>
-      <p className="mt-5 font-display text-lg text-gold-light">Sua fé, um dia de cada vez.</p>
+      <p className="mt-6 font-display text-lg text-gold-light sm:text-xl">
+        Uma Palavra. Uma oração. Cinco minutos com Deus.
+      </p>
     </section>
   );
 }
@@ -451,7 +493,7 @@ export function Footer() {
   return (
     <footer className="border-t py-12" style={{ borderColor: "oklch(0.76 0.106 79 / 20%)" }}>
       <div className={`${container} flex flex-col items-center gap-5 text-center`}>
-        <BrandLogo width={190} />
+        <BrandLogo width={190} align="center" />
         <nav aria-label="Links institucionais">
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             {footerLinks.map((l) => (
@@ -467,12 +509,12 @@ export function Footer() {
           </ul>
         </nav>
         <p className="max-w-3xl text-xs leading-relaxed text-sand/80">
-          A Jornada da Fé oferece conteúdos devocionais e educacionais. Não possui vínculo,
-          representação ou endosso de padres, pastores, igrejas ou personalidades religiosas. O
-          conteúdo não substitui acompanhamento pastoral, médico ou psicológico e não promete cura,
-          milagre ou resultado espiritual específico.
+          O {BRAND} oferece conteúdos devocionais e educacionais. Não possui vínculo, representação
+          ou endosso de padres, pastores, igrejas ou personalidades religiosas. O conteúdo não
+          substitui acompanhamento pastoral, médico ou psicológico e não promete cura, milagre ou
+          resultado espiritual específico.
         </p>
-        <p className="text-xs text-sand/70">© 2026 Jornada da Fé. Todos os direitos reservados.</p>
+        <p className="text-xs text-sand/70">© 2026 {BRAND}. Todos os direitos reservados.</p>
       </div>
     </footer>
   );
@@ -481,12 +523,13 @@ export function Footer() {
 export function SalesPage() {
   return (
     <>
+      <Bridge />
       <Hero />
       <Identification />
       <HowItWorks />
-      <Journey />
       <Features />
-      <Demo />
+      <Emotional />
+      <Samples />
       <ForWho />
       <Included />
       <Offer />
