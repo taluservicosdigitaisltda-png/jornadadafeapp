@@ -3,7 +3,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { BRAND, PERFECTPAY_CHECKOUT_URL, checkoutUrl, track } from "@/lib/jornada";
 
 export const container = "mx-auto w-full max-w-[1140px] px-5 sm:px-8";
-export const heroAppImage = "/images/app-celular-hero-v3.webp";
+export const heroAppImage = "/images/app-celular-hero-v4.webp";
 
 export function CheckIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (

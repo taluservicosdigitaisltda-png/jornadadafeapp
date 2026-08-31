@@ -1,4 +1,4 @@
-export const PERFECTPAY_CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFKP5";
+export const PERFECTPAY_CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFP8D";
 
 export const BRAND = "5 Minutos de Fé";
 export const PRICE = "R$ 19,00";
