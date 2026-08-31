@@ -20,12 +20,12 @@ export function Quiz() {
     setStarted(true);
   }
 
-  function choose(option: string) {
+  function choose(label: string) {
     const question = questions[step]!;
-    const next: Answers = { ...answers, [question.id]: option };
+    const next: Answers = { ...answers, [question.id]: label };
     setAnswers(next);
     saveAnswers(next);
-    track("quiz_answer", { question: question.id, answer: option, step: step + 1 });
+    track("quiz_answer", { question: question.id, answer: label, step: step + 1 });
 
     if (step < questions.length - 1) {
       setStep(step + 1);
@@ -36,30 +36,33 @@ export function Quiz() {
     track("quiz_complete", next as Record<string, unknown>);
     window.setTimeout(() => {
       navigate({ to: "/resultado" });
-    }, 1200);
+    }, 1300);
   }
 
   if (!started) {
     return (
       <main
-        className={`${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}
+        className={`quiz-faith-bg ${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}
       >
-        <BrandLogo width={220} eager />
-        <p className="eyebrow mt-9 block">Uma pausa para o seu coração</p>
-        <h1 className="mt-4 max-w-2xl text-2xl leading-tight text-ivory sm:text-3xl lg:text-4xl">
-          Descubra qual caminho pode acompanhar melhor o seu momento de fé
+        <BrandLogo width={230} align="center" eager />
+        <p className="eyebrow mt-9 block">Seu Mapa de Fé Hoje</p>
+        <h1 className="mt-4 max-w-2xl text-[1.7rem] leading-tight text-ivory sm:text-3xl lg:text-4xl">
+          O que o seu coração mais precisa ouvir hoje?
         </h1>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand">
-          Responda quatro perguntas rápidas e receba uma sugestão para começar.
+          São 7 perguntas rápidas para entender o momento que você está vivendo. No final, você
+          recebe a leitura do seu momento com uma oração e uma reflexão indicadas para hoje.
         </p>
         <button
           type="button"
           onClick={start}
-          className="cta-gold mt-9 min-h-14 w-full max-w-sm rounded-2xl px-8 py-4 text-sm font-bold tracking-[0.1em] sm:text-base"
+          className="cta-gold mt-9 min-h-14 w-full max-w-md rounded-2xl px-6 py-4 text-sm font-bold tracking-[0.08em] sm:text-base"
         >
-          COMEÇAR
+          DESCOBRIR MEUS 5 MINUTOS DE FÉ E ORAÇÃO HOJE
         </button>
-        <p className="mt-4 text-xs text-sand">Leva menos de 1 minuto • Sem cadastro</p>
+        <p className="mt-4 text-xs text-sand">
+          Leva menos de 2 minutos • Sem cadastro • Sem pedir dados pessoais
+        </p>
       </main>
     );
   }
@@ -67,12 +70,15 @@ export function Quiz() {
   if (finishing) {
     return (
       <main
-        className={`${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}
+        className={`quiz-faith-bg ${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}
         aria-live="polite"
       >
-        <BrandLogo width={180} />
+        <BrandLogo width={190} align="center" />
         <p className="mt-8 font-display text-xl text-gold-light sm:text-2xl">
-          Preparando uma sugestão para o seu momento…
+          Preparando a leitura do seu momento…
+        </p>
+        <p className="mt-3 max-w-md text-sm text-sand">
+          Reunindo a oração e a reflexão mais próximas do que você respondeu.
         </p>
       </main>
     );
@@ -81,19 +87,19 @@ export function Quiz() {
   const question = questions[step]!;
 
   return (
-    <main className={`${container} flex min-h-screen flex-col justify-center py-12`}>
+    <main className={`quiz-faith-bg ${container} flex min-h-screen flex-col justify-center py-12`}>
       <div className="mx-auto w-full max-w-2xl">
         <div className="flex items-center justify-between gap-4">
           <button
             type="button"
             onClick={() => (step === 0 ? setStarted(false) : setStep(step - 1))}
             className="min-h-11 rounded-xl border border-gold/40 px-4 text-sm text-gold-light transition-colors hover:bg-gold/10"
-            aria-label="Voltar para a etapa anterior"
+            aria-label="Voltar para a pergunta anterior"
           >
             ← Voltar
           </button>
           <p className="text-xs uppercase tracking-[0.18em] text-sand">
-            {step + 1} de {questions.length}
+            {step + 1} / {questions.length}
           </p>
         </div>
 
@@ -104,10 +110,10 @@ export function Quiz() {
           aria-valuemin={1}
           aria-valuemax={questions.length}
           aria-valuenow={step + 1}
-          aria-label="Progresso do quiz"
+          aria-label="Progresso do seu mapa de fé"
         >
           <div
-            className="h-full rounded-full transition-all duration-300"
+            className="h-full rounded-full transition-all duration-500"
             style={{
               width: `${((step + 1) / questions.length) * 100}%`,
               background: "var(--gradient-gold)",
@@ -115,20 +121,24 @@ export function Quiz() {
           />
         </div>
 
-        <h1 key={question.id} className="mt-9 text-2xl leading-snug text-ivory sm:text-3xl">
+        <h1
+          key={question.id}
+          className="mt-9 text-[1.6rem] leading-snug text-ivory sm:text-3xl"
+          style={{ animation: "none" }}
+        >
           {question.label}
         </h1>
 
         <ul className="mt-7 space-y-3">
           {question.options.map((option) => (
-            <li key={option}>
+            <li key={option.label}>
               <button
                 type="button"
-                onClick={() => choose(option)}
-                className="card-premium flex min-h-14 w-full items-center justify-between gap-4 rounded-[18px] px-5 py-4 text-left text-base text-ivory transition-all duration-200 hover:-translate-y-0.5 hover:border-gold/60 hover:text-gold-light"
+                onClick={() => choose(option.label)}
+                className="card-premium flex min-h-16 w-full items-center justify-between gap-4 rounded-[18px] px-5 py-4 text-left text-base text-ivory transition-all duration-200 hover:-translate-y-0.5 hover:border-gold/60 hover:text-gold-light"
               >
-                <span className="min-w-0">{option}</span>
-                <span aria-hidden="true" className="text-gold">
+                <span className="min-w-0">{option.label}</span>
+                <span aria-hidden="true" className="shrink-0 text-gold">
                   →
                 </span>
               </button>
@@ -136,8 +146,9 @@ export function Quiz() {
           ))}
         </ul>
 
-        <p className="mt-6 text-xs text-sand">
-          Não pedimos nome, e-mail ou telefone. Suas respostas ficam apenas neste navegador.
+        <p className="mt-6 text-xs leading-relaxed text-sand">
+          Esta é uma leitura devocional do seu momento, não um diagnóstico médico ou psicológico.
+          Suas respostas ficam apenas neste navegador.
         </p>
       </div>
     </main>

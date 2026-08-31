@@ -4,40 +4,44 @@ import { container } from "./shared";
 
 const faqs = [
   {
-    q: "É um curso ou um aplicativo?",
-    a: "É um aplicativo de orações narradas, reflexões bíblicas e uma caminhada guiada de 28 dias. Você usa no seu ritmo, sem aulas ao vivo e sem prazo para concluir.",
+    q: "O que é o 5 Minutos de Fé?",
+    a: "É um aplicativo devocional com orações guiadas e reflexões para situações reais da vida. Cada conteúdo foi pensado para caber em aproximadamente 5 minutos do seu dia.",
   },
   {
-    q: "Preciso conhecer a Bíblia para usar?",
-    a: "Não. Os conteúdos são escritos em linguagem simples e cada reflexão indica a passagem usada, para que você possa acompanhar mesmo começando agora.",
+    q: "Preciso ser de alguma religião específica?",
+    a: "Não. Os conteúdos são cristãos, escritos em linguagem simples e acolhedora, e podem ser usados por quem está começando ou retomando a vida de oração.",
   },
   {
-    q: "Quanto tempo preciso por dia?",
-    a: "Alguns minutos já são suficientes. Há conteúdos curtos para dias corridos e outros um pouco mais longos para quando houver mais tempo disponível.",
+    q: "Quanto tempo dura cada conteúdo?",
+    a: "A maioria fica em torno de 5 minutos. Há conteúdos ainda mais curtos para dias corridos e outros um pouco mais longos para quando houver mais tempo.",
   },
   {
-    q: "O aplicativo pertence a algum padre ou igreja?",
-    a: "Não. Jornada da Fé é uma marca independente e não utiliza a imagem ou o endosso de líderes religiosos.",
+    q: "Preciso instalar o aplicativo?",
+    a: "Você acessa pelo navegador do celular e pode salvar o atalho na tela inicial, usando como um aplicativo, sem depender de loja de aplicativos.",
   },
   {
-    q: "Existe mensalidade?",
-    a: "Não. O pagamento é único e dá acesso ao conteúdo adquirido, sem cobrança recorrente para continuar acessando.",
+    q: "O acesso tem mensalidade?",
+    a: "Não. O pagamento é único de R$ 19,00 e dá acesso vitalício ao conteúdo adquirido, sem cobrança recorrente.",
   },
   {
-    q: "Posso usar pelo celular?",
-    a: "Sim. A experiência foi desenhada para o celular e também funciona em outros dispositivos com navegador compatível.",
+    q: "Como recebo meu acesso após a compra?",
+    a: "Depois da confirmação do pagamento, as instruções de acesso são enviadas para o e-mail informado no checkout.",
   },
   {
-    q: "E se eu perder um dia da caminhada?",
-    a: "Nada é bloqueado. Você retoma de onde parou, no dia que puder, sem precisar começar tudo de novo.",
+    q: "Posso ouvir pelo celular?",
+    a: "Sim. A experiência foi desenhada primeiro para o celular e também funciona em tablet e computador com navegador atualizado.",
   },
   {
-    q: "Substitui acompanhamento religioso ou profissional?",
-    a: "Não. O conteúdo é devocional e educacional. Ele não substitui acompanhamento pastoral, médico ou psicológico.",
+    q: "O que encontro dentro do aplicativo?",
+    a: "Orações guiadas e narradas, reflexões curtas organizadas por tema e situação, favoritos, histórico do que você já acompanhou e um diário privado.",
   },
   {
-    q: "Como funciona a garantia?",
-    a: "Você tem 7 dias após a compra para avaliar o acesso e solicitar reembolso, conforme as condições apresentadas no checkout da Perfect Pay.",
+    q: "Existe garantia?",
+    a: "Sim. Você tem 7 dias após a compra para avaliar o acesso e solicitar reembolso, conforme as condições apresentadas no checkout.",
+  },
+  {
+    q: "O conteúdo substitui acompanhamento religioso, médico ou psicológico?",
+    a: "Não. O conteúdo é devocional e educacional. Ele não substitui acompanhamento pastoral, médico ou psicológico e não promete cura, milagre ou resultado espiritual específico.",
   },
 ];
 
