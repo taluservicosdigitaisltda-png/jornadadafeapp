@@ -2,9 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage, LegalSection } from "@/components/jornada/LegalPage";
 
-const title = "Termos de Uso — Jornada da Fé";
+const title = "Termos de Uso — 5 Minutos de Fé";
 const description =
-  "Condições de uso dos conteúdos devocionais e educacionais do Aplicativo Jornada da Fé.";
+  "Condições de uso dos conteúdos devocionais e educacionais do aplicativo 5 Minutos de Fé.";
 
 export const Route = createFileRoute("/termos")({
   head: () => ({
@@ -25,9 +25,9 @@ function TermsPage() {
     <LegalPage eyebrow="Documentos" title="Termos de Uso">
       <LegalSection heading="Objeto">
         <p>
-          A Jornada da Fé disponibiliza conteúdos devocionais e educacionais — orações narradas,
-          reflexões bíblicas, caminhada guiada de 28 dias, diário e materiais em PDF — para uso
-          pessoal de quem adquire o acesso.
+          O 5 Minutos de Fé disponibiliza conteúdos devocionais e educacionais — orações guiadas e
+          narradas, reflexões, jornada guiada de 28 dias e diário privado — para uso pessoal de quem
+          adquire o acesso.
         </p>
       </LegalSection>
       <LegalSection heading="Uso permitido">
@@ -38,7 +38,7 @@ function TermsPage() {
       </LegalSection>
       <LegalSection heading="Independência da marca">
         <p>
-          A Jornada da Fé é uma iniciativa independente. Não representa e não possui vínculo,
+          O 5 Minutos de Fé é uma iniciativa independente. Não representa e não possui vínculo,
           patrocínio ou endosso de padres, pastores, igrejas ou personalidades religiosas.
         </p>
       </LegalSection>
@@ -46,8 +46,8 @@ function TermsPage() {
         <p>
           Os conteúdos não substituem acompanhamento pastoral, médico ou psicológico. Não são
           prometidos cura, milagre, libertação, prosperidade ou qualquer resultado espiritual
-          específico. A experiência depende da forma e do ritmo com que cada pessoa utiliza os
-          materiais.
+          específico. A leitura do momento oferecida no quiz é devocional e não constitui diagnóstico
+          médico ou psicológico.
         </p>
       </LegalSection>
       <LegalSection heading="Disponibilidade e alterações">
@@ -59,8 +59,9 @@ function TermsPage() {
       </LegalSection>
       <LegalSection heading="Pagamento">
         <p>
-          A compra é processada pela Perfect Pay, e as condições de cobrança, emissão e garantia
-          apresentadas no checkout integram estes termos.
+          A compra é única, no valor de R$ 19,00, sem mensalidade, e é processada pela Perfect Pay.
+          As condições de cobrança, emissão e garantia apresentadas no checkout integram estes
+          termos.
         </p>
       </LegalSection>
     </LegalPage>
