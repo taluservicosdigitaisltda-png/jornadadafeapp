@@ -36,7 +36,7 @@ export function ResultHeader() {
 
   return (
     <header className={`${container} py-12 lg:py-16`}>
-      <BrandLogo width={180} eager />
+      <BrandLogo width={280} eager />
 
       <p className="eyebrow mt-8 block">Sua leitura de hoje</p>
       <h1 className="mt-4 max-w-3xl text-[1.7rem] leading-tight text-ivory sm:text-3xl lg:text-[2.6rem]">

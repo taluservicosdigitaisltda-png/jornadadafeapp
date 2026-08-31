@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 
+import logoAsset from "@/assets/logo-5min.png.asset.json";
 import { BRAND, PERFECTPAY_CHECKOUT_URL, checkoutUrl, track } from "@/lib/jornada";
 
 export const container = "mx-auto w-full max-w-[1140px] px-5 sm:px-8";
@@ -38,62 +39,32 @@ export function ConfirmBadge({ size = "sm" }: { size?: "sm" | "md" }) {
   );
 }
 
-function Ornament({ className = "" }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 120 8"
-      className={`h-2 w-full ${className}`}
-      aria-hidden="true"
-      preserveAspectRatio="none"
-    >
-      <line x1="0" y1="4" x2="48" y2="4" stroke="var(--gold)" strokeWidth="1" opacity="0.7" />
-      <path
-        d="M60 1 L63 4 L60 7 L57 4 Z"
-        fill="none"
-        stroke="var(--gold-light)"
-        strokeWidth="1"
-      />
-      <line x1="72" y1="4" x2="120" y2="4" stroke="var(--gold)" strokeWidth="1" opacity="0.7" />
-    </svg>
-  );
-}
-
-/** Typographic wordmark for 5 Minutos de Fé (premium placeholder until a logo file exists). */
+/** Official "5 Minutos de Fé" logo, always at its natural aspect ratio (1200x381). */
 export function BrandLogo({
   width = 240,
   className = "",
   align = "left",
+  eager = false,
 }: {
   width?: number;
   className?: string;
   align?: "left" | "center";
-  /** kept for API compatibility with previous image-based logo */
   eager?: boolean;
 }) {
-  const scale = width / 240;
   return (
-    <div
-      className={`${align === "center" ? "mx-auto text-center" : "text-left"} ${className}`}
-      style={{ width, maxWidth: "100%" }}
-      aria-label={BRAND}
-      role="img"
-    >
-      <span
-        className="block font-display leading-none text-gold-light"
-        style={{ fontSize: `${2.6 * scale}rem`, letterSpacing: "0.02em" }}
-      >
-        5
-      </span>
-      <span
-        className="mt-1 block font-display leading-tight text-ivory"
-        style={{ fontSize: `${1.12 * scale}rem`, letterSpacing: "0.06em" }}
-      >
-        Minutos de Fé
-      </span>
-      <Ornament className="mt-2" />
-    </div>
+    <img
+      src={logoAsset.url}
+      alt={BRAND}
+      width={1200}
+      height={381}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      className={`${align === "center" ? "mx-auto" : ""} h-auto w-full ${className}`}
+      style={{ maxWidth: width, aspectRatio: "1200 / 381" }}
+    />
   );
 }
+
 
 /** CTA that opens the Perfect Pay checkout in the same tab, keeping UTMs. */
 export function CheckoutButton({

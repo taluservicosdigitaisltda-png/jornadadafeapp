@@ -36,7 +36,7 @@ export function Hero() {
       aria-labelledby="hero-titulo"
     >
       <div>
-        <BrandLogo width={172} className="mb-7" />
+        <BrandLogo width={280} className="mb-7" />
         <p className="eyebrow block">App devocional • Acesso imediato</p>
 
         <h2
@@ -465,7 +465,7 @@ export function Closing() {
       className={`${container} py-14 text-center lg:py-20`}
       aria-labelledby="encerramento-titulo"
     >
-      <BrandLogo width={150} align="center" className="mb-8" />
+      <BrandLogo width={230} align="center" className="mb-8" />
       <h2
 
         id="encerramento-titulo"
@@ -497,7 +497,7 @@ export function Footer() {
   return (
     <footer className="border-t py-12" style={{ borderColor: "oklch(0.76 0.106 79 / 20%)" }}>
       <div className={`${container} flex flex-col items-center gap-5 text-center`}>
-        <BrandLogo width={190} align="center" />
+        <BrandLogo width={250} align="center" />
         <nav aria-label="Links institucionais">
           <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             {footerLinks.map((l) => (

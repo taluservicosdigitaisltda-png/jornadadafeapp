@@ -16,7 +16,7 @@ export function LegalPage({
   return (
     <>
       <main className={`${container} py-12 lg:py-16`}>
-        <BrandLogo width={170} eager />
+        <BrandLogo width={220} eager />
         <p className="eyebrow mt-8 block">{eyebrow}</p>
         <h1 className="mt-4 max-w-3xl text-2xl leading-tight text-ivory sm:text-3xl lg:text-4xl">
           {title}
