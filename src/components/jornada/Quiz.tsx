@@ -44,7 +44,7 @@ export function Quiz() {
       <main
         className={`quiz-faith-bg ${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}
       >
-        <BrandLogo width={230} align="center" eager />
+        <BrandLogo width={330} align="center" eager />
         <p className="eyebrow mt-9 block">Seu Mapa de Fé Hoje</p>
         <h1 className="mt-4 max-w-2xl text-[1.7rem] leading-tight text-ivory sm:text-3xl lg:text-4xl">
           O que o seu coração mais precisa ouvir hoje?
@@ -73,7 +73,7 @@ export function Quiz() {
         className={`quiz-faith-bg ${container} flex min-h-screen flex-col items-center justify-center py-14 text-center`}
         aria-live="polite"
       >
-        <BrandLogo width={190} align="center" />
+        <BrandLogo width={250} align="center" />
         <p className="mt-8 font-display text-xl text-gold-light sm:text-2xl">
           Preparando a leitura do seu momento…
         </p>
