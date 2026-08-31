@@ -465,7 +465,9 @@ export function Closing() {
       className={`${container} py-14 text-center lg:py-20`}
       aria-labelledby="encerramento-titulo"
     >
+      <BrandLogo width={150} align="center" className="mb-8" />
       <h2
+
         id="encerramento-titulo"
         className="mx-auto max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl"
       >
