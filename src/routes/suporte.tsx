@@ -22,14 +22,25 @@ export const Route = createFileRoute("/suporte")({
 function SupportPage() {
   return (
     <LegalPage eyebrow="Ajuda" title="Suporte">
-      <LegalSection heading="Dúvidas sobre pagamento ou acesso">
+      <LegalSection heading="Canal oficial de atendimento">
         <p>
-          Para questões de cobrança, confirmação de compra ou liberação de acesso, utilize os canais
-          de atendimento informados no checkout e no e-mail de confirmação enviado pela Perfect Pay.
-          Assim, sua solicitação chega diretamente ao atendimento responsável, sem que seja
-          necessário expor dados pessoais nesta página.
+          Escreva para{" "}
+          <a
+            href="mailto:5minutosdefeapp@gmail.com"
+            className="text-gold-light underline decoration-gold/40 underline-offset-4"
+          >
+            5minutosdefeapp@gmail.com
+          </a>
+          . Respondemos dúvidas sobre acesso, uso do aplicativo, garantia e reembolso.
         </p>
       </LegalSection>
+      <LegalSection heading="Dúvidas sobre pagamento ou acesso">
+        <p>
+          Para questões de cobrança, confirmação de compra ou liberação de acesso, você também pode
+          usar os canais informados no checkout e no e-mail de confirmação enviado pela Perfect Pay.
+        </p>
+      </LegalSection>
+
       <LegalSection heading="Como agilizar o atendimento">
         <p>
           Escreva a partir do mesmo e-mail utilizado na compra, informe os dados da transação e
