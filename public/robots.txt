@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://app5minutosdefe.lovable.app/sitemap.xml
