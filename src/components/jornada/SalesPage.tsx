@@ -490,6 +490,16 @@ export function Guarantee() {
             para o seu momento, pode solicitar o reembolso dentro desse prazo, seguindo as condições
             informadas no checkout da Perfect Pay.
           </p>
+          <p className="mt-4 text-sm text-sand">
+            Dúvidas ou suporte:{" "}
+            <a
+              href="mailto:5minutosdefeapp@gmail.com"
+              className="text-gold-light underline decoration-gold/40 underline-offset-4"
+            >
+              5minutosdefeapp@gmail.com
+            </a>
+          </p>
+
         </div>
       </div>
     </section>
