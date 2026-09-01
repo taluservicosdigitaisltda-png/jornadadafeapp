@@ -5,7 +5,7 @@ import { container } from "./shared";
 const faqs = [
   {
     q: "O que é o 5 Minutos de Fé?",
-    a: "É um aplicativo devocional com orações guiadas e reflexões para situações reais da vida. A proposta é simples: reserve até 5 minutos, ouça uma oração guiada curta, leia a reflexão e faça um pequeno passo para o seu dia.",
+    a: "É um aplicativo devocional com orações guiadas e reflexões para situações reais da vida. A proposta é simples: reserve cerca de 5 minutos e ouça uma oração guiada, leia a reflexão e faça um pequeno passo para o seu dia.",
   },
   {
     q: "Preciso pertencer a alguma igreja ou denominação específica?",
@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     q: "Quanto tempo dura cada conteúdo?",
-    a: "Os áudios das orações costumam durar de 1 a 3 minutos. Com a reflexão e a pausa, a experiência completa cabe em até 5 minutos — sem pressa e sem exigir um tempo longo que você não tem.",
+    a: "As orações guiadas duram em torno de 5 minutos. Os conteúdos atuais ficam aproximadamente entre 4 e 6 minutos, dependendo do tema e do ritmo da oração. A proposta é uma pausa breve e possível no dia — sem pressa e sem exigir um tempo longo que você não tem.",
   },
   {
     q: "Preciso instalar o aplicativo?",
