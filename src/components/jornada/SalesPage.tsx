@@ -46,9 +46,11 @@ export function Hero() {
           Quando faltarem palavras, comece por aqui.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida — em uma
-          experiência simples que cabe em aproximadamente 5 minutos do seu dia.
+          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve até 5
+          minutos: ouça uma oração guiada curta, leia a reflexão e faça um pequeno passo para o seu
+          dia.
         </p>
+
         <div className="mt-8 max-w-sm">
           <CheckoutButton location="hero">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
         </div>
