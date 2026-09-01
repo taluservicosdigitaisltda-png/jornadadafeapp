@@ -148,7 +148,11 @@ const features = [
     title: "Reflexões para situações reais",
     text: "Textos breves sobre medo, cansaço, decisões, recomeços e gratidão.",
   },
-  { title: "Conteúdos de cerca de 5 minutos", text: "Pensados para caber em um dia comum." },
+  {
+    title: "Orações curtas, de 1 a 3 minutos",
+    text: "Uma pausa completa de até 5 minutos, pensada para caber em um dia comum.",
+  },
+
   { title: "Conteúdos por tema", text: "Paz, direção, esperança, força, confiança e presença." },
   {
     title: "Jornada guiada de 28 dias",
