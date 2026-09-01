@@ -12,7 +12,6 @@ import { useEffect, type ReactNode } from "react";
 import { faviconDataUri } from "../assets/embedded-assets";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { initMetaPixel } from "../lib/meta-pixel";
 
 function NotFoundComponent() {
   return (
@@ -83,7 +82,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Encontre orações guiadas e reflexões para diferentes momentos da vida em uma pausa devocional de até 5 minutos por dia.",
+          "Encontre orações guiadas e reflexões para diferentes momentos da vida em uma experiência devocional de aproximadamente 5 minutos por dia.",
       },
       { property: "og:site_name", content: "5 Minutos de Fé" },
       { property: "og:type", content: "website" },
@@ -120,10 +119,6 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-
-  useEffect(() => {
-    initMetaPixel();
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

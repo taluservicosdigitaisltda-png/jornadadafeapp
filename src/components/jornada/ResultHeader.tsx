@@ -5,27 +5,21 @@ import { BrandLogo, ConfirmBadge, container } from "./shared";
 import {
   captureUtms,
   clearAnswers,
-  hasAnswers,
   loadAnswers,
   profileFor,
   track,
   type Answers,
 } from "@/lib/jornada";
 
-export function ResultHeader({ onEmpty }: { onEmpty?: (empty: boolean) => void } = {}) {
+export function ResultHeader() {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<Answers>({});
-  const [state, setState] = useState<"loading" | "ready" | "empty">("loading");
 
   useEffect(() => {
     captureUtms();
     const stored = loadAnswers();
     setAnswers(stored);
-    const empty = !hasAnswers(stored);
-    setState(empty ? "empty" : "ready");
-    onEmpty?.(empty);
-    track("result_view", { has_answers: !empty });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    track("result_view", { has_answers: Object.keys(stored).length > 0 });
   }, []);
 
   const profile = profileFor(answers);
@@ -40,38 +34,6 @@ export function ResultHeader({ onEmpty }: { onEmpty?: (empty: boolean) => void }
     document.getElementById("oferta-principal")?.scrollIntoView({ behavior: "smooth" });
   }
 
-  if (state !== "ready") {
-    return (
-      <header
-        className={`${container} flex min-h-[70vh] flex-col items-center justify-center py-14 text-center`}
-        aria-live="polite"
-      >
-        <BrandLogo width={280} align="center" eager />
-        {state === "loading" ? (
-          <p className="mt-9 text-sm text-sand">Carregando a leitura do seu momento…</p>
-        ) : (
-          <>
-            <p className="eyebrow mt-9 block">Leitura indisponível</p>
-            <h1 className="mt-4 max-w-xl text-[1.7rem] leading-tight text-ivory sm:text-3xl">
-              Faça primeiro seu Mapa de Fé
-            </h1>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-sand">
-              A leitura personalizada é gerada a partir das suas respostas. São 7 perguntas rápidas e
-              nenhum dado pessoal é solicitado.
-            </p>
-            <button
-              type="button"
-              onClick={() => navigate({ to: "/" })}
-              className="cta-gold mt-8 min-h-14 w-full max-w-md rounded-2xl px-6 py-4 text-sm font-bold tracking-[0.08em] sm:text-base"
-            >
-              FAZER MEU MAPA DE FÉ
-            </button>
-          </>
-        )}
-      </header>
-    );
-  }
-
   return (
     <header className={`${container} py-12 lg:py-16`}>
       <BrandLogo width={280} eager />
@@ -81,7 +43,7 @@ export function ResultHeader({ onEmpty }: { onEmpty?: (empty: boolean) => void }
         {profile.name}
       </h1>
       <p className="mt-3 text-xs uppercase tracking-[0.18em] text-gold">
-        {profile.category} • {profile.duration}
+        {profile.category} • Sugestão de {profile.duration}
       </p>
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
@@ -159,7 +121,7 @@ export function ResultHeader({ onEmpty }: { onEmpty?: (empty: boolean) => void }
           onClick={goToOffer}
           className="cta-gold min-h-14 rounded-2xl px-7 py-4 text-center text-sm font-bold tracking-[0.06em] sm:text-base"
         >
-          QUERO COMEÇAR MEUS 5 MINUTOS DE FÉ
+          QUERO TER MEUS 5 MINUTOS DE FÉ
         </button>
         <button
           type="button"

@@ -3,8 +3,7 @@ import { Link } from "@tanstack/react-router";
 
 import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
 import { Faq } from "./Faq";
-import { StickyCta } from "./StickyCta";
-import { BRAND, PRICE, SUPPORT_EMAIL, track } from "@/lib/jornada";
+import { BRAND, PRICE, track } from "@/lib/jornada";
 
 const priceLine = `${PRICE} • pagamento único • acesso vitalício`;
 
@@ -47,9 +46,8 @@ export function Hero() {
           Quando faltarem palavras, comece por aqui.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve até 5
-          minutos: ouça uma oração guiada curta, leia a reflexão e faça um pequeno passo para o seu
-          dia.
+          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida — em uma
+          experiência simples que cabe em aproximadamente 5 minutos do seu dia.
         </p>
         <div className="mt-8 max-w-sm">
           <CheckoutButton location="hero">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
@@ -111,8 +109,8 @@ const howItWorks = [
     text: "Uma oração guiada conduz o seu momento e uma reflexão curta ajuda a enxergar o dia com mais calma.",
   },
   {
-    title: "Reserve até 5 minutos e siga seu dia",
-    text: "O áudio costuma durar de 1 a 3 minutos; com a reflexão e um instante de pausa, a experiência completa cabe em até 5 minutos.",
+    title: "Dedique cerca de 5 minutos e siga seu dia",
+    text: "Sem meta, sem cobrança e sem precisar de um tempo longo que você não tem.",
   },
 ];
 
@@ -141,16 +139,13 @@ export function HowItWorks() {
 const features = [
   {
     title: "Orações guiadas e narradas",
-    text: "Áudios de 1 a 3 minutos que conduzem a oração quando faltam palavras.",
+    text: "Áudios curtos que conduzem a oração quando faltam palavras.",
   },
   {
     title: "Reflexões para situações reais",
     text: "Textos breves sobre medo, cansaço, decisões, recomeços e gratidão.",
   },
-  {
-    title: "Uma pausa de até 5 minutos",
-    text: "Áudio curto, reflexão e um pequeno passo: pensados para caber em um dia comum.",
-  },
+  { title: "Conteúdos de cerca de 5 minutos", text: "Pensados para caber em um dia comum." },
   { title: "Conteúdos por tema", text: "Paz, direção, esperança, força, confiança e presença." },
   {
     title: "Jornada guiada de 28 dias",
@@ -181,11 +176,6 @@ export function Features() {
           </li>
         ))}
       </ul>
-      <div className="mx-auto mt-10 max-w-sm">
-        <CheckoutButton location="recursos" subLabel={priceLine}>
-          QUERO ESSES RECURSOS AGORA
-        </CheckoutButton>
-      </div>
     </section>
   );
 }
@@ -243,37 +233,36 @@ export function Emotional() {
 const samples = [
   {
     theme: "Paz",
-    title: "Quando a mente não para",
-    duration: "áudio de ~2 min",
-    audio: "/audio/quando-a-mente-nao-para.mp3",
+    title: "Oração para acalmar o coração",
+    duration: "5 min",
     excerpt:
       "Respire com calma. Antes de pedir, apenas permaneça: não é preciso encontrar as palavras certas para estar em oração.",
   },
   {
     theme: "Direção",
     title: "Antes de tomar uma decisão",
-    duration: "áudio de ~2 min",
+    duration: "5 min",
     excerpt:
       "Discernir não é adivinhar o futuro. É olhar com honestidade para o que existe hoje e escolher o próximo passo possível.",
   },
   {
     theme: "Força",
-    title: "Quando o dia foi pesado",
-    duration: "áudio de ~2 min",
+    title: "Oração para dias de cansaço",
+    duration: "5 min",
     excerpt:
       "Você não precisa dar conta de tudo hoje. Deixe descansar por alguns minutos aquilo que pode esperar.",
   },
   {
     theme: "Confiança",
-    title: "Quando o medo do amanhã aperta",
-    duration: "áudio de ~2 min",
+    title: "Quando o medo do amanhã aparece",
+    duration: "5 min",
     excerpt:
       "Confiar não é ter certeza de tudo. Muitas vezes é continuar caminhando com perguntas ainda abertas.",
   },
   {
     theme: "Esperança",
     title: "Uma oração para recomeçar",
-    duration: "áudio de ~2 min",
+    duration: "5 min",
     excerpt:
       "Recomeçar costuma parecer pequeno por dentro. E ainda assim é ali que a caminhada volta a acontecer.",
   },
@@ -316,36 +305,9 @@ export function Samples() {
         </p>
         <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">{item.title}</h3>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand">“{item.excerpt}”</p>
-
-        {item.audio ? (
-          <div className="mt-6 rounded-2xl border border-gold/30 bg-black/30 p-4 sm:p-5">
-            <p className="text-xs uppercase tracking-[0.16em] text-gold-light">
-              Amostra real do aplicativo
-            </p>
-            <audio
-              controls
-              preload="none"
-              src={item.audio}
-              onPlay={() => track("sample_audio_play", { sample: item.title })}
-              className="mt-3 w-full"
-            >
-              <a href={item.audio}>Ouvir a oração guiada {item.title}</a>
-            </audio>
-            <p className="mt-3 text-xs text-sand/70">
-              Oração guiada narrada, como você ouve dentro do aplicativo.
-            </p>
-          </div>
-        ) : (
-          <p className="mt-4 text-xs text-sand/70">
-            Prévia em texto. O conteúdo narrado completo fica disponível dentro do aplicativo.
-          </p>
-        )}
-      </div>
-
-      <div className="mx-auto mt-10 max-w-sm">
-        <CheckoutButton location="amostras" subLabel={priceLine}>
-          QUERO OUVIR TODAS AS ORAÇÕES
-        </CheckoutButton>
+        <p className="mt-4 text-xs text-sand/70">
+          Prévia em texto. O conteúdo narrado completo fica disponível dentro do aplicativo.
+        </p>
       </div>
     </section>
   );
@@ -458,7 +420,7 @@ export function Offer() {
             Pagamento único. Sem mensalidade. Acesso vitalício ao conteúdo adquirido.
           </p>
           <div className="mt-7">
-            <CheckoutButton location="oferta">QUERO ACESSAR O 5 MINUTOS DE FÉ</CheckoutButton>
+            <CheckoutButton location="oferta">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
           </div>
           <p className="mt-4 text-xs text-sand">
             🔒 Compra processada em ambiente seguro pela Perfect Pay.
@@ -514,7 +476,7 @@ export function Closing() {
       </h2>
       <div className="mx-auto mt-9 max-w-sm">
         <CheckoutButton location="encerramento" subLabel={priceLine}>
-          COMEÇAR MEUS 5 MINUTOS DE FÉ
+          QUERO TER MEUS 5 MINUTOS DE FÉ
         </CheckoutButton>
       </div>
       <p className="mt-6 font-display text-lg text-gold-light sm:text-xl">
@@ -550,15 +512,6 @@ export function Footer() {
             ))}
           </ul>
         </nav>
-        <p className="text-xs text-sand/80">
-          Dúvidas?{" "}
-          <a
-            href={`mailto:${SUPPORT_EMAIL}`}
-            className="underline decoration-gold/40 underline-offset-4 transition-colors hover:text-gold-light"
-          >
-            {SUPPORT_EMAIL}
-          </a>
-        </p>
         <p className="max-w-3xl text-xs leading-relaxed text-sand/80">
           O {BRAND} oferece conteúdos devocionais e educacionais. Não possui vínculo, representação
           ou endosso de padres, pastores, igrejas ou personalidades religiosas. O conteúdo não
@@ -587,7 +540,6 @@ export function SalesPage() {
       <Guarantee />
       <Faq />
       <Closing />
-      <StickyCta />
     </>
   );
 }

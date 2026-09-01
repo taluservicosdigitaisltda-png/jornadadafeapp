@@ -58,10 +58,10 @@ export function Quiz() {
           onClick={start}
           className="cta-gold mt-9 min-h-14 w-full max-w-md rounded-2xl px-6 py-4 text-sm font-bold tracking-[0.08em] sm:text-base"
         >
-          DESCOBRIR O QUE PRECISO HOJE
+          QUERO TER MEUS 5 MINUTOS DE FÉ
         </button>
         <p className="mt-4 text-xs text-sand">
-          Leva cerca de 1 minuto • Sem cadastro • Sem pedir dados pessoais
+          Leva menos de 2 minutos • Sem cadastro • Sem pedir dados pessoais
         </p>
       </main>
     );

@@ -4,7 +4,7 @@ import { Quiz } from "@/components/jornada/Quiz";
 
 const title = "5 Minutos de Fé — Orações guiadas e reflexões para o seu dia";
 const description =
-  "Encontre orações guiadas e reflexões para diferentes momentos da vida em uma pausa devocional de até 5 minutos por dia.";
+  "Encontre orações guiadas e reflexões para diferentes momentos da vida em uma experiência devocional de aproximadamente 5 minutos por dia.";
 const ogImage = "https://app5minutosdefe.lovable.app/images/app-celular-hero-v4.webp";
 const url = "https://app5minutosdefe.lovable.app/";
 
