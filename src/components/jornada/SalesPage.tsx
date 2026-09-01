@@ -46,8 +46,9 @@ export function Hero() {
           Quando faltarem palavras, comece por aqui.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida — em uma
-          experiência simples que cabe em aproximadamente 5 minutos do seu dia.
+          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve até 5
+          minutos: ouça uma oração guiada curta, leia a reflexão e faça um pequeno passo para o seu
+          dia.
         </p>
         <div className="mt-8 max-w-sm">
           <CheckoutButton location="hero">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
@@ -109,8 +110,8 @@ const howItWorks = [
     text: "Uma oração guiada conduz o seu momento e uma reflexão curta ajuda a enxergar o dia com mais calma.",
   },
   {
-    title: "Dedique cerca de 5 minutos e siga seu dia",
-    text: "Sem meta, sem cobrança e sem precisar de um tempo longo que você não tem.",
+    title: "Reserve até 5 minutos e siga seu dia",
+    text: "O áudio costuma durar de 1 a 3 minutos; com a reflexão e um instante de pausa, a experiência completa cabe em até 5 minutos.",
   },
 ];
 
@@ -139,13 +140,16 @@ export function HowItWorks() {
 const features = [
   {
     title: "Orações guiadas e narradas",
-    text: "Áudios curtos que conduzem a oração quando faltam palavras.",
+    text: "Áudios de 1 a 3 minutos que conduzem a oração quando faltam palavras.",
   },
   {
     title: "Reflexões para situações reais",
     text: "Textos breves sobre medo, cansaço, decisões, recomeços e gratidão.",
   },
-  { title: "Conteúdos de cerca de 5 minutos", text: "Pensados para caber em um dia comum." },
+  {
+    title: "Uma pausa de até 5 minutos",
+    text: "Áudio curto, reflexão e um pequeno passo: pensados para caber em um dia comum.",
+  },
   { title: "Conteúdos por tema", text: "Paz, direção, esperança, força, confiança e presença." },
   {
     title: "Jornada guiada de 28 dias",
