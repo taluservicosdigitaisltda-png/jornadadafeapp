@@ -2,6 +2,8 @@ import { pixelTrack } from "./meta-pixel";
 
 export const PERFECTPAY_CHECKOUT_URL = "https://go.perfectpay.com.br/PPU38CQFP8D";
 
+export const SUPPORT_EMAIL = "5minutosdefeapp@gmail.com";
+
 export const BRAND = "5 Minutos de Fé";
 export const PRICE = "R$ 19,00";
 
