@@ -91,14 +91,12 @@ export function CheckoutButton({
 
   function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
     track("checkout_click", { location });
+    // short window so tracking requests leave before navigation
     const target = checkoutUrl();
-    if (metaPixelEnabled()) {
-      // short window so the pixel request leaves before navigation
-      event.preventDefault();
-      window.setTimeout(() => {
-        window.location.href = target;
-      }, 180);
-    }
+    event.preventDefault();
+    window.setTimeout(() => {
+      window.location.href = target;
+    }, 180);
   }
 
   return (
