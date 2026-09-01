@@ -30,12 +30,16 @@ export const Route = createFileRoute("/resultado")({
 });
 
 function ResultPage() {
+  const [empty, setEmpty] = useState(false);
+
   return (
     <>
-      <ResultHeader />
-      <main>
-        <SalesPage />
-      </main>
+      <ResultHeader onEmpty={setEmpty} />
+      {empty ? null : (
+        <main>
+          <SalesPage />
+        </main>
+      )}
       <Footer />
     </>
   );
