@@ -33,6 +33,14 @@ function SupportPage() {
           </a>
           . Respondemos dúvidas sobre acesso, uso do aplicativo, garantia e reembolso.
         </p>
+        <p>
+          <a
+            href="mailto:5minutosdefeapp@gmail.com"
+            className="cta-gold mt-2 inline-flex min-h-14 items-center justify-center rounded-2xl px-7 py-4 text-sm font-bold tracking-[0.06em] no-underline"
+          >
+            FALAR COM O SUPORTE
+          </a>
+        </p>
       </LegalSection>
       <LegalSection heading="Dúvidas sobre pagamento ou acesso">
         <p>
