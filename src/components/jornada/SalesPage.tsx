@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
@@ -245,114 +245,6 @@ export function Emotional() {
   );
 }
 
-const samples = [
-  {
-    theme: "Paz",
-    title: "Oração para acalmar o coração",
-    duration: "1 a 3 min",
-    excerpt:
-      "Respire com calma. Antes de pedir, apenas permaneça: não é preciso encontrar as palavras certas para estar em oração.",
-  },
-  {
-    theme: "Direção",
-    title: "Antes de tomar uma decisão",
-    duration: "1 a 3 min",
-    excerpt:
-      "Discernir não é adivinhar o futuro. É olhar com honestidade para o que existe hoje e escolher o próximo passo possível.",
-  },
-  {
-    theme: "Força",
-    title: "Oração para dias de cansaço",
-    duration: "1 a 3 min",
-    excerpt:
-      "Você não precisa dar conta de tudo hoje. Deixe descansar por alguns minutos aquilo que pode esperar.",
-  },
-  {
-    theme: "Confiança",
-    title: "Quando o medo do amanhã aparece",
-    duration: "1 a 3 min",
-    excerpt:
-      "Confiar não é ter certeza de tudo. Muitas vezes é continuar caminhando com perguntas ainda abertas.",
-  },
-  {
-    theme: "Esperança",
-    title: "Uma oração para recomeçar",
-    duration: "1 a 3 min",
-    excerpt:
-      "Recomeçar costuma parecer pequeno por dentro. E ainda assim é ali que a caminhada volta a acontecer.",
-  },
-];
-
-export function Samples() {
-  const [active, setActive] = useState(0);
-  const item = samples[active]!;
-
-  return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="amostras-titulo">
-      <p className="eyebrow">Amostras de conteúdo</p>
-      <h2 id="amostras-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        Exemplos do tipo de conteúdo que você encontra
-      </h2>
-
-      <div className="mt-8 flex flex-wrap gap-3" role="tablist" aria-label="Temas de exemplo">
-        {samples.map((d, i) => (
-          <button
-            key={d.theme}
-            type="button"
-            role="tab"
-            aria-selected={active === i}
-            aria-controls="amostra-preview"
-            onClick={() => setActive(i)}
-            className={`min-h-11 rounded-xl border px-5 py-2.5 text-sm transition-colors ${
-              active === i
-                ? "border-gold bg-gold/15 text-gold-light"
-                : "border-gold/30 text-sand hover:border-gold/60 hover:text-gold-light"
-            }`}
-          >
-            {d.theme}
-          </button>
-        ))}
-      </div>
-
-      <div id="amostra-preview" className="card-premium mt-6 rounded-[22px] p-6 sm:p-8">
-        <p className="text-xs uppercase tracking-[0.16em] text-gold">
-          {item.theme} • {item.duration}
-        </p>
-        <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">{item.title}</h3>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand">“{item.excerpt}”</p>
-        <p className="mt-4 text-xs text-sand/70">
-          Prévia em texto. O conteúdo narrado completo fica disponível dentro do aplicativo.
-        </p>
-      </div>
-
-      <div
-        className="card-premium mt-6 rounded-[22px] p-6 sm:p-8"
-        style={{ boxShadow: "var(--shadow-gold)" }}
-      >
-        <p className="eyebrow">Amostra real do aplicativo</p>
-        <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">
-          Quando a mente não para <span className="text-sm text-gold">• cerca de 2 min</span>
-        </h3>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sand">
-          Este é um áudio real do {BRAND}, narrado como você ouviria dentro do aplicativo.
-        </p>
-        <audio
-          className="mt-5 w-full"
-          controls
-          preload="none"
-          src="/audio/quando-a-mente-nao-para.mp3"
-          aria-label={`Amostra real de oração guiada do ${BRAND}: quando a mente não para`}
-        />
-        <div className="mt-7 max-w-sm">
-          <CheckoutButton location="pos_amostras" subLabel={priceLine}>
-            QUERO TER MEUS 5 MINUTOS DE FÉ
-          </CheckoutButton>
-        </div>
-      </div>
-    </section>
-
-  );
-}
 
 const forWho = [
   "Quer começar ou retomar uma rotina de oração",
@@ -593,7 +485,6 @@ export function SalesPage() {
       <HowItWorks />
       <Features />
       <Emotional />
-      <Samples />
       <ForWho />
       <Included />
       <Offer />
