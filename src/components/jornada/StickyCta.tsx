@@ -35,10 +35,10 @@ export function StickyCta() {
       >
         <CheckoutButton
           location="sticky_mobile"
-          subLabel="Pagamento único • 7 dias de garantia"
+          subLabel="R$ 19 • pagamento único • 7 dias de garantia"
           className="min-h-12 py-3"
         >
-          Acessar por R$19
+          QUERO TER MEUS 5 MINUTOS DE FÉ
         </CheckoutButton>
       </div>
     </div>
