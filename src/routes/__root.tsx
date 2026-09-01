@@ -15,25 +15,35 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Página não encontrada</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          O endereço que você tentou acessar não existe ou foi alterado.
+    <main className="flex min-h-screen items-center justify-center px-5 py-16">
+      <div className="mx-auto max-w-lg text-center">
+        <p className="eyebrow">Página não encontrada</p>
+        <h1 className="mt-4 text-3xl leading-tight text-ivory sm:text-4xl">
+          Este endereço não existe mais
+        </h1>
+        <p className="mt-4 text-sm leading-relaxed text-sand sm:text-base">
+          Talvez o link tenha mudado. Você pode voltar ao início e fazer o seu Mapa de Fé em cerca de
+          1 minuto.
         </p>
-        <div className="mt-6">
+        <div className="mt-8 flex flex-col items-center gap-3">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="cta-gold inline-flex min-h-14 items-center justify-center rounded-2xl px-7 py-4 text-sm font-bold tracking-[0.06em]"
           >
-            Voltar ao início
+            FAZER MEU MAPA DE FÉ
           </Link>
+          <a
+            href="mailto:5minutosdefeapp@gmail.com"
+            className="text-xs text-sand underline decoration-gold/40 underline-offset-4"
+          >
+            Falar com o suporte
+          </a>
         </div>
       </div>
-    </div>
+    </main>
   );
 }
+
 
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
@@ -120,6 +130,10 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    void import("../lib/meta-pixel").then((m) => m.initMetaPixel());
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
@@ -127,3 +141,4 @@ function RootComponent() {
     </QueryClientProvider>
   );
 }
+

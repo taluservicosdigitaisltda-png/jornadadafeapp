@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
+import { StickyCta } from "./StickyCta";
+
 import { Faq } from "./Faq";
 import { BRAND, PRICE, track } from "@/lib/jornada";
 
@@ -46,9 +48,11 @@ export function Hero() {
           Quando faltarem palavras, comece por aqui.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida — em uma
-          experiência simples que cabe em aproximadamente 5 minutos do seu dia.
+          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve até 5
+          minutos: ouça uma oração guiada curta, leia a reflexão e faça um pequeno passo para o seu
+          dia.
         </p>
+
         <div className="mt-8 max-w-sm">
           <CheckoutButton location="hero">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
         </div>
@@ -106,13 +110,14 @@ const howItWorks = [
   },
   {
     title: "Ouça a oração e a reflexão sugeridas",
-    text: "Uma oração guiada conduz o seu momento e uma reflexão curta ajuda a enxergar o dia com mais calma.",
+    text: "Uma oração guiada de 1 a 3 minutos conduz o seu momento e uma reflexão curta ajuda a enxergar o dia com mais calma.",
   },
   {
-    title: "Dedique cerca de 5 minutos e siga seu dia",
-    text: "Sem meta, sem cobrança e sem precisar de um tempo longo que você não tem.",
+    title: "Reserve até 5 minutos e siga seu dia",
+    text: "Ouvir, refletir e dar um pequeno passo. Sem meta, sem cobrança e sem precisar de um tempo longo que você não tem.",
   },
 ];
+
 
 export function HowItWorks() {
   return (
@@ -145,7 +150,11 @@ const features = [
     title: "Reflexões para situações reais",
     text: "Textos breves sobre medo, cansaço, decisões, recomeços e gratidão.",
   },
-  { title: "Conteúdos de cerca de 5 minutos", text: "Pensados para caber em um dia comum." },
+  {
+    title: "Orações curtas, de 1 a 3 minutos",
+    text: "Uma pausa completa de até 5 minutos, pensada para caber em um dia comum.",
+  },
+
   { title: "Conteúdos por tema", text: "Paz, direção, esperança, força, confiança e presença." },
   {
     title: "Jornada guiada de 28 dias",
@@ -176,7 +185,13 @@ export function Features() {
           </li>
         ))}
       </ul>
+      <div className="mx-auto mt-10 max-w-sm">
+        <CheckoutButton location="pos_recursos" subLabel={priceLine}>
+          QUERO TER MEUS 5 MINUTOS DE FÉ
+        </CheckoutButton>
+      </div>
     </section>
+
   );
 }
 
@@ -234,35 +249,35 @@ const samples = [
   {
     theme: "Paz",
     title: "Oração para acalmar o coração",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Respire com calma. Antes de pedir, apenas permaneça: não é preciso encontrar as palavras certas para estar em oração.",
   },
   {
     theme: "Direção",
     title: "Antes de tomar uma decisão",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Discernir não é adivinhar o futuro. É olhar com honestidade para o que existe hoje e escolher o próximo passo possível.",
   },
   {
     theme: "Força",
     title: "Oração para dias de cansaço",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Você não precisa dar conta de tudo hoje. Deixe descansar por alguns minutos aquilo que pode esperar.",
   },
   {
     theme: "Confiança",
     title: "Quando o medo do amanhã aparece",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Confiar não é ter certeza de tudo. Muitas vezes é continuar caminhando com perguntas ainda abertas.",
   },
   {
     theme: "Esperança",
     title: "Uma oração para recomeçar",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Recomeçar costuma parecer pequeno por dentro. E ainda assim é ali que a caminhada volta a acontecer.",
   },
@@ -309,7 +324,31 @@ export function Samples() {
           Prévia em texto. O conteúdo narrado completo fica disponível dentro do aplicativo.
         </p>
       </div>
+
+      <div
+        className="card-premium mt-6 rounded-[22px] p-6 sm:p-8"
+        style={{ boxShadow: "var(--shadow-gold)" }}
+      >
+        <p className="eyebrow">Amostra real do aplicativo</p>
+        <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">Quando a mente não para</h3>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sand">
+          Este é um áudio real do {BRAND}, narrado como você ouviria dentro do aplicativo.
+        </p>
+        <audio
+          className="mt-5 w-full"
+          controls
+          preload="none"
+          src="/audio/quando-a-mente-nao-para.mp3"
+          aria-label={`Amostra real de oração guiada do ${BRAND}: quando a mente não para`}
+        />
+        <div className="mt-7 max-w-sm">
+          <CheckoutButton location="pos_amostras" subLabel={priceLine}>
+            QUERO TER MEUS 5 MINUTOS DE FÉ
+          </CheckoutButton>
+        </div>
+      </div>
     </section>
+
   );
 }
 
@@ -453,6 +492,16 @@ export function Guarantee() {
             para o seu momento, pode solicitar o reembolso dentro desse prazo, seguindo as condições
             informadas no checkout da Perfect Pay.
           </p>
+          <p className="mt-4 text-sm text-sand">
+            Dúvidas ou suporte:{" "}
+            <a
+              href="mailto:5minutosdefeapp@gmail.com"
+              className="text-gold-light underline decoration-gold/40 underline-offset-4"
+            >
+              5minutosdefeapp@gmail.com
+            </a>
+          </p>
+
         </div>
       </div>
     </section>
@@ -518,6 +567,15 @@ export function Footer() {
           substitui acompanhamento pastoral, médico ou psicológico e não promete cura, milagre ou
           resultado espiritual específico.
         </p>
+        <p className="text-xs text-sand/70">
+          Suporte:{" "}
+          <a
+            href="mailto:5minutosdefeapp@gmail.com"
+            className="underline decoration-gold/40 underline-offset-4 hover:text-gold-light"
+          >
+            5minutosdefeapp@gmail.com
+          </a>
+        </p>
         <p className="text-xs text-sand/70">© 2026 {BRAND}. Todos os direitos reservados.</p>
       </div>
     </footer>
@@ -540,6 +598,8 @@ export function SalesPage() {
       <Guarantee />
       <Faq />
       <Closing />
+      <StickyCta />
     </>
+
   );
 }

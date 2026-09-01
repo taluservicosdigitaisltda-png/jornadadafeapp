@@ -14,15 +14,18 @@ import {
 export function ResultHeader() {
   const navigate = useNavigate();
   const [answers, setAnswers] = useState<Answers>({});
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     captureUtms();
     const stored = loadAnswers();
     setAnswers(stored);
+    setReady(true);
     track("result_view", { has_answers: Object.keys(stored).length > 0 });
   }, []);
 
   const profile = profileFor(answers);
+  const hasAnswers = Object.keys(answers).length > 0;
 
   function redo() {
     clearAnswers();
@@ -33,6 +36,34 @@ export function ResultHeader() {
     track("result_cta_click");
     document.getElementById("oferta-principal")?.scrollIntoView({ behavior: "smooth" });
   }
+
+  if (!ready || !hasAnswers) {
+    return (
+      <header className={`${container} py-12 lg:py-16`}>
+        <BrandLogo width={280} eager />
+        <p className="eyebrow mt-8 block">Sua leitura de hoje</p>
+        <h1 className="mt-4 max-w-2xl text-[1.7rem] leading-tight text-ivory sm:text-3xl">
+          Faça seu Mapa de Fé para ver a leitura do seu momento
+        </h1>
+        <p className="mt-4 max-w-xl text-base leading-relaxed text-sand">
+          {ready
+            ? "Ainda não encontramos suas respostas neste dispositivo. São 7 perguntas rápidas, sem cadastro, e a leitura aparece em seguida."
+            : "Carregando sua leitura..."}
+        </p>
+        {ready ? (
+          <button
+            type="button"
+            onClick={redo}
+            className="cta-gold mt-8 min-h-14 rounded-2xl px-7 py-4 text-sm font-bold tracking-[0.06em] sm:text-base"
+          >
+            FAZER MEU MAPA DE FÉ
+          </button>
+        ) : null}
+      </header>
+    );
+  }
+
+
 
   return (
     <header className={`${container} py-12 lg:py-16`}>
