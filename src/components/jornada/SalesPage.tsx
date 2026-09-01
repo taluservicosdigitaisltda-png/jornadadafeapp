@@ -4,7 +4,7 @@ import { Link } from "@tanstack/react-router";
 import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
 import { Faq } from "./Faq";
 import { StickyCta } from "./StickyCta";
-import { BRAND, PRICE, track } from "@/lib/jornada";
+import { BRAND, PRICE, SUPPORT_EMAIL, track } from "@/lib/jornada";
 
 const priceLine = `${PRICE} • pagamento único • acesso vitalício`;
 

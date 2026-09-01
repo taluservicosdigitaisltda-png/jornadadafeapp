@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import { LegalPage, LegalSection } from "@/components/jornada/LegalPage";
+import { SUPPORT_EMAIL } from "@/lib/jornada";
 
 const title = "Suporte — 5 Minutos de Fé";
 const description = "Como obter ajuda com pagamento, acesso e uso do aplicativo 5 Minutos de Fé.";
