@@ -61,8 +61,9 @@ export function Quiz() {
           QUERO TER MEUS 5 MINUTOS DE FÉ
         </button>
         <p className="mt-4 text-xs text-sand">
-          Leva menos de 2 minutos • Sem cadastro • Sem pedir dados pessoais
+          Leva cerca de 1 minuto • Sem cadastro • Sem pedir dados pessoais
         </p>
+
       </main>
     );
   }
