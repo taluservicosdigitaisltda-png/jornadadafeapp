@@ -21,8 +21,10 @@ export function ResultHeader() {
     const stored = loadAnswers();
     setAnswers(stored);
     setReady(true);
-    track("result_view", { has_answers: Object.keys(stored).length > 0 });
+    // Only a valid reading counts as a result view (Meta ViewContent).
+    if (Object.keys(stored).length > 0) track("result_view");
   }, []);
+
 
   const profile = profileFor(answers);
   const hasAnswers = Object.keys(answers).length > 0;
