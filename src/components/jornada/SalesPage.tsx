@@ -322,7 +322,31 @@ export function Samples() {
           Prévia em texto. O conteúdo narrado completo fica disponível dentro do aplicativo.
         </p>
       </div>
+
+      <div
+        className="card-premium mt-6 rounded-[22px] p-6 sm:p-8"
+        style={{ boxShadow: "var(--shadow-gold)" }}
+      >
+        <p className="eyebrow">Amostra real do aplicativo</p>
+        <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">Quando a mente não para</h3>
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sand">
+          Este é um áudio real do {BRAND}, narrado como você ouviria dentro do aplicativo.
+        </p>
+        <audio
+          className="mt-5 w-full"
+          controls
+          preload="none"
+          src="/audio/quando-a-mente-nao-para.mp3"
+          aria-label={`Amostra real de oração guiada do ${BRAND}: quando a mente não para`}
+        />
+        <div className="mt-7 max-w-sm">
+          <CheckoutButton location="pos_amostras" subLabel={priceLine}>
+            QUERO TER MEUS 5 MINUTOS DE FÉ
+          </CheckoutButton>
+        </div>
+      </div>
     </section>
+
   );
 }
 
