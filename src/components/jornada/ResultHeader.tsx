@@ -43,7 +43,7 @@ export function ResultHeader() {
         {profile.name}
       </h1>
       <p className="mt-3 text-xs uppercase tracking-[0.18em] text-gold">
-        {profile.category} • Sugestão de {profile.duration}
+        {profile.category} • {profile.duration}
       </p>
 
       <div className="mt-8 grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
