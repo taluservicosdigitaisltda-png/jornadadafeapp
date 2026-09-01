@@ -1,50 +1,49 @@
-# Auditoria QA — Aplicativo real `cinco-minutos-fe.base44.app` (visitante, sem login)
+# Auditoria de áudio — `public/audio/*.mp3` (48 arquivos, nada alterado)
 
-Ambiente: Chromium (Playwright), 390x844 e 1280x1800. Nenhuma conta criada, nenhum login, nenhum formulário enviado. Nenhum arquivo do projeto foi alterado.
-Rotas visitadas: `/`, `/login`, `/register` (preenchido sem enviar), `/forgot-password`, `/home`, `/oracoes`, `/jornada`, `/diario`, `/perfil`, `/termos`, `/privacidade`, `/suporte`, `/reembolso`, rota inexistente, `manifest.json`.
+Medição via `ffprobe` (`format=duration`) em todos os 48 MP3.
 
-## O que está correto (evidência)
+## Estatísticas
 
-- Carregamento: HTTP 200, DOMContentLoaded em 0,84 s; `/` redireciona para `/login`. Sem overflow horizontal (390/1280 = scrollWidth idêntico ao clientWidth).
-- Branding coerente com a página de vendas: mesma logo oficial (1200x381, exibida 176x56 sem distorção), fundo #090705, dourado envelhecido, título serifado, `theme-color: #090705`, `lang="pt-BR"`.
-- Copy alinhada e sem promessas indevidas: "Bem-vindo de volta", "Crie sua conta / Comece sua jornada de fé hoje", e o mesmo disclaimer da landing (sem cura/milagre, sem endosso de padres/pastores) em login, cadastro e recuperação de senha.
-- Console e rede limpos no carregamento inicial (0 erros, 0 respostas >=400 na primeira carga).
-- Rotas protegidas realmente protegidas: `/jornada`, `/diario`, `/perfil` redirecionam para `/login` sem vazar conteúdo.
-- Cadastro bem formado: campos e-mail + senha + confirmar senha, todos `required`, com `autocomplete="email"` e `new-password`, labels associados; Google OAuth disponível. Recuperação de senha existe (`/forgot-password` -> "Enviaremos um link para redefinição").
-- PWA detectável: `manifest.json` válido (`display: standalone`, `start_url: /`, `background_color/theme_color #090705`, `lang pt-BR`, categorias), mais `apple-mobile-web-app-capable` e `apple-mobile-web-app-title` — instalável na tela inicial, como o FAQ da venda promete.
+| Métrica | Valor |
+|---|---|
+| Arquivos | 48 |
+| Duração média | 1min34s (93,8 s) |
+| Mediana | 1min23s (82,9 s) |
+| Mínimo | 1min01s — `jornada-dia-23-recomecar-e-permitido.mp3` |
+| Máximo | 2min28s — `quando-a-mente-nao-para.mp3` |
+| Duração total | 75,1 min |
+| Tamanho total | 27,0 MB (~0,56 MB por arquivo) |
 
-## Achados por severidade
+## Distribuição por faixa
 
-### P1 — Badge "Edit with Base44" visível para o comprador
-Em mobile e desktop há um selo fixo laranja no canto inferior direito com "Edit with Base44" (+ imagem `builder-assets/symbol-orange.png` e logo Base44 no DOM). Em 390px ele **cobre parte do disclaimer legal** do rodapé. Para um produto pago a R$ 19,00 vendido como aplicativo premium, isso expõe a plataforma de construção e destoa completamente da estética da landing. Deve ser removido nas configurações do app.
+| Faixa | Arquivos | % |
+|---|---|---|
+| < 2 min | 35 | 72,9% |
+| 2–3 min | 13 | 27,1% |
+| 3–4 min | 0 | 0% |
+| 4–6 min | 0 | 0% |
+| > 6 min | 0 | 0% |
 
-### P1 — Ícones do PWA usam a logo 1200x381 declarada como 192x192 e 512x512
-`manifest.json` declara os dois ícones apontando para `5-minutos-de-fe-logo.png` (natural 1200x381) com `sizes: "192x192"` / `"512x512"` e `purpose: "any maskable"`. Sendo horizontal e não quadrada, o ícone instalado na tela inicial será esmagado ou cortado — e como `maskable`, a moldura dourada será recortada. O mesmo arquivo está como `rel=icon` (favicon).
+**Nenhum arquivo chega a 3 minutos.** Zero áudios na faixa de "aproximadamente 5 minutos".
 
-### P1 — Nenhum caminho para quem acabou de comprar
-Vindo do checkout, o comprador cai em "Bem-vindo de volta / Entre na sua conta para continuar". Não há nenhuma menção a compra aprovada, a "primeiro acesso", nem link para suporte na tela de login. A landing diz que as instruções chegam por e-mail; se o e-mail atrasar ou cair em spam, o comprador não tem nenhuma saída dentro do app. Maior ponto de abandono/pedido de reembolso do fluxo.
+## Confronto com a promessa comercial — P1
 
-### P2 — Termos, privacidade, reembolso e suporte não existem no app (redirecionam para login)
-`/termos`, `/privacidade`, `/suporte` e `/reembolso` no domínio do app redirecionam para `/login`. Ou seja: nenhum documento legal ou canal de suporte é acessível dentro do produto sem conta — nem antes de criar conta. As telas de login/cadastro também não linkam nenhum desses documentos.
+- `SalesPage.tsx:50` "experiência simples que cabe em aproximadamente 5 minutos do seu dia"
+- `SalesPage.tsx:112` "Dedique cerca de 5 minutos e siga seu dia"
+- `SalesPage.tsx:148` "Conteúdos de cerca de 5 minutos"
+- `Faq.tsx:8` "Cada conteúdo foi pensado para caber em aproximadamente 5 minutos"
+- `Faq.tsx:16` **"A maioria fica em torno de 5 minutos. Há conteúdos ainda mais curtos... e outros um pouco mais longos"**
 
-### P2 — Cadastro sem aceite de termos e sem regra de senha visível
-A tela de criar conta não tem checkbox nem texto de aceite de Termos/Privacidade, não informa requisito mínimo de senha, não tem indicador de força e não tem botão de mostrar/ocultar senha (o campo "Confirmar senha" aumenta o atrito sem feedback). Preenchi os três campos sem enviar: o botão "Criar conta" fica habilitado, sem validação exibida.
+A afirmação do FAQ é factualmente incorreta em duas frentes: a maioria não fica em torno de 5 minutos (a mediana é 1min23s, 31% do prometido) e **não existe nenhum conteúdo "um pouco mais longo"** — o teto absoluto é 2min28s, menos da metade do que a copy anuncia. O áudio mais longo do catálogo é mais curto que o piso da promessa.
 
-### P2 — Página 404 em inglês e fora da identidade
-`/home`, `/oracoes` e qualquer rota inválida mostram "404 — Page Not Found / The page "x" could not be found in this application. / Go Home", texto em inglês, layout genérico e com o badge Base44. Rompe o idioma e a marca do produto.
+Risco: comprador que paga R$ 19,00 esperando sessões de ~5 min recebe conteúdo com metade a um terço da duração — argumento direto para reembolso dentro dos 7 dias e para reclamação de publicidade enganosa.
 
-### P2 — Título/descrição do app divergem da landing
-O app usa description "Uma jornada diária de orações guiadas, reflexões bíblicas e momentos de paz. Uma Palavra. Uma oração. Cinco minutos com Deus." e `og:image` com **hero v3**, enquanto a landing usa hero v4 e outra descrição. Compartilhamentos do app e da venda mostram imagens diferentes do mesmo produto.
+Observação secundária: os 28 áudios da jornada são os mais curtos do acervo (média 1min17s, do dia 22 em diante quase todos ≈1min05s), o que sugere encurtamento progressivo ao longo da série.
 
-### P3 — 401 repetidos em `entities/User/me` para visitante anônimo
-Navegando entre rotas como visitante, o app dispara 3x `GET /api/apps/.../entities/User/me` -> 401, gerando erros no console. Não bloqueia nada, mas é ruído e requisição desnecessária antes de haver sessão.
+## Caminhos possíveis (não executados)
 
-### P3 — Tela de login com muito espaço vazio em desktop
-Em 1280px o card fica isolado no centro de uma tela quase toda preta (conteúdo ocupa ~cerca de 800px de altura útil em 1800px de viewport), sem nenhum elemento de marca, frase de posicionamento ou imagem — bem menos premium que a landing. Não é bug, é oportunidade de consistência.
+1. Ajustar a copy para a realidade medida ("de 1 a 3 minutos", "cinco minutos com Deus" mantido como posicionamento de pausa, não de duração de faixa) — mudança só de texto, sem tocar em produto.
+2. Manter a promessa e reproduzir/estender os áudios para 4–6 min — mudança de conteúdo, fora do escopo do site.
+3. Híbrido: manter "cinco minutos" como nome/posicionamento da pausa e declarar explicitamente a duração das faixas no FAQ.
 
-## Comparação com a promessa da página de vendas
-
-Verificável sem login: identidade visual, tom, disclaimers, acesso pelo navegador com atalho na tela inicial (PWA) e "sem loja de aplicativos" — **tudo confere**.
-**Não verificável sem credenciais** (registrado como pendente, não como falha): biblioteca de orações narradas, reflexões por tema, jornada de 28 dias, favoritos, histórico/progresso, diário privado, transcrições e lembretes opcionais. Todas as rotas internas exigem sessão. Para fechar essa parte da auditoria eu precisaria de um acesso de teste já existente — não crio conta por conta própria.
-
-Nada foi editado, nenhuma conta criada, nenhum formulário enviado e nada publicado.
+Nenhum arquivo foi editado.
