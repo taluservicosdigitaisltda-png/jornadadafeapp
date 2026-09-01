@@ -577,6 +577,7 @@ export function SalesPage() {
       <Guarantee />
       <Faq />
       <Closing />
+      <StickyCta />
     </>
   );
 }
