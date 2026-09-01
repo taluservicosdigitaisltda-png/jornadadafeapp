@@ -391,4 +391,23 @@ export function track(event: string, payload: Record<string, unknown> = {}) {
   } catch {
     /* ignore */
   }
+
+  // Optional Meta layer — only active when VITE_META_PIXEL_ID is configured.
+  try {
+    if (event === "quiz_complete") {
+      pixelTrack("Lead", { content_name: "Mapa de Fé concluído" });
+    } else if (event === "result_view") {
+      pixelTrack("ViewContent", { content_name: BRAND, content_type: "product" });
+    } else if (event === "checkout_click") {
+      pixelTrack("InitiateCheckout", {
+        content_name: BRAND,
+        value: 19,
+        currency: "BRL",
+        ...payload,
+      });
+    }
+  } catch {
+    /* ignore */
+  }
 }
+
