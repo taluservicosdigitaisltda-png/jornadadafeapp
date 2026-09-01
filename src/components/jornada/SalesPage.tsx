@@ -183,7 +183,13 @@ export function Features() {
           </li>
         ))}
       </ul>
+      <div className="mx-auto mt-10 max-w-sm">
+        <CheckoutButton location="pos_recursos" subLabel={priceLine}>
+          QUERO TER MEUS 5 MINUTOS DE FÉ
+        </CheckoutButton>
+      </div>
     </section>
+
   );
 }
 
