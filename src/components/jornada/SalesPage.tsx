@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 
 import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
+import { StickyCta } from "./StickyCta";
+
 import { Faq } from "./Faq";
 import { BRAND, PRICE, track } from "@/lib/jornada";
 
