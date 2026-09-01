@@ -1,41 +1,50 @@
-# Auditoria do checkout real PerfectPay (`PPU38CQFP8D`) — sem preencher, sem enviar, sem PIX
+# Auditoria de rastreamento em produção (`app5minutosdefe.lovable.app`) — nada editado, nada comprado
 
-Playwright, mobile 390x844 (UA iPhone) e desktop 1280x1800, com `?utm_source=qa&utm_medium=audit`. Nenhum campo preenchido, nenhum formulário enviado, nenhum PIX gerado, nada alterado no projeto. Screenshots em `/tmp/browser/co/mobile.png` e `desktop.png`.
+Playwright, mobile 390x844, entrada com `?utm_source=qa&utm_medium=audit&fbclid=TESTFBCLID`. Fluxo completo quiz -> 7 respostas -> `/resultado` -> scroll -> clique no CTA de checkout com a navegação para `perfectpay` **abortada por route interception** (nunca chegou ao checkout). Evidências: `/tmp/browser/track2/res.json`.
 
-## Redirecionamento
+## Resposta direta: nenhum evento sai do navegador
 
-`https://go.perfectpay.com.br/PPU38CQFP8D` -> 200 em **`https://checkout.perfectpay.com.br/pay/PPU38CQFP8D?utm_source=qa&utm_medium=audit`** (1 salto, mesma organização). **As UTMs sobrevivem ao redirecionamento** — o rastreamento do funil chega ao checkout.
+**Não existe nenhum pixel ou tag de terceiros instalado no site.** Os eventos do `dataLayer` são empurrados para um array em memória e morrem ali — nada é enviado a nenhuma plataforma.
 
-## O que confere com a landing
+Evidências:
 
-- **Produto**: "5 minutos de Fé — Aplicativo de Orações e Reflexões guiadas", vendedor "App 5 minutos de Fé". Sem qualquer resquício de "Jornada da Fé" ou de curso/upsell.
-- **Preço e moeda**: R$ 19,00, "Total Hoje: R$ 19,00", BRL. Bate exatamente com a landing.
-- **Meios de pagamento**: Cartão de Crédito, Pix e PicPay. Bandeiras: Visa, Mastercard, Elo, Amex, Diners, Hipercard, Discover, UnionPay, JCB, Maestro, troy.
-- **Entrega**: "Produto digital, os dados para acesso serão enviados por email" — coerente com a promessa da página.
-- **Imagem do produto**: capa 300x300 com a moldura dourada, a arte "Orações guiadas e reflexões diárias" e o selo "APP APROVADO" — mesma identidade da landing (preto/dourado, foto realista).
-- **Confiança**: "Pagamento 100% seguro, criptografia 128 bits", selo "COMPRA 100% SEGURA", logo PerfectPay, e-mail de suporte `5minutosdefeapp@gmail.com`, botão WhatsApp "FALAR COM NOSSA EQUIPE", Termos de Compra e de Privacidade.
-- **Campos obrigatórios**: Nome completo, E-mail, Telefone, método de pagamento e (no cartão) número, mês, ano, CVV, nome impresso, CPF/CNPJ. Sem pedido de endereço, sem data de nascimento, sem confirmação de e-mail — atrito baixo.
-- **Responsividade**: sem overflow horizontal em nenhum dos dois (scrollWidth = clientWidth: 390 e 1280). Layout de 1 coluna no mobile, 3 colunas no desktop. Sem quebras.
-- **Network**: zero respostas >= 400.
+- Scripts carregados na página: apenas `/~flock.js`, `/assets/index-Bmw9Qdcc.js` e 1 script inline de 799 caracteres. **Nenhum** `connect.facebook.net`, `googletagmanager.com`, `google-analytics.com`, `gtag/js`, `analytics.tiktok.com`, Clarity, Hotjar, Segment, Amplitude, Mixpanel, DoubleClick, LinkedIn, Pinterest, Kwai, Taboola ou Outbrain.
+- Globais no `window`: `fbq: undefined`, `gtag: undefined`, `ga: undefined`, `ttq: undefined`, nenhuma chave de container GTM.
+- Nenhum snippet inline contendo `fbq(`, `gtag(`, `GTM-`, `G-XXXXXX` ou `ttq.`.
+- Requisições de rede que casam com padrões de tracker durante todo o fluxo: **0**.
+- Hosts de terceiros contactados no fluxo inteiro: só `cdn.gpteng.co` (script do badge/editor Lovable) e `go.perfectpay.com.br` (o CTA, abortado). Cookies: apenas `__dpl` (infra de hosting).
+- `window.dataLayer` **não existe** no carregamento inicial (`dataLayerLen: "undefined"`); ele só é criado pelo próprio código do app na primeira chamada de `track()` (`src/lib/jornada.ts:389` cria o array se não existir). Isso confirma que não há GTM pré-inicializando o dataLayer — sem GTM, um `dataLayer.push` não tem consumidor.
+
+## Eventos observados no dataLayer local
+
+Sequência real capturada, na ordem:
+
+1. `quiz_start`
+2. `quiz_answer` x7, cada um com `question` (`sentir`, `situacao`, `orar`, `momento`, `depois`, `formato`, `entrega`), `answer` e `step` 1..7
+3. `quiz_complete` com as 7 respostas como propriedades
+4. `result_view` com `has_answers: true`
+
+**`offer_view` não disparou** nesta sessão. Ele existe no código (`SalesPage.tsx:386`) atrás de um `IntersectionObserver`, e meu scroll parou na metade da página — provavelmente o alvo não entrou em viewport. Não é um defeito confirmado, mas também não foi possível confirmá-lo funcionando.
+
+**`checkout_click` não foi registrado** no dataLayer verificável. Ele existe no código (`shared.tsx:90`, no `onClick` do CTA), porém o clique inicia a navegação para o PerfectPay imediatamente; no meu teste a navegação abortada levou a página para `chrome-error://chromewebdata/` e o contexto JS foi destruído, retornando `dataLayer` vazio. Em uso real esse push acontece, mas **é destruído pela navegação antes que qualquer coisa possa consumi-lo** — que é exatamente o problema abaixo.
+
+Existe ainda `result_cta_click` (`ResultHeader.tsx:33`), também apenas local.
 
 ## Achados
 
-### P1 — Parcelamento em até 3x contradiz "pagamento único" da landing
-O checkout oferece **1x R$ 19,00 / 2x R$ 9,93 / 3x R$ 6,72**, com rótulo "Parcele em até 3X no cartão" e nota "Taxa de 2,99% a.m.". A landing e o FAQ afirmam "pagamento único, sem mensalidade". Tecnicamente não é assinatura, mas quem parcela paga R$ 19,86 (2x) ou R$ 20,16 (3x) — acima do preço anunciado. Duas saídas: desativar o parcelamento no produto PerfectPay, ou ajustar o FAQ para "pagamento único, com opção de parcelar em até 3x no cartão (com juros)".
+### P0 — Zero rastreamento de conversão: não é possível otimizar tráfego pago
+Sem Meta Pixel, sem GA4/GTM, sem TikTok pixel, não há `PageView`, `ViewContent`, `InitiateCheckout` nem `Purchase`. Consequências práticas: nenhuma campanha paga consegue otimizar por conversão, nenhum público personalizado ou remarketing pode ser construído, e não há como medir taxa de conclusão do quiz nem custo por venda. Para um funil cuja única função é vender tráfego frio, isso é a falha mais grave do projeto hoje.
 
-### P1 — Garantia de 7 dias não aparece em nenhum lugar do checkout
-A landing tem um selo dedicado de garantia de 7 dias, e o texto do checkout não menciona garantia, reembolso ou prazo de desistência. O comprador perde exatamente o argumento que reduz o risco no momento da decisão. A PerfectPay permite exibir o selo de garantia nas configurações do checkout — vale ativar.
+### P0 — `checkout_click` é perdido por design mesmo que um pixel seja instalado
+O CTA é um `<a>` que navega na mesma aba; o `dataLayer.push` acontece no mesmo tick da navegação. Sem GTM/pixel presente, nada consome; **com** GTM instalado depois, o container ainda pode não conseguir enviar a request antes do unload. Qualquer implementação futura precisa de `fbq`/`gtag` com transporte por `sendBeacon`, ou de um pequeno atraso/`event_callback` antes de navegar.
 
-### P2 — Widget Reclame Aqui falha e não renderiza o selo de reputação
-Console (mobile e desktop, idêntico): `Access to XMLHttpRequest at 'https://api.reclameaqui.com.br/embed-reputation/...' from origin 'https://checkout.perfectpay.com.br' has been blocked` + `RA-Reputation: bad response from server` + `ERR_FAILED`. É um erro do lado da PerfectPay (CORS), não do seu funil, mas o efeito prático é que o selo de reputação previsto na página simplesmente não aparece — menos prova social do que o layout esperava. Fora do seu controle; só registre.
+### P1 — `fbclid` é capturado e repassado, mas sem pixel não serve de nada
+O `sessionStorage` guarda `cinco_min_utms = "utm_source=qa&utm_medium=audit&fbclid=TESTFBCLID"` e o CTA final leva tudo para o checkout: `https://go.perfectpay.com.br/PPU38CQFP8D?utm_source=qa&utm_medium=audit&fbclid=TESTFBCLID`. A infraestrutura de atribuição está pronta e correta — só falta o pixel do lado do site e a configuração de conversão do lado da PerfectPay para fechar o ciclo.
 
-### P2 — Nenhuma prova social ou reforço de valor no checkout
-Além dos selos de segurança, não há bullet de conteúdo, contagem de orações, "acesso vitalício", nem qualquer recapitulação do que está incluído. No mobile, os 2.729px de página são só formulário. A PerfectPay permite adicionar descrição/bullets no resumo da compra — hoje o resumo repete o nome do produto três vezes e nada mais.
+### P2 — `offer_view` não confirmado em produção
+O evento depende de `IntersectionObserver` sobre um nó específico da seção de oferta e não disparou no meu percurso. Vale confirmar com scroll completo até a seção de preço antes de considerá-lo confiável.
 
-### P3 — Nome do produto escrito como "5 minutos de Fé" (m minúsculo)
-Na landing, no logo oficial e nos metadados a marca é **"5 Minutos de Fé"**. No título da página, no cabeçalho "VOCÊ ESTÁ ADQUIRINDO" e no resumo, a PerfectPay mostra "5 minutos de Fé". Inconsistência pequena de capitalização da marca, corrigível no cadastro do produto.
+### P3 — Script de terceiro do editor Lovable presente em produção
+`cdn.gpteng.co` é carregado no site publicado (o mesmo badge "Edit with" já registrado antes). É um request externo em toda visita paga, sem função para o comprador.
 
-### P3 — Imagens sem texto alternativo e título de página longo
-Todas as `img` do checkout (bandeiras, capa do produto) têm `alt=""`; o `<title>` tem 95 caracteres com o nome do produto duplicado. Ambos são da plataforma, não editáveis por você — registrado apenas para completude.
-
-Nada foi comprado, nenhum dado inserido, nenhum arquivo do projeto alterado.
+Nada foi editado, nenhuma compra iniciada, nada publicado.
