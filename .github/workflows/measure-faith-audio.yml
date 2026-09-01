@@ -1,0 +1,58 @@
+name: Medir duração dos áudios 5 Minutos de Fé
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/measure-faith-audio.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Instalar ffprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Medir MP3s e gerar JSON
+        run: |
+          python - <<'PY'
+          import glob, json, os, subprocess
+          out = {}
+          for path in sorted(glob.glob('public/audio/*.mp3')):
+              raw = subprocess.check_output([
+                  'ffprobe','-v','error','-show_entries','format=duration','-of','default=noprint_wrappers=1:nokey=1',path
+              ], text=True).strip()
+              seconds = round(float(raw))
+              slug = os.path.splitext(os.path.basename(path))[0]
+              out[slug] = seconds
+          if len(out) != 48:
+              raise SystemExit(f'Esperados 48 MP3s, encontrados {len(out)}')
+          os.makedirs('audio', exist_ok=True)
+          with open('audio/durations.json','w',encoding='utf-8') as f:
+              json.dump(out,f,ensure_ascii=False,indent=2,sort_keys=True)
+              f.write('\n')
+          print('Durações medidas:', len(out))
+          PY
+
+      - name: Salvar durações
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audio/durations.json
+          if git diff --cached --quiet; then
+            echo "Nenhuma alteração nas durações."
+            exit 0
+          fi
+          git commit -m "Registra duração real dos 48 áudios"
+          git push
