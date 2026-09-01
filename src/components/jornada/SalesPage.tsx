@@ -110,10 +110,10 @@ const howItWorks = [
   },
   {
     title: "Ouça a oração e a reflexão sugeridas",
-    text: "Uma oração guiada de 1 a 3 minutos conduz o seu momento e uma reflexão curta ajuda a enxergar o dia com mais calma.",
+    text: "Uma oração guiada de cerca de 5 minutos conduz o seu momento e uma reflexão ajuda a levar a mensagem para o seu dia.",
   },
   {
-    title: "Reserve até 5 minutos e siga seu dia",
+    title: "Faça sua pausa de fé e siga seu dia",
     text: "Ouvir, refletir e dar um pequeno passo. Sem meta, sem cobrança e sem precisar de um tempo longo que você não tem.",
   },
 ];
