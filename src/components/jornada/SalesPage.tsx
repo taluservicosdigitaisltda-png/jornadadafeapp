@@ -550,6 +550,15 @@ export function Footer() {
             ))}
           </ul>
         </nav>
+        <p className="text-xs text-sand/80">
+          Dúvidas?{" "}
+          <a
+            href={`mailto:${SUPPORT_EMAIL}`}
+            className="underline decoration-gold/40 underline-offset-4 transition-colors hover:text-gold-light"
+          >
+            {SUPPORT_EMAIL}
+          </a>
+        </p>
         <p className="max-w-3xl text-xs leading-relaxed text-sand/80">
           O {BRAND} oferece conteúdos devocionais e educacionais. Não possui vínculo, representação
           ou endosso de padres, pastores, igrejas ou personalidades religiosas. O conteúdo não
