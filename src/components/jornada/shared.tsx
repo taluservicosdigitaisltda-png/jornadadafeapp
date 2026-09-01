@@ -52,16 +52,19 @@ export function BrandLogo({
   eager?: boolean;
 }) {
   return (
-    <img
-      src={logoAsset.url}
-      alt={BRAND}
-      width={1200}
-      height={381}
-      loading={eager ? "eager" : "lazy"}
-      decoding="async"
-      className={`${align === "center" ? "mx-auto" : ""} h-auto w-full ${className}`}
-      style={{ maxWidth: width, aspectRatio: "1200 / 381" }}
-    />
+    <picture className={`block ${align === "center" ? "mx-auto" : ""} ${className}`}>
+      <source srcSet="/images/logo-5min.webp" type="image/webp" />
+      <img
+        src={logoAsset.url}
+        alt={BRAND}
+        width={1200}
+        height={381}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        className="h-auto w-full"
+        style={{ maxWidth: width, aspectRatio: "1200 / 381" }}
+      />
+    </picture>
   );
 }
 
@@ -84,10 +87,22 @@ export function CheckoutButton({
     setHref(checkoutUrl());
   }, []);
 
+  function handleClick(event: React.MouseEvent<HTMLAnchorElement>) {
+    track("checkout_click", { location });
+    const target = checkoutUrl();
+    if (metaPixelEnabled()) {
+      // short window so the pixel request leaves before navigation
+      event.preventDefault();
+      window.setTimeout(() => {
+        window.location.href = target;
+      }, 180);
+    }
+  }
+
   return (
     <a
       href={href}
-      onClick={() => track("checkout_click", { location })}
+      onClick={handleClick}
       className={`cta-gold flex min-h-14 w-full flex-col items-center justify-center gap-0.5 rounded-2xl px-6 py-4 text-center ${className}`}
     >
       <span className="text-sm font-bold tracking-[0.08em] sm:text-base">{children}</span>
@@ -97,6 +112,7 @@ export function CheckoutButton({
     </a>
   );
 }
+
 
 export function AppMockup({ className = "" }: { className?: string }) {
   return (
