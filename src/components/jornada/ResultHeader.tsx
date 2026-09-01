@@ -121,7 +121,7 @@ export function ResultHeader() {
           onClick={goToOffer}
           className="cta-gold min-h-14 rounded-2xl px-7 py-4 text-center text-sm font-bold tracking-[0.06em] sm:text-base"
         >
-          QUERO COMEÇAR MEUS 5 MINUTOS DE FÉ
+          QUERO TER MEUS 5 MINUTOS DE FÉ
         </button>
         <button
           type="button"

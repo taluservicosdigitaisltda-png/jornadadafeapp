@@ -420,7 +420,7 @@ export function Offer() {
             Pagamento único. Sem mensalidade. Acesso vitalício ao conteúdo adquirido.
           </p>
           <div className="mt-7">
-            <CheckoutButton location="oferta">QUERO ACESSAR O 5 MINUTOS DE FÉ</CheckoutButton>
+            <CheckoutButton location="oferta">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
           </div>
           <p className="mt-4 text-xs text-sand">
             🔒 Compra processada em ambiente seguro pela Perfect Pay.
@@ -476,7 +476,7 @@ export function Closing() {
       </h2>
       <div className="mx-auto mt-9 max-w-sm">
         <CheckoutButton location="encerramento" subLabel={priceLine}>
-          COMEÇAR MEUS 5 MINUTOS DE FÉ
+          QUERO TER MEUS 5 MINUTOS DE FÉ
         </CheckoutButton>
       </div>
       <p className="mt-6 font-display text-lg text-gold-light sm:text-xl">
