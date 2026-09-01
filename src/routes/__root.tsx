@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import { faviconDataUri } from "../assets/embedded-assets";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { initMetaPixel } from "../lib/meta-pixel";
 
 function NotFoundComponent() {
   return (
