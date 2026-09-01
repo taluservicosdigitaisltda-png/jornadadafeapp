@@ -247,35 +247,35 @@ const samples = [
   {
     theme: "Paz",
     title: "Oração para acalmar o coração",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Respire com calma. Antes de pedir, apenas permaneça: não é preciso encontrar as palavras certas para estar em oração.",
   },
   {
     theme: "Direção",
     title: "Antes de tomar uma decisão",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Discernir não é adivinhar o futuro. É olhar com honestidade para o que existe hoje e escolher o próximo passo possível.",
   },
   {
     theme: "Força",
     title: "Oração para dias de cansaço",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Você não precisa dar conta de tudo hoje. Deixe descansar por alguns minutos aquilo que pode esperar.",
   },
   {
     theme: "Confiança",
     title: "Quando o medo do amanhã aparece",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Confiar não é ter certeza de tudo. Muitas vezes é continuar caminhando com perguntas ainda abertas.",
   },
   {
     theme: "Esperança",
     title: "Uma oração para recomeçar",
-    duration: "5 min",
+    duration: "1 a 3 min",
     excerpt:
       "Recomeçar costuma parecer pequeno por dentro. E ainda assim é ali que a caminhada volta a acontecer.",
   },
