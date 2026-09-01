@@ -5,15 +5,15 @@ import { container } from "./shared";
 const faqs = [
   {
     q: "O que é o 5 Minutos de Fé?",
-    a: "É um aplicativo devocional com orações guiadas e reflexões para situações reais da vida. Cada conteúdo foi pensado para caber em aproximadamente 5 minutos do seu dia.",
+    a: "É um aplicativo devocional com orações guiadas e reflexões para situações reais da vida. A proposta é simples: reserve até 5 minutos, ouça uma oração guiada curta, leia a reflexão e faça um pequeno passo para o seu dia.",
   },
   {
-    q: "Preciso ser de alguma religião específica?",
-    a: "Não. Os conteúdos são cristãos, escritos em linguagem simples e acolhedora, e podem ser usados por quem está começando ou retomando a vida de oração.",
+    q: "Preciso pertencer a alguma igreja ou denominação específica?",
+    a: "Não. O conteúdo tem base cristã, escrito em linguagem simples e acolhedora, e não exige vínculo com nenhuma igreja ou denominação específica. Serve para quem está começando, retomando ou aprofundando a vida de oração.",
   },
   {
     q: "Quanto tempo dura cada conteúdo?",
-    a: "A maioria fica em torno de 5 minutos. Há conteúdos ainda mais curtos para dias corridos e outros um pouco mais longos para quando houver mais tempo.",
+    a: "Os áudios das orações costumam durar de 1 a 3 minutos. Com a reflexão e a pausa, a experiência completa cabe em até 5 minutos — sem pressa e sem exigir um tempo longo que você não tem.",
   },
   {
     q: "Preciso instalar o aplicativo?",
@@ -21,11 +21,11 @@ const faqs = [
   },
   {
     q: "O acesso tem mensalidade?",
-    a: "Não. O pagamento é único de R$ 19,00 e dá acesso vitalício ao conteúdo adquirido, sem cobrança recorrente.",
+    a: "Não. É compra única de R$ 19,00, sem mensalidade, com acesso vitalício ao conteúdo adquirido. O checkout pode oferecer parcelamento em até 3x com juros, caso você prefira dividir o valor.",
   },
   {
     q: "Como recebo meu acesso após a compra?",
-    a: "Depois da confirmação do pagamento, as instruções de acesso são enviadas para o e-mail informado no checkout.",
+    a: "Depois da confirmação do pagamento, as instruções de acesso são enviadas para o e-mail informado no checkout. Se algo não chegar, escreva para 5minutosdefeapp@gmail.com.",
   },
   {
     q: "Posso ouvir pelo celular?",
@@ -90,6 +90,17 @@ export function Faq() {
           );
         })}
       </ul>
+
+      <p className="mt-6 text-xs text-sand/70">
+        Ainda com dúvida? Escreva para{" "}
+        <a
+          href="mailto:5minutosdefeapp@gmail.com"
+          className="text-gold-light underline decoration-gold/40 underline-offset-4"
+        >
+          5minutosdefeapp@gmail.com
+        </a>
+        .
+      </p>
     </section>
   );
 }
