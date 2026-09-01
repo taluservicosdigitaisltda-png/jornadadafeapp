@@ -1,65 +1,50 @@
-# Auditoria QA — Funil 5 Minutos de Fé (somente diagnóstico, nenhum arquivo alterado)
+# Auditoria QA — Aplicativo real `cinco-minutos-fe.base44.app` (visitante, sem login)
 
-Ambiente testado: preview em execução, Chromium (Playwright), viewports 390x844 (mobile) e 1280x1800 (desktop).
-Percurso executado: `/` (quiz) -> 7 perguntas -> `/resultado` -> scroll completo da página de vendas -> CTAs -> FAQ -> `/privacidade`, `/termos`, `/reembolso`, `/suporte`, rota inexistente. 3 combinações de respostas + resultado sem respostas.
+Ambiente: Chromium (Playwright), 390x844 e 1280x1800. Nenhuma conta criada, nenhum login, nenhum formulário enviado. Nenhum arquivo do projeto foi alterado.
+Rotas visitadas: `/`, `/login`, `/register` (preenchido sem enviar), `/forgot-password`, `/home`, `/oracoes`, `/jornada`, `/diario`, `/perfil`, `/termos`, `/privacidade`, `/suporte`, `/reembolso`, rota inexistente, `manifest.json`.
 
 ## O que está correto (evidência)
 
-- Checkout: os 3 CTAs de compra apontam para `https://go.perfectpay.com.br/PPU38CQFP8D?utm_source=qa&utm_campaign=teste` — URL certa e UTMs preservadas (entrei em `/?utm_source=qa&utm_campaign=teste`).
-- Armazenamento: `sessionStorage` gravou `cinco_min_utms` e `cinco_min_quiz_answers` com as 7 respostas.
-- Sem overflow horizontal: `scrollWidth == clientWidth` em 390px e 1280px, no quiz e no resultado.
-- Console: zero erros e zero warnings nos dois viewports.
-- Logo oficial renderiza em proporção correta (natural 1200x381; medidos 280x89, 250x79, 230x73 — sem distorção) no quiz, resultado, hero, encerramento e rodapé.
-- Imagens: nenhuma distorcida (razão natural vs. exibida dentro de 3%), todas com `alt`, hero v4 (`app-celular-hero-v4.webp`, 1024x1280) reto e legível.
-- Acessibilidade básica: `lang="pt-BR"`, FAQ com `aria-expanded`/`aria-controls` funcionando (abri "Existe garantia?"), progressbar com `aria-valuenow`, nenhum botão sem rótulo, nenhum alvo de toque abaixo de 40px de altura.
-- SEO: títulos/descrições únicos por rota, canonical self-referente, OG/Twitter completos, 4 páginas legais com H1 e meta próprios.
-- Rotas legais: todas 200, sem overflow. "Refazer o quiz" limpa as respostas e volta para `/` (sessionStorage sem `cinco_min_quiz_answers`).
-- Personalização coerente em 3 combinações:
-  - mente não para / decisão / não sei o que dizer / ao acordar / mais calma -> **Paz e desacelerar**, "Oração para acalmar o coração".
-  - medo / família / não mantenho rotina / correria / mais esperança -> **Esperança e recomeço**, "Oração para recomeçar".
-  - recomeço / futuro / só quando aperta / fim do dia / mais força -> **Esperança e recomeço**.
+- Carregamento: HTTP 200, DOMContentLoaded em 0,84 s; `/` redireciona para `/login`. Sem overflow horizontal (390/1280 = scrollWidth idêntico ao clientWidth).
+- Branding coerente com a página de vendas: mesma logo oficial (1200x381, exibida 176x56 sem distorção), fundo #090705, dourado envelhecido, título serifado, `theme-color: #090705`, `lang="pt-BR"`.
+- Copy alinhada e sem promessas indevidas: "Bem-vindo de volta", "Crie sua conta / Comece sua jornada de fé hoje", e o mesmo disclaimer da landing (sem cura/milagre, sem endosso de padres/pastores) em login, cadastro e recuperação de senha.
+- Console e rede limpos no carregamento inicial (0 erros, 0 respostas >=400 na primeira carga).
+- Rotas protegidas realmente protegidas: `/jornada`, `/diario`, `/perfil` redirecionam para `/login` sem vazar conteúdo.
+- Cadastro bem formado: campos e-mail + senha + confirmar senha, todos `required`, com `autocomplete="email"` e `new-password`, labels associados; Google OAuth disponível. Recuperação de senha existe (`/forgot-password` -> "Enviaremos um link para redefinição").
+- PWA detectável: `manifest.json` válido (`display: standalone`, `start_url: /`, `background_color/theme_color #090705`, `lang pt-BR`, categorias), mais `apple-mobile-web-app-capable` e `apple-mobile-web-app-title` — instalável na tela inicial, como o FAQ da venda promete.
 
 ## Achados por severidade
 
-### P1 — `/resultado` sem respostas entrega leitura fabricada
-Acessando `/resultado` direto (sem fazer o quiz) a página exibe H1 "Sua fé pode crescer também nos dias comuns", categoria "Presença e gratidão" e o texto **"Suas respostas indicam alguém que quer estar mais perto de Deus…"** — sem existir nenhuma resposta. `profileFor` cai no fallback `profiles.presenca`. Há um `hasAnswers()` exportado em `src/lib/jornada.ts:316` que **nunca é usado**. Impacto: quebra de confiança e afirmação falsa; qualquer tráfego direto/compartilhamento cai nesse estado.
+### P1 — Badge "Edit with Base44" visível para o comprador
+Em mobile e desktop há um selo fixo laranja no canto inferior direito com "Edit with Base44" (+ imagem `builder-assets/symbol-orange.png` e logo Base44 no DOM). Em 390px ele **cobre parte do disclaimer legal** do rodapé. Para um produto pago a R$ 19,00 vendido como aplicativo premium, isso expõe a plataforma de construção e destoa completamente da estética da landing. Deve ser removido nas configurações do app.
 
-### P2 — Desempate de categoria pode contrariar a resposta mais emocional
-Na combinação 2 a pessoa marcou "Estou com medo ou inseguro(a)" (confiança 3) e terminou em "Esperança e recomeço" por empate resolvido pela pergunta "depois". É defensável, mas o sinal principal (pergunta 1) não tem peso extra no desempate.
+### P1 — Ícones do PWA usam a logo 1200x381 declarada como 192x192 e 512x512
+`manifest.json` declara os dois ícones apontando para `5-minutos-de-fe-logo.png` (natural 1200x381) com `sizes: "192x192"` / `"512x512"` e `purpose: "any maskable"`. Sendo horizontal e não quadrada, o ícone instalado na tela inicial será esmagado ou cortado — e como `maskable`, a moldura dourada será recortada. O mesmo arquivo está como `rel=icon` (favicon).
 
-### P2 — Categoria "Direção e clareza" é de difícil acesso
-Poucos pontos de "direcao" no mapa de pontuação (aparece com força só em 2 perguntas), então dificilmente vence sem respostas muito específicas. Risco de 6 perfis anunciados com 3–4 ocorrendo na prática.
+### P1 — Nenhum caminho para quem acabou de comprar
+Vindo do checkout, o comprador cai em "Bem-vindo de volta / Entre na sua conta para continuar". Não há nenhuma menção a compra aprovada, a "primeiro acesso", nem link para suporte na tela de login. A landing diz que as instruções chegam por e-mail; se o e-mail atrasar ou cair em spam, o comprador não tem nenhuma saída dentro do app. Maior ponto de abandono/pedido de reembolso do fluxo.
 
-### P2 — Densidade de CTA baixa para o comprimento da página
-Página de resultado + vendas: **12.638px em mobile** e 9.285px em desktop, com **apenas 3 links de checkout** (hero, oferta, encerramento). Longos trechos (recursos, "para quem é", "o que está incluído", FAQ) ficam sem CTA próximo — ponto de abandono claro. Não há CTA fixo/sticky em mobile.
+### P2 — Termos, privacidade, reembolso e suporte não existem no app (redirecionam para login)
+`/termos`, `/privacidade`, `/suporte` e `/reembolso` no domínio do app redirecionam para `/login`. Ou seja: nenhum documento legal ou canal de suporte é acessível dentro do produto sem conta — nem antes de criar conta. As telas de login/cadastro também não linkam nenhum desses documentos.
 
-### P2 — Logo oficial pesa 515 KB (PNG)
-`5-minutos-de-fe-logo.png` = 515.284 bytes, carregada como imagem principal do topo em todas as páginas (4 instâncias por página). Todo o resto de `public/images` soma 635 KB. É o maior custo visual do primeiro carregamento.
+### P2 — Cadastro sem aceite de termos e sem regra de senha visível
+A tela de criar conta não tem checkbox nem texto de aceite de Termos/Privacidade, não informa requisito mínimo de senha, não tem indicador de força e não tem botão de mostrar/ocultar senha (o campo "Confirmar senha" aumenta o atrito sem feedback). Preenchi os três campos sem enviar: o botão "Criar conta" fica habilitado, sem validação exibida.
 
-### P2 — Excesso de texto na leitura do resultado antes de qualquer prova visual
-Resultado abre com 3 parágrafos longos + bloco de necessidades + 3 cartões antes do hero da oferta; corpo total da página tem ~8.230 caracteres. Em 390px o usuário rola ~2,5 telas de texto corrido antes de ver o app.
+### P2 — Página 404 em inglês e fora da identidade
+`/home`, `/oracoes` e qualquer rota inválida mostram "404 — Page Not Found / The page "x" could not be found in this application. / Go Home", texto em inglês, layout genérico e com o badge Base44. Rompe o idioma e a marca do produto.
 
-### P3 — Rota inexistente sem título/meta próprios
-`/rota-inexistente` renderiza H1 "404" mas herda `title` e `description` da home, sem `noindex`.
+### P2 — Título/descrição do app divergem da landing
+O app usa description "Uma jornada diária de orações guiadas, reflexões bíblicas e momentos de paz. Uma Palavra. Uma oração. Cinco minutos com Deus." e `og:image` com **hero v3**, enquanto a landing usa hero v4 e outra descrição. Compartilhamentos do app e da venda mostram imagens diferentes do mesmo produto.
 
-### P3 — Sem `sitemap.xml`
-`GET /sitemap.xml` retorna 404 (cai no HTML de erro). `robots.txt` existe e permite tudo, mas não referencia sitemap.
+### P3 — 401 repetidos em `entities/User/me` para visitante anônimo
+Navegando entre rotas como visitante, o app dispara 3x `GET /api/apps/.../entities/User/me` -> 401, gerando erros no console. Não bloqueia nada, mas é ruído e requisição desnecessária antes de haver sessão.
 
-### P3 — Assets órfãos em `public/images`
-`app-celular-hero-v3.webp` (41 KB) e `app-pausa-trabalho-v2.webp`/`app-leitura-biblia-v3.webp` referenciados apenas via `src/assets/generated-images.ts`, arquivo que não é importado pela página. Peso morto no deploy.
+### P3 — Tela de login com muito espaço vazio em desktop
+Em 1280px o card fica isolado no centro de uma tela quase toda preta (conteúdo ocupa ~cerca de 800px de altura útil em 1800px de viewport), sem nenhum elemento de marca, frase de posicionamento ou imagem — bem menos premium que a landing. Não é bug, é oportunidade de consistência.
 
-### P3 — Microcópia do mockup fala "Meditações diárias"
-A tela do celular no hero v4 exibe "Meditações diárias para fortalecer sua alma", enquanto toda a copy do site fala em orações guiadas e reflexões. Leve desalinhamento de vocabulário na imagem principal.
+## Comparação com a promessa da página de vendas
 
-### P3 — Repetição de H2 idêntico
-"Oração para acalmar o coração" aparece como H2 no bloco de oração indicada e novamente na seção de demonstração — hierarquia duplicada (não bloqueia nada, só ruído semântico).
+Verificável sem login: identidade visual, tom, disclaimers, acesso pelo navegador com atalho na tela inicial (PWA) e "sem loja de aplicativos" — **tudo confere**.
+**Não verificável sem credenciais** (registrado como pendente, não como falha): biblioteca de orações narradas, reflexões por tema, jornada de 28 dias, favoritos, histórico/progresso, diário privado, transcrições e lembretes opcionais. Todas as rotas internas exigem sessão. Para fechar essa parte da auditoria eu precisaria de um acesso de teste já existente — não crio conta por conta própria.
 
-## Verificações que não encontraram problema
-- Nenhuma menção a "Jornada da Fé", curso, upsell, padre ou R$ 29,90 em conteúdo visível.
-- Preço consistente: R$ 19,00 • pagamento único • acesso vitalício no hero, na oferta, no encerramento e no FAQ.
-- Garantia de 7 dias coerente entre seção de garantia, FAQ e `/reembolso`.
-- Disclaimers presentes no quiz, no resultado e no rodapé (sem promessa de cura/milagre).
-- Sem contagem regressiva, escassez artificial ou depoimento inventado.
-- Jornada de 28 dias citada na página e também em `/termos` — sem contradição.
-
-Nada foi editado e nada foi publicado.
+Nada foi editado, nenhuma conta criada, nenhum formulário enviado e nada publicado.
