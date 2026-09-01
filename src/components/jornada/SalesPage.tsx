@@ -48,9 +48,9 @@ export function Hero() {
           Quando faltarem palavras, comece por aqui.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve até 5
-          minutos: ouça uma oração guiada curta, leia a reflexão e faça um pequeno passo para o seu
-          dia.
+          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve cerca de 5
+          minutos: ouça uma oração guiada de aproximadamente 5 minutos, leia a reflexão e faça um
+          pequeno passo para o seu dia.
         </p>
 
         <div className="mt-8 max-w-sm">
