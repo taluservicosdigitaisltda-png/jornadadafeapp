@@ -3,7 +3,9 @@
  * Nothing is loaded or sent unless VITE_META_PIXEL_ID is configured.
  */
 
-const PIXEL_ID = (import.meta.env["VITE_META_PIXEL_ID"] as string | undefined)?.trim() ?? "";
+// Project's Meta Pixel ID (not a secret). VITE_META_PIXEL_ID can override it.
+const DEFAULT_PIXEL_ID = "138902774862355";
+const PIXEL_ID = (import.meta.env["VITE_META_PIXEL_ID"] as string | undefined)?.trim() || DEFAULT_PIXEL_ID;
 
 type Fbq = ((...args: unknown[]) => void) & { queue?: unknown[]; loaded?: boolean; push?: unknown };
 
