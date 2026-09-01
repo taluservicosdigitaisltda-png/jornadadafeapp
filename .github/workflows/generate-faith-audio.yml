@@ -21,7 +21,7 @@ jobs:
   synthesize:
     name: Gerar lote ${{ matrix.batch }}
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 35
     strategy:
       fail-fast: false
       matrix:
@@ -35,18 +35,18 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Gerar MP3s do lote com Azure Speech
+      - name: Gerar MP3s v2 do lote com Azure Speech
         env:
           AZURE_SPEECH_KEY: ${{ secrets.AZURE_SPEECH_KEY }}
           AZURE_SPEECH_REGION: ${{ secrets.AZURE_SPEECH_REGION }}
           AZURE_SPEECH_VOICE: pt-BR-MacerioMultilingualNeural
           MANIFEST_FILE: audio/manifests/batch-${{ matrix.batch }}.json
-          OUTPUT_DIR: generated/audio
+          OUTPUT_DIR: generated/audio-v2
         run: python scripts/generate_azure_tts.py
 
-      - name: Validar lote
+      - name: Validar quantidade do lote
         run: |
-          count=$(find generated/audio -maxdepth 1 -type f -name '*.mp3' | wc -l)
+          count=$(find generated/audio-v2 -maxdepth 1 -type f -name '*.mp3' | wc -l)
           echo "MP3s no lote ${{ matrix.batch }}: $count"
           if [ "$count" -ne 12 ]; then
             echo "Cada lote deve gerar exatamente 12 áudios."
@@ -56,50 +56,78 @@ jobs:
       - name: Enviar artefato do lote
         uses: actions/upload-artifact@v4
         with:
-          name: audio-batch-${{ matrix.batch }}
-          path: generated/audio/*.mp3
+          name: audio-v2-batch-${{ matrix.batch }}
+          path: generated/audio-v2/*.mp3
           if-no-files-found: error
           retention-days: 1
 
   assemble:
-    name: Reunir e salvar 48 áudios
+    name: Validar e salvar 48 áudios v2
     needs: synthesize
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - name: Baixar repositório
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
+      - name: Instalar ffprobe
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ffmpeg
+
       - name: Baixar todos os lotes
         uses: actions/download-artifact@v4
         with:
-          pattern: audio-batch-*
+          pattern: audio-v2-batch-*
           merge-multiple: true
-          path: public/audio
+          path: public/audio/v2
 
-      - name: Validar 48 MP3s
+      - name: Validar 48 MP3s e mínimo real de 180 segundos
         run: |
-          count=$(find public/audio -maxdepth 1 -type f -name '*.mp3' | wc -l)
+          set -euo pipefail
+          count=$(find public/audio/v2 -maxdepth 1 -type f -name '*.mp3' | wc -l)
           echo "MP3s encontrados: $count"
           if [ "$count" -ne 48 ]; then
             echo "Esperados exatamente 48 áudios."
             exit 1
           fi
-          find public/audio -maxdepth 1 -type f -name '*.mp3' -size -1000c -print -quit | grep -q . && {
-            echo "Existe pelo menos um MP3 inválido ou pequeno demais."
-            exit 1
-          } || true
 
-      - name: Salvar áudios no repositório
+          failed=0
+          min=999999
+          max=0
+          total=0
+          while IFS= read -r file; do
+            dur=$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 "$file")
+            sec=$(python -c "import math; print(int(math.floor(float('$dur'))))")
+            printf '%-70s %4ss\n' "$(basename "$file")" "$sec"
+            if [ "$sec" -lt 180 ]; then
+              echo "ERRO: $(basename "$file") tem menos de 180 segundos."
+              failed=1
+            fi
+            [ "$sec" -lt "$min" ] && min=$sec || true
+            [ "$sec" -gt "$max" ] && max=$sec || true
+            total=$((total + sec))
+          done < <(find public/audio/v2 -maxdepth 1 -type f -name '*.mp3' | sort)
+
+          echo "Duração mínima: ${min}s"
+          echo "Duração máxima: ${max}s"
+          echo "Duração média: $((total / count))s"
+          if [ "$failed" -ne 0 ]; then
+            echo "A publicação foi bloqueada porque há áudio abaixo de 3 minutos."
+            exit 1
+          fi
+
+      - name: Salvar áudios v2 no repositório
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add public/audio
+          git add public/audio/v2
           if git diff --cached --quiet; then
             echo "Nenhum áudio novo para salvar."
             exit 0
           fi
-          git commit -m "Gera 48 áudios do 5 Minutos de Fé"
+          git commit -m "Gera 48 áudios v2 com mínimo de 3 minutos"
+          git pull --rebase origin main
           git push
