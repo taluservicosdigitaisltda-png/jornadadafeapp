@@ -565,6 +565,15 @@ export function Footer() {
           substitui acompanhamento pastoral, médico ou psicológico e não promete cura, milagre ou
           resultado espiritual específico.
         </p>
+        <p className="text-xs text-sand/70">
+          Suporte:{" "}
+          <a
+            href="mailto:5minutosdefeapp@gmail.com"
+            className="underline decoration-gold/40 underline-offset-4 hover:text-gold-light"
+          >
+            5minutosdefeapp@gmail.com
+          </a>
+        </p>
         <p className="text-xs text-sand/70">© 2026 {BRAND}. Todos os direitos reservados.</p>
       </div>
     </footer>
@@ -587,6 +596,8 @@ export function SalesPage() {
       <Guarantee />
       <Faq />
       <Closing />
+      <StickyCta />
     </>
+
   );
 }
