@@ -32,13 +32,23 @@ export const Route = createFileRoute("/resultado")({
 });
 
 function ResultPage() {
+  const [state, setState] = useState<"loading" | "empty" | "ready">("loading");
+
+  useEffect(() => {
+    setState(hasAnswers(loadAnswers()) ? "ready" : "empty");
+  }, []);
+
   return (
     <>
       <ResultHeader />
-      <main>
-        <SalesPage />
-      </main>
-      <Footer />
+      {state === "ready" ? (
+        <>
+          <main>
+            <SalesPage />
+          </main>
+          <Footer />
+        </>
+      ) : null}
     </>
   );
 }
