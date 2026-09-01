@@ -131,7 +131,6 @@ function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   useEffect(() => {
-    void import("../lib/meta-pixel").then((m) => m.initMetaPixel());
   }, []);
 
   return (
