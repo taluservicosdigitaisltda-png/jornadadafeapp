@@ -5,6 +5,7 @@ import { BrandLogo, ConfirmBadge, container } from "./shared";
 import {
   captureUtms,
   clearAnswers,
+  hasAnswers,
   loadAnswers,
   profileFor,
   track,
