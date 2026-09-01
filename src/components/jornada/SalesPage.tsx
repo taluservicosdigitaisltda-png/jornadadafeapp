@@ -48,9 +48,9 @@ export function Hero() {
           Quando faltarem palavras, comece por aqui.
         </h2>
         <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve até 5
-          minutos: ouça uma oração guiada curta, leia a reflexão e faça um pequeno passo para o seu
-          dia.
+          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve cerca de 5
+          minutos: ouça uma oração guiada de aproximadamente 5 minutos, leia a reflexão e faça um
+          pequeno passo para o seu dia.
         </p>
 
         <div className="mt-8 max-w-sm">
@@ -110,10 +110,10 @@ const howItWorks = [
   },
   {
     title: "Ouça a oração e a reflexão sugeridas",
-    text: "Uma oração guiada de 1 a 3 minutos conduz o seu momento e uma reflexão curta ajuda a enxergar o dia com mais calma.",
+    text: "Uma oração guiada de cerca de 5 minutos conduz o seu momento e uma reflexão ajuda a levar a mensagem para o seu dia.",
   },
   {
-    title: "Reserve até 5 minutos e siga seu dia",
+    title: "Faça sua pausa de fé e siga seu dia",
     text: "Ouvir, refletir e dar um pequeno passo. Sem meta, sem cobrança e sem precisar de um tempo longo que você não tem.",
   },
 ];
@@ -144,15 +144,15 @@ export function HowItWorks() {
 const features = [
   {
     title: "Orações guiadas e narradas",
-    text: "Áudios curtos que conduzem a oração quando faltam palavras.",
+    text: "Orações guiadas, com cerca de 5 minutos, que conduzem o momento quando faltam palavras.",
   },
   {
     title: "Reflexões para situações reais",
     text: "Textos breves sobre medo, cansaço, decisões, recomeços e gratidão.",
   },
   {
-    title: "Orações curtas, de 1 a 3 minutos",
-    text: "Uma pausa completa de até 5 minutos, pensada para caber em um dia comum.",
+    title: "Orações de cerca de 5 minutos",
+    text: "Uma pausa completa, pensada para caber em um dia comum.",
   },
 
   { title: "Conteúdos por tema", text: "Paz, direção, esperança, força, confiança e presença." },
