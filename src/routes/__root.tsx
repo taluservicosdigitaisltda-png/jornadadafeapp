@@ -83,7 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Encontre orações guiadas e reflexões para diferentes momentos da vida em uma experiência devocional de aproximadamente 5 minutos por dia.",
+          "Encontre orações guiadas e reflexões para diferentes momentos da vida em uma pausa devocional de até 5 minutos por dia.",
       },
       { property: "og:site_name", content: "5 Minutos de Fé" },
       { property: "og:type", content: "website" },
