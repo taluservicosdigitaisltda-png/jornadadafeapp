@@ -144,15 +144,15 @@ export function HowItWorks() {
 const features = [
   {
     title: "Orações guiadas e narradas",
-    text: "Áudios curtos que conduzem a oração quando faltam palavras.",
+    text: "Orações guiadas, com cerca de 5 minutos, que conduzem o momento quando faltam palavras.",
   },
   {
     title: "Reflexões para situações reais",
     text: "Textos breves sobre medo, cansaço, decisões, recomeços e gratidão.",
   },
   {
-    title: "Orações curtas, de 1 a 3 minutos",
-    text: "Uma pausa completa de até 5 minutos, pensada para caber em um dia comum.",
+    title: "Orações de cerca de 5 minutos",
+    text: "Uma pausa completa, pensada para caber em um dia comum.",
   },
 
   { title: "Conteúdos por tema", text: "Paz, direção, esperança, força, confiança e presença." },
