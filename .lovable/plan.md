@@ -1,49 +1,29 @@
-# Auditoria de áudio — `public/audio/*.mp3` (48 arquivos, nada alterado)
+# Auditoria: preview vs. produção (`app5minutosdefe.lovable.app`) — nada alterado, nada publicado
 
-Medição via `ffprobe` (`format=duration`) em todos os 48 MP3.
+Comparação automatizada (Playwright, mobile 390x844, UA iPhone) percorrendo `/?utm_source=qa&utm_medium=audit` -> 7 perguntas -> `/resultado` nos dois ambientes, com as mesmas respostas. Evidências em `/tmp/browser/prodcmp/res.json`.
 
-## Estatísticas
+## Conclusão: produção está sincronizada com o preview
 
-| Métrica | Valor |
-|---|---|
-| Arquivos | 48 |
-| Duração média | 1min34s (93,8 s) |
-| Mediana | 1min23s (82,9 s) |
-| Mínimo | 1min01s — `jornada-dia-23-recomecar-e-permitido.mp3` |
-| Máximo | 2min28s — `quando-a-mente-nao-para.mp3` |
-| Duração total | 75,1 min |
-| Tamanho total | 27,0 MB (~0,56 MB por arquivo) |
+| Item verificado | Preview | Produção | Status |
+|---|---|---|---|
+| Logo oficial | `5-minutos-de-fe-logo.png`, natural 1200x381, alt "5 Minutos de Fé" | idêntico (mesmo asset `assets-v1/f2c9b465…`) | OK |
+| Quiz de 7 perguntas | 7 telas, progresso "1 / 7" … "7 / 7" | idêntico, mesmas opções na mesma ordem | OK |
+| Hero v4 | `app-celular-hero-v4.webp` | idêntico | OK |
+| Preço R$ 19,00 | 4 ocorrências, nenhum outro valor | idêntico | OK |
+| Checkout | `https://go.perfectpay.com.br/PPU38CQFP8D` em 3 links, UTMs preservadas (`?utm_source=qa&utm_medium=audit`) | idêntico | OK |
+| Marca antiga "Jornada da Fé" | ausente na home e no resultado | ausente | OK |
+| Resultado personalizado | "Seu coração está pedindo espaço para respirar / PAZ E DESACELERAR", copy atual | idêntico caractere a caractere no trecho comparado | OK |
+| SEO da home | title, description, og:title, og:description, `og:image` = hero v4, `twitter:card: summary_large_image`, canonical `https://app5minutosdefe.lovable.app/` | idêntico | OK |
+| SEO de /resultado | "Sua leitura de hoje — 5 Minutos de Fé" + description própria | idêntico | OK |
+| Imagens do resultado | logo, `app-oracao-noite-v2`, hero v4, `app-cafe-manha-v3` | mesma lista, mesma ordem | OK |
+| Layout | scrollWidth 390 = clientWidth 390; altura 12767px | valores idênticos | OK |
+| Console | 0 erros | 0 erros | OK |
+| Rotas legais | — | `/privacidade`, `/termos`, `/reembolso`, `/suporte` -> 200; rota inválida -> 404 | OK |
 
-## Distribuição por faixa
+Nenhum item da lista está desatualizado em produção. O deploy publicado corresponde ao estado atual do preview.
 
-| Faixa | Arquivos | % |
-|---|---|---|
-| < 2 min | 35 | 72,9% |
-| 2–3 min | 13 | 27,1% |
-| 3–4 min | 0 | 0% |
-| 4–6 min | 0 | 0% |
-| > 6 min | 0 | 0% |
+## Única diferença encontrada — P2 (não é conteúdo desatualizado)
 
-**Nenhum arquivo chega a 3 minutos.** Zero áudios na faixa de "aproximadamente 5 minutos".
+Produção renderiza um badge extra "Edit with …" (selo Lovable) que aparece no DOM antes do bloco "SUA LEITURA DE HOJE"; o preview não o tem no texto capturado. O comprimento do texto da home também difere só por isso (359 vs. 348 caracteres). É o badge do Lovable no site publicado — pode ser desligado nas configurações de publicação se você não quiser essa marca sobre a página de vendas paga.
 
-## Confronto com a promessa comercial — P1
-
-- `SalesPage.tsx:50` "experiência simples que cabe em aproximadamente 5 minutos do seu dia"
-- `SalesPage.tsx:112` "Dedique cerca de 5 minutos e siga seu dia"
-- `SalesPage.tsx:148` "Conteúdos de cerca de 5 minutos"
-- `Faq.tsx:8` "Cada conteúdo foi pensado para caber em aproximadamente 5 minutos"
-- `Faq.tsx:16` **"A maioria fica em torno de 5 minutos. Há conteúdos ainda mais curtos... e outros um pouco mais longos"**
-
-A afirmação do FAQ é factualmente incorreta em duas frentes: a maioria não fica em torno de 5 minutos (a mediana é 1min23s, 31% do prometido) e **não existe nenhum conteúdo "um pouco mais longo"** — o teto absoluto é 2min28s, menos da metade do que a copy anuncia. O áudio mais longo do catálogo é mais curto que o piso da promessa.
-
-Risco: comprador que paga R$ 19,00 esperando sessões de ~5 min recebe conteúdo com metade a um terço da duração — argumento direto para reembolso dentro dos 7 dias e para reclamação de publicidade enganosa.
-
-Observação secundária: os 28 áudios da jornada são os mais curtos do acervo (média 1min17s, do dia 22 em diante quase todos ≈1min05s), o que sugere encurtamento progressivo ao longo da série.
-
-## Caminhos possíveis (não executados)
-
-1. Ajustar a copy para a realidade medida ("de 1 a 3 minutos", "cinco minutos com Deus" mantido como posicionamento de pausa, não de duração de faixa) — mudança só de texto, sem tocar em produto.
-2. Manter a promessa e reproduzir/estender os áudios para 4–6 min — mudança de conteúdo, fora do escopo do site.
-3. Híbrido: manter "cinco minutos" como nome/posicionamento da pausa e declarar explicitamente a duração das faixas no FAQ.
-
-Nenhum arquivo foi editado.
+Nada foi editado e nada foi publicado.
