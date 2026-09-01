@@ -385,6 +385,12 @@ type DataLayerEvent = Record<string, unknown> & { event: string };
 export function track(event: string, payload: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
   try {
+    // dedupe result_view per quiz run (SPA remounts can double-fire it)
+    if (event === "quiz_start") window.sessionStorage.removeItem("rv_fired");
+    if (event === "result_view") {
+      if (window.sessionStorage.getItem("rv_fired")) return;
+      window.sessionStorage.setItem("rv_fired", "1");
+    }
     const w = window as unknown as { dataLayer?: DataLayerEvent[] };
     if (!Array.isArray(w.dataLayer)) w.dataLayer = [];
     w.dataLayer.push({ event, ...payload });
