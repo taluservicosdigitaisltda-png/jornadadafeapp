@@ -242,36 +242,37 @@ export function Emotional() {
 const samples = [
   {
     theme: "Paz",
-    title: "Oração para acalmar o coração",
-    duration: "5 min",
+    title: "Quando a mente não para",
+    duration: "áudio de ~2 min",
+    audio: "/audio/quando-a-mente-nao-para.mp3",
     excerpt:
       "Respire com calma. Antes de pedir, apenas permaneça: não é preciso encontrar as palavras certas para estar em oração.",
   },
   {
     theme: "Direção",
     title: "Antes de tomar uma decisão",
-    duration: "5 min",
+    duration: "áudio de ~2 min",
     excerpt:
       "Discernir não é adivinhar o futuro. É olhar com honestidade para o que existe hoje e escolher o próximo passo possível.",
   },
   {
     theme: "Força",
-    title: "Oração para dias de cansaço",
-    duration: "5 min",
+    title: "Quando o dia foi pesado",
+    duration: "áudio de ~2 min",
     excerpt:
       "Você não precisa dar conta de tudo hoje. Deixe descansar por alguns minutos aquilo que pode esperar.",
   },
   {
     theme: "Confiança",
-    title: "Quando o medo do amanhã aparece",
-    duration: "5 min",
+    title: "Quando o medo do amanhã aperta",
+    duration: "áudio de ~2 min",
     excerpt:
       "Confiar não é ter certeza de tudo. Muitas vezes é continuar caminhando com perguntas ainda abertas.",
   },
   {
     theme: "Esperança",
     title: "Uma oração para recomeçar",
-    duration: "5 min",
+    duration: "áudio de ~2 min",
     excerpt:
       "Recomeçar costuma parecer pequeno por dentro. E ainda assim é ali que a caminhada volta a acontecer.",
   },
@@ -314,9 +315,36 @@ export function Samples() {
         </p>
         <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">{item.title}</h3>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand">“{item.excerpt}”</p>
-        <p className="mt-4 text-xs text-sand/70">
-          Prévia em texto. O conteúdo narrado completo fica disponível dentro do aplicativo.
-        </p>
+
+        {item.audio ? (
+          <div className="mt-6 rounded-2xl border border-gold/30 bg-black/30 p-4 sm:p-5">
+            <p className="text-xs uppercase tracking-[0.16em] text-gold-light">
+              Amostra real do aplicativo
+            </p>
+            <audio
+              controls
+              preload="none"
+              src={item.audio}
+              onPlay={() => track("sample_audio_play", { sample: item.title })}
+              className="mt-3 w-full"
+            >
+              <a href={item.audio}>Ouvir a oração guiada {item.title}</a>
+            </audio>
+            <p className="mt-3 text-xs text-sand/70">
+              Oração guiada narrada, como você ouve dentro do aplicativo.
+            </p>
+          </div>
+        ) : (
+          <p className="mt-4 text-xs text-sand/70">
+            Prévia em texto. O conteúdo narrado completo fica disponível dentro do aplicativo.
+          </p>
+        )}
+      </div>
+
+      <div className="mx-auto mt-10 max-w-sm">
+        <CheckoutButton location="amostras" subLabel={priceLine}>
+          QUERO OUVIR TODAS AS ORAÇÕES
+        </CheckoutButton>
       </div>
     </section>
   );
