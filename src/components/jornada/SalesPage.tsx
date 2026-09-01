@@ -180,6 +180,11 @@ export function Features() {
           </li>
         ))}
       </ul>
+      <div className="mx-auto mt-10 max-w-sm">
+        <CheckoutButton location="recursos" subLabel={priceLine}>
+          QUERO ESSES RECURSOS AGORA
+        </CheckoutButton>
+      </div>
     </section>
   );
 }
