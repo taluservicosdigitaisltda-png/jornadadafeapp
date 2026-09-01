@@ -391,4 +391,6 @@ export function track(event: string, payload: Record<string, unknown> = {}) {
   } catch {
     /* ignore */
   }
+  void import("./meta-pixel").then((m) => m.metaFromDataLayer(event, payload));
 }
+
