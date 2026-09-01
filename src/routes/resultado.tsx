@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 
 import { ResultHeader } from "@/components/jornada/ResultHeader";
 import { Footer, SalesPage } from "@/components/jornada/SalesPage";
+import { hasAnswers, loadAnswers } from "@/lib/jornada";
 
 const title = "Sua leitura de hoje — 5 Minutos de Fé";
 const description =
@@ -30,13 +32,23 @@ export const Route = createFileRoute("/resultado")({
 });
 
 function ResultPage() {
+  const [state, setState] = useState<"loading" | "empty" | "ready">("loading");
+
+  useEffect(() => {
+    setState(hasAnswers(loadAnswers()) ? "ready" : "empty");
+  }, []);
+
   return (
     <>
       <ResultHeader />
-      <main>
-        <SalesPage />
-      </main>
-      <Footer />
+      {state === "ready" ? (
+        <>
+          <main>
+            <SalesPage />
+          </main>
+          <Footer />
+        </>
+      ) : null}
     </>
   );
 }

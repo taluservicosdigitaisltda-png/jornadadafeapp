@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SplatRouteImport } from './routes/$'
 import { Route as ObrigadoRouteImport } from './routes/obrigado'
 import { Route as PrivacidadeRouteImport } from './routes/privacidade'
 import { Route as ReembolsoRouteImport } from './routes/reembolso'
@@ -20,6 +21,11 @@ import { Route as TermosRouteImport } from './routes/termos'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SplatRoute = SplatRouteImport.update({
+  id: '/$',
+  path: '/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObrigadoRoute = ObrigadoRouteImport.update({
@@ -55,6 +61,7 @@ const TermosRoute = TermosRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/reembolso': typeof ReembolsoRoute
@@ -64,6 +71,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/reembolso': typeof ReembolsoRoute
@@ -74,6 +82,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$': typeof SplatRoute
   '/obrigado': typeof ObrigadoRoute
   '/privacidade': typeof PrivacidadeRoute
   '/reembolso': typeof ReembolsoRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/$'
     | '/obrigado'
     | '/privacidade'
     | '/reembolso'
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/$'
     | '/obrigado'
     | '/privacidade'
     | '/reembolso'
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/$'
     | '/obrigado'
     | '/privacidade'
     | '/reembolso'
@@ -113,6 +125,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SplatRoute: typeof SplatRoute
   ObrigadoRoute: typeof ObrigadoRoute
   PrivacidadeRoute: typeof PrivacidadeRoute
   ReembolsoRoute: typeof ReembolsoRoute
@@ -128,6 +141,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/$': {
+      id: '/$'
+      path: '/$'
+      fullPath: '/$'
+      preLoaderRoute: typeof SplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/obrigado': {
@@ -177,6 +197,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SplatRoute: SplatRoute,
   ObrigadoRoute: ObrigadoRoute,
   PrivacidadeRoute: PrivacidadeRoute,
   ReembolsoRoute: ReembolsoRoute,

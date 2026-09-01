@@ -330,7 +330,9 @@ export function Samples() {
         style={{ boxShadow: "var(--shadow-gold)" }}
       >
         <p className="eyebrow">Amostra real do aplicativo</p>
-        <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">Quando a mente não para</h3>
+        <h3 className="mt-3 text-xl text-gold-light sm:text-2xl">
+          Quando a mente não para <span className="text-sm text-gold">• cerca de 2 min</span>
+        </h3>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-sand">
           Este é um áudio real do {BRAND}, narrado como você ouviria dentro do aplicativo.
         </p>
