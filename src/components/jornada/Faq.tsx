@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { container } from "./shared";
+import { track } from "@/lib/jornada";
 
 const faqs = [
   {

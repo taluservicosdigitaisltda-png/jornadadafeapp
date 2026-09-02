@@ -18,7 +18,7 @@ import { StickyCta } from "./StickyCta";
 import { useScrollDepth, useTrackInView } from "./hooks";
 
 import { Faq } from "./Faq";
-import { BRAND, PRICE, track } from "@/lib/jornada";
+import { BRAND, PRICE } from "@/lib/jornada";
 
 const priceLine = `${PRICE} • pagamento único • acesso vitalício`;
 
