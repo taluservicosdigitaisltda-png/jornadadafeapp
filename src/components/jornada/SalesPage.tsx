@@ -1,199 +1,401 @@
-import { useEffect, useRef } from "react";
 import { Link } from "@tanstack/react-router";
+import {
+  BookOpen,
+  CalendarCheck,
+  Headphones,
+  Infinity as InfinityIcon,
+  Lock,
+  Mail,
+  PenLine,
+  Play,
+  ShieldCheck,
+  Sparkles,
+} from "lucide-react";
 
 import { AppMockup, BrandLogo, CheckoutButton, ConfirmBadge, container } from "./shared";
+import { AudioSample } from "./AudioSample";
 import { StickyCta } from "./StickyCta";
+import { useScrollDepth, useTrackInView } from "./hooks";
 
 import { Faq } from "./Faq";
 import { BRAND, PRICE, track } from "@/lib/jornada";
 
 const priceLine = `${PRICE} • pagamento único • acesso vitalício`;
 
-export function Bridge() {
-  return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="ponte-titulo">
-      <h2 id="ponte-titulo" className="max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl">
-        E se você tivesse uma oração certa para cada um desses momentos?
-      </h2>
-      <div className="mt-6 grid max-w-3xl gap-4 text-base leading-relaxed text-sand sm:text-lg">
-        <p>
-          Nem todo dia pede a mesma oração. Há dias em que precisamos de paz. Em outros, de direção,
-          força, esperança ou simplesmente alguns minutos para entregar aquilo que não conseguimos
-          carregar sozinhos.
-        </p>
-        <p>
-          O {BRAND} organiza isso para você: em vez de procurar as palavras certas, você escolhe o
-          que está vivendo e recebe uma oração e uma reflexão prontas para aquele momento.
-        </p>
-      </div>
-    </section>
-  );
-}
+/* ---------------------------------- hero ---------------------------------- */
 
 export function Hero() {
   return (
     <section
       id="oferta-principal"
-      className={`${container} grid items-center gap-12 py-14 lg:grid-cols-2 lg:gap-16 lg:py-20`}
+      className="relative overflow-hidden py-14 lg:py-20"
       aria-labelledby="hero-titulo"
     >
-      <div>
-        <BrandLogo width={280} className="mb-7" />
-        <p className="eyebrow block">App devocional • Acesso imediato</p>
+      <div
+        className="pointer-events-none absolute inset-0 opacity-45"
+        style={{
+          backgroundImage: "url('/images/secao-biblia-cruz-bg.webp')",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          maskImage: "radial-gradient(70% 60% at 70% 40%, black, transparent 75%)",
+          WebkitMaskImage: "radial-gradient(70% 60% at 70% 40%, black, transparent 75%)",
+        }}
+        aria-hidden="true"
+      />
+      <div className={`${container} relative grid items-center gap-12 lg:grid-cols-2 lg:gap-16`}>
+        <div>
+          <BrandLogo width={280} className="mb-7" />
+          <p className="eyebrow block">Quando você não souber como orar…</p>
 
-        <h2
-          id="hero-titulo"
-          className="mt-4 text-[1.9rem] leading-tight text-ivory sm:text-4xl lg:text-[2.8rem]"
-        >
-          Quando faltarem palavras, comece por aqui.
-        </h2>
-        <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
-          O {BRAND} reúne orações guiadas e reflexões para situações reais da vida. Reserve cerca de 5
-          minutos: ouça uma oração guiada de aproximadamente 5 minutos, leia a reflexão e faça um
-          pequeno passo para o seu dia.
-        </p>
+          <h2
+            id="hero-titulo"
+            className="mt-4 text-[1.9rem] leading-tight text-ivory sm:text-4xl lg:text-[2.8rem]"
+          >
+            Quando faltarem palavras, comece por aqui.
+          </h2>
+          <p className="mt-5 max-w-xl text-base leading-relaxed text-sand sm:text-lg">
+            Escolha o que está vivendo. Aperte o play. E permita que uma oração guiada conduza os
+            próximos 5 minutos com Deus.
+          </p>
 
-        <div className="mt-8 max-w-sm">
-          <CheckoutButton location="hero">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
+          <div className="mt-8 max-w-sm">
+            <CheckoutButton location="hero">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
+          </div>
+          <p className="mt-4 text-xs text-sand">{priceLine}</p>
         </div>
-        <p className="mt-4 text-xs text-sand">{priceLine}</p>
+        <AppMockup />
       </div>
-      <AppMockup />
     </section>
   );
 }
+
+/* -------------------------- moments (photo grid) -------------------------- */
 
 const moments = [
-  "Quando a mente não para",
-  "Quando o medo do amanhã aperta",
-  "Antes de uma decisão importante",
-  "Quando o dia foi pesado",
-  "Quando você precisa recomeçar",
-  "Quando só quer agradecer",
-  "Quando não sabe nem o que dizer em oração",
+  {
+    title: "Antes do dia começar",
+    image: "/images/app-oracao-manha-v2.webp",
+    alt: "Manhã silenciosa com luz suave entrando pela janela durante uma oração",
+  },
+  {
+    title: "Quando a mente não para",
+    image: "/images/app-pausa-trabalho-v2.webp",
+    alt: "Pausa breve no meio do trabalho para uma oração no celular",
+  },
+  {
+    title: "Antes de uma decisão",
+    image: "/images/app-leitura-biblia-v3.webp",
+    alt: "Bíblia aberta sobre a mesa durante uma leitura reflexiva",
+  },
+  {
+    title: "Quando o medo do amanhã aperta",
+    image: "/images/app-oracao-igreja-v2.webp",
+    alt: "Momento contemplativo em ambiente de fé, com luz dourada",
+  },
+  {
+    title: "Depois de um dia pesado",
+    image: "/images/app-oracao-noite-v2.webp",
+    alt: "Fim de noite com luz quente e um momento de silêncio em oração",
+  },
+  {
+    title: "Quando você só quer agradecer",
+    image: "/images/app-cafe-manha-v3.webp",
+    alt: "Café da manhã tranquilo com um momento devocional",
+  },
 ];
 
-export function Identification() {
+export function Moments() {
   return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="identificacao-titulo">
+    <section className={`${container} py-14 lg:py-20`} aria-labelledby="momentos-titulo">
       <p className="eyebrow">Para os seus dias reais</p>
       <h2
-        id="identificacao-titulo"
+        id="momentos-titulo"
         className="mt-4 max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl"
       >
-        Você abre o aplicativo de acordo com o que está vivendo agora
+        Em qual momento você mais precisa de Deus?
       </h2>
+
       <ul className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {moments.map((m) => (
+        {moments.map((moment) => (
           <li
-            key={m}
-            className="card-premium rounded-[18px] p-5 font-display text-base text-gold-light transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 sm:text-lg"
+            key={moment.title}
+            className="group relative overflow-hidden rounded-[20px] border"
+            style={{
+              borderColor: "oklch(0.76 0.106 79 / 28%)",
+              boxShadow: "var(--shadow-deep)",
+            }}
           >
-            {m}
+            <img
+              src={moment.image}
+              alt={moment.alt}
+              width={1024}
+              height={768}
+              loading="lazy"
+              decoding="async"
+              className="h-[220px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] sm:h-[240px]"
+            />
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "linear-gradient(180deg, oklch(0.09 0.007 55 / 20%) 0%, oklch(0.09 0.007 55 / 82%) 65%, oklch(0.09 0.007 55 / 95%) 100%)",
+              }}
+              aria-hidden="true"
+            />
+            <div className="absolute inset-x-0 bottom-0 p-5">
+              <h3 className="font-display text-lg text-ivory">{moment.title}</h3>
+              <p className="mt-1 text-xs tracking-[0.06em] text-gold-light">
+                Existe uma oração para este momento
+              </p>
+            </div>
           </li>
         ))}
       </ul>
-      <p
-        className="card-premium mt-8 rounded-[20px] p-6 font-display text-lg text-ivory sm:p-7 sm:text-xl"
-        style={{ boxShadow: "var(--shadow-gold)" }}
+    </section>
+  );
+}
+
+/* ---------------------------- product demo (3) ---------------------------- */
+
+function ScreenFrame({ children, step }: { children: React.ReactNode; step: number }) {
+  return (
+    <li className="relative">
+      <div
+        className="mx-auto w-full max-w-[330px] rounded-[26px] border p-4"
+        style={{
+          borderColor: "oklch(0.76 0.106 79 / 35%)",
+          background: "var(--gradient-brown)",
+          boxShadow: "var(--shadow-deep)",
+        }}
       >
-        Não é preciso saber por onde começar. Basta dizer o que você está sentindo hoje.
-      </p>
-    </section>
+        <div
+          className="rounded-[18px] border p-5"
+          style={{
+            borderColor: "oklch(0.76 0.106 79 / 20%)",
+            background: "var(--gradient-espresso)",
+          }}
+        >
+          <span className="font-display text-xs text-gold/70">
+            {String(step).padStart(2, "0")}
+          </span>
+          {children}
+        </div>
+      </div>
+    </li>
   );
 }
 
-const howItWorks = [
-  {
-    title: "Escolha o que você está vivendo",
-    text: "Ansiedade, medo, cansaço, uma decisão, um recomeço ou gratidão: você começa pelo momento, não pelo tema teológico.",
-  },
-  {
-    title: "Ouça a oração e a reflexão sugeridas",
-    text: "Uma oração guiada de cerca de 5 minutos conduz o seu momento e uma reflexão ajuda a levar a mensagem para o seu dia.",
-  },
-  {
-    title: "Faça sua pausa de fé e siga seu dia",
-    text: "Ouvir, refletir e dar um pequeno passo. Sem meta, sem cobrança e sem precisar de um tempo longo que você não tem.",
-  },
-];
-
-
-export function HowItWorks() {
+export function ProductDemo() {
   return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="como-funciona-titulo">
+    <section className={`${container} py-14 lg:py-20`} aria-labelledby="demo-titulo">
       <p className="eyebrow">Como funciona</p>
-      <h2 id="como-funciona-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        Três passos simples, no seu ritmo
+      <h2 id="demo-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
+        Veja como seus 5 minutos acontecem
       </h2>
-      <ul className="mt-10 grid gap-5 md:grid-cols-3">
-        {howItWorks.map((item, i) => (
-          <li key={item.title} className="card-premium rounded-[20px] p-6">
-            <span className="font-display text-sm text-gold/70">
-              {String(i + 1).padStart(2, "0")}
+
+      <ul className="mt-10 grid gap-8 md:grid-cols-3 md:gap-5">
+        <ScreenFrame step={1}>
+          <h3 className="mt-3 font-display text-lg text-ivory">Como você está se sentindo hoje?</h3>
+          <ul className="mt-4 space-y-2">
+            {["Cansado(a)", "Ansioso(a)", "Preciso de direção"].map((option) => (
+              <li
+                key={option}
+                className="rounded-xl border px-4 py-3 text-sm text-sand"
+                style={{ borderColor: "oklch(0.76 0.106 79 / 25%)" }}
+              >
+                {option}
+              </li>
+            ))}
+          </ul>
+        </ScreenFrame>
+
+        <ScreenFrame step={2}>
+          <h3 className="mt-3 font-display text-lg text-ivory">Oração indicada para você</h3>
+          <div
+            className="mt-4 flex items-center gap-4 rounded-xl border px-4 py-4"
+            style={{ borderColor: "oklch(0.76 0.106 79 / 25%)" }}
+          >
+            <span
+              className="grid h-11 w-11 shrink-0 place-items-center rounded-full text-ink"
+              style={{ background: "var(--gradient-gold)" }}
+              aria-hidden="true"
+            >
+              <Play className="h-5 w-5" strokeWidth={2.5} />
             </span>
-            <h3 className="mt-3 text-lg text-gold-light">{item.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-sand">{item.text}</p>
-          </li>
-        ))}
+            <span className="min-w-0">
+              <span className="block text-sm text-ivory">Quando a mente não para</span>
+              <span className="block text-xs text-sand">cerca de 5 minutos</span>
+            </span>
+          </div>
+        </ScreenFrame>
+
+        <ScreenFrame step={3}>
+          <h3 className="mt-3 font-display text-lg text-ivory">Depois da oração</h3>
+          <ul className="mt-4 space-y-2 text-sm text-sand">
+            <li
+              className="rounded-xl border px-4 py-3"
+              style={{ borderColor: "oklch(0.76 0.106 79 / 25%)" }}
+            >
+              Reflexão curta do dia
+            </li>
+            <li
+              className="rounded-xl border px-4 py-3"
+              style={{ borderColor: "oklch(0.76 0.106 79 / 25%)" }}
+            >
+              Um pequeno passo prático
+            </li>
+            <li
+              className="rounded-xl border px-4 py-3"
+              style={{ borderColor: "oklch(0.76 0.106 79 / 25%)" }}
+            >
+              Escreva no seu diário privado
+            </li>
+          </ul>
+        </ScreenFrame>
       </ul>
     </section>
   );
 }
 
-const features = [
-  {
-    title: "Orações guiadas e narradas",
-    text: "Orações guiadas, com cerca de 5 minutos, que conduzem o momento quando faltam palavras.",
-  },
-  {
-    title: "Reflexões para situações reais",
-    text: "Textos breves sobre medo, cansaço, decisões, recomeços e gratidão.",
-  },
-  {
-    title: "Orações de cerca de 5 minutos",
-    text: "Uma pausa completa, pensada para caber em um dia comum.",
-  },
+/* --------------------------------- verses --------------------------------- */
 
-  { title: "Conteúdos por tema", text: "Paz, direção, esperança, força, confiança e presença." },
+export function Verse({ text, reference }: { text: string; reference: string }) {
+  return (
+    <section
+      className="faith-section-bg border-y py-16 lg:py-24"
+      style={{ borderColor: "oklch(0.76 0.106 79 / 22%)" }}
+      aria-label={`Versículo: ${reference}`}
+    >
+      <blockquote className={`${container} max-w-3xl text-center`}>
+        <p className="font-display text-xl leading-relaxed text-ivory sm:text-2xl lg:text-[1.9rem]">
+          “{text}”
+        </p>
+        <footer className="mt-5 text-xs uppercase tracking-[0.2em] text-gold">{reference}</footer>
+      </blockquote>
+    </section>
+  );
+}
+
+/* --------------------------------- pillars -------------------------------- */
+
+const pillars = [
   {
-    title: "Jornada guiada de 28 dias",
-    text: "Uma sequência opcional para criar constância, sem prazo para concluir.",
+    icon: BookOpen,
+    title: "Orações para o que você está vivendo",
+    text: "Biblioteca organizada por momento real: ansiedade, medo, cansaço, decisões, recomeços e gratidão.",
   },
-  { title: "Favoritos", text: "Salve as orações que tocaram você e volte quando precisar." },
-  { title: "Histórico e progresso", text: "Retome de onde parou, sem começar tudo de novo." },
-  { title: "Diário privado", text: "Escreva pedidos, gratidões e percepções só para você." },
-  { title: "Transcrições", text: "Leia o texto completo quando preferir não ouvir." },
-  { title: "Lembretes opcionais", text: "Ative um aviso diário apenas se isso ajudar você." },
+  {
+    icon: Headphones,
+    title: "Aperte o play e ore",
+    text: "Orações guiadas e narradas, de cerca de 5 minutos, que conduzem quando faltam palavras.",
+  },
+  {
+    icon: CalendarCheck,
+    title: "28 dias com Deus",
+    text: "Uma jornada opcional para criar constância, um dia de cada vez, sem prazo para concluir.",
+  },
+  {
+    icon: PenLine,
+    title: "Seu espaço particular",
+    text: "Diário privado para escrever pedidos, gratidões e o que você não diria em voz alta.",
+  },
 ];
 
-export function Features() {
+export function Pillars() {
   return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="recursos-titulo">
+    <section className={`${container} py-14 lg:py-20`} aria-labelledby="pilares-titulo">
       <p className="eyebrow">O que tem dentro</p>
-      <h2 id="recursos-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        Recursos do aplicativo
+      <h2 id="pilares-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
+        Quatro pilares do aplicativo
       </h2>
-      <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {features.map((f) => (
-          <li
-            key={f.title}
-            className="card-premium rounded-[18px] p-5 transition-all duration-300 hover:-translate-y-1 hover:border-gold/60"
-          >
-            <h3 className="text-base text-gold-light">{f.title}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-sand">{f.text}</p>
+
+      <ul className="mt-10 grid gap-5 sm:grid-cols-2">
+        {pillars.map(({ icon: Icon, title, text }) => (
+          <li key={title} className="card-premium rounded-[22px] p-6 sm:p-7">
+            <span
+              className="grid h-12 w-12 place-items-center rounded-2xl border text-gold-light"
+              style={{
+                borderColor: "oklch(0.76 0.106 79 / 35%)",
+                background: "oklch(0.16 0.02 60 / 70%)",
+              }}
+              aria-hidden="true"
+            >
+              <Icon className="h-6 w-6" strokeWidth={1.6} />
+            </span>
+            <h3 className="mt-5 text-lg text-gold-light sm:text-xl">{title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-sand">{text}</p>
           </li>
         ))}
       </ul>
+
+      <p className="mt-7 text-sm text-sand/80">
+        + favoritos, histórico, transcrições, lembretes e outros recursos dentro do aplicativo.
+      </p>
+
       <div className="mx-auto mt-10 max-w-sm">
         <CheckoutButton location="pos_recursos" subLabel={priceLine}>
           QUERO TER MEUS 5 MINUTOS DE FÉ
         </CheckoutButton>
       </div>
     </section>
-
   );
 }
+
+/* -------------------------------- 28 days -------------------------------- */
+
+const weeks = [
+  { week: "Semana 1", title: "Aqui e agora", text: "Aprender a parar por alguns minutos sem culpa." },
+  { week: "Semana 2", title: "Confiar no processo", text: "Entregar o que não está sob o seu controle." },
+  { week: "Semana 3", title: "Fé nas relações", text: "Família, perdão, paciência e palavras que constroem." },
+  { week: "Semana 4", title: "Uma fé que se sustenta", text: "Constância possível para depois do dia 28." },
+];
+
+export function Journey() {
+  return (
+    <section
+      className="relative overflow-hidden border-y py-14 lg:py-20"
+      style={{ background: "var(--gradient-brown)", borderColor: "oklch(0.76 0.106 79 / 22%)" }}
+      aria-labelledby="jornada-titulo"
+    >
+      <div className={`${container} relative`}>
+        <p className="eyebrow">Jornada guiada</p>
+        <h2 id="jornada-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
+          28 dias com Deus
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-sand sm:text-lg">
+          Uma sequência simples para criar constância sem cobrança: um dia de cada vez, no seu ritmo,
+          podendo pausar e retomar quando quiser.
+        </p>
+
+        <div
+          className="mt-9 h-1.5 w-full overflow-hidden rounded-full"
+          style={{ backgroundColor: "oklch(0.76 0.106 79 / 18%)" }}
+          aria-hidden="true"
+        >
+          <div
+            className="h-full w-full rounded-full"
+            style={{ background: "var(--gradient-gold)", opacity: 0.55 }}
+          />
+        </div>
+
+        <ol className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {weeks.map((item, i) => (
+            <li key={item.week} className="card-premium rounded-[20px] p-5">
+              <span className="font-display text-sm text-gold/70">
+                Dias {i * 7 + 1}–{i * 7 + 7}
+              </span>
+              <h3 className="mt-3 text-base text-gold-light">{item.week}</h3>
+              <p className="mt-1 font-display text-lg text-ivory">{item.title}</p>
+              <p className="mt-2 text-sm leading-relaxed text-sand">{item.text}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------ emotional block --------------------------- */
 
 export function Emotional() {
   return (
@@ -245,6 +447,7 @@ export function Emotional() {
   );
 }
 
+/* -------------------------------- for who -------------------------------- */
 
 const forWho = [
   "Quer começar ou retomar uma rotina de oração",
@@ -258,46 +461,73 @@ const forWho = [
 export function ForWho() {
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="para-quem-titulo">
-      <p className="eyebrow">Para quem é</p>
-      <h2 id="para-quem-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        O {BRAND} pode fazer sentido para você se…
-      </h2>
-      <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-        {forWho.map((item) => (
-          <li key={item} className="flex items-start gap-3 text-base text-sand">
-            <ConfirmBadge />
-            <span className="min-w-0">{item}</span>
-          </li>
-        ))}
-      </ul>
+      <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+        <figure
+          className="overflow-hidden rounded-[24px] border p-2"
+          style={{
+            borderColor: "oklch(0.76 0.106 79 / 32%)",
+            background: "var(--gradient-brown)",
+            boxShadow: "var(--shadow-deep)",
+          }}
+        >
+          <img
+            src="/images/app-leitura-biblia-v3.webp"
+            alt="Pessoa lendo a Bíblia com calma, em um momento comum do dia"
+            width={1024}
+            height={768}
+            loading="lazy"
+            decoding="async"
+            className="h-auto w-full rounded-[18px]"
+          />
+        </figure>
+
+        <div>
+          <p className="eyebrow">Para quem é</p>
+          <h2 id="para-quem-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
+            O {BRAND} pode fazer sentido para você se…
+          </h2>
+          <ul className="mt-7 grid gap-4">
+            {forWho.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-base text-sand">
+                <ConfirmBadge />
+                <span className="min-w-0">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </section>
   );
 }
 
-const included = [
-  `Acesso ao aplicativo ${BRAND}`,
-  "Biblioteca de orações guiadas e narradas",
-  "Reflexões curtas por tema e situação",
-  "Jornada guiada de 28 dias",
-  "Diário privado, favoritos e histórico",
-  "Acesso vitalício ao conteúdo adquirido",
+/* ------------------------------ trust section ----------------------------- */
+
+const trust = [
+  { icon: Lock, label: "Pagamento único" },
+  { icon: ShieldCheck, label: "7 dias de garantia" },
+  { icon: InfinityIcon, label: "Acesso vitalício ao conteúdo adquirido" },
+  { icon: Mail, label: "Suporte por e-mail" },
+  { icon: Sparkles, label: "Compra processada pela Perfect Pay" },
 ];
 
-export function Included() {
+export function Trust() {
   return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="incluido-titulo">
-      <p className="eyebrow">O que está incluído</p>
-      <h2 id="incluido-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
-        Tudo que você recebe no acesso
+    <section className={`${container} py-12 lg:py-16`} aria-labelledby="confianca-titulo">
+      <h2 id="confianca-titulo" className="text-2xl text-ivory sm:text-3xl">
+        Compra tranquila, sem letras miúdas
       </h2>
-      <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {included.map((item) => (
+      <ul className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {trust.map(({ icon: Icon, label }) => (
           <li
-            key={item}
-            className="card-premium flex items-start gap-3 rounded-[18px] p-5 text-sm text-ivory"
+            key={label}
+            className="flex items-center gap-3 rounded-2xl border px-4 py-4 text-sm text-ivory"
+            style={{
+              borderColor: "oklch(0.76 0.106 79 / 25%)",
+              background: "oklch(0.16 0.02 60 / 60%)",
+            }}
           >
-            <ConfirmBadge />
-            <span className="min-w-0">{item}</span>
+            <Icon className="h-5 w-5 shrink-0 text-gold-light" strokeWidth={1.6} aria-hidden="true" />
+            <span className="min-w-0">{label}</span>
           </li>
         ))}
       </ul>
@@ -305,25 +535,19 @@ export function Included() {
   );
 }
 
-export function Offer() {
-  const ref = useRef<HTMLDivElement>(null);
-  const fired = useRef(false);
+/* --------------------------------- offer --------------------------------- */
 
-  useEffect(() => {
-    const node = ref.current;
-    if (!node || typeof IntersectionObserver === "undefined") return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting) && !fired.current) {
-          fired.current = true;
-          track("offer_view");
-        }
-      },
-      { threshold: 0.3 },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
+const includedCompact = [
+  "Biblioteca de orações",
+  "Reflexões",
+  "Jornada de 28 dias",
+  "Diário privado",
+  "Acesso pelo celular",
+  "Sem mensalidade",
+];
+
+export function Offer() {
+  const ref = useTrackInView<HTMLDivElement>("offer_view", 0.3);
 
   return (
     <section
@@ -345,13 +569,28 @@ export function Offer() {
           className="card-premium mx-auto max-w-xl rounded-[26px] p-7 text-center sm:p-10"
         >
           <p className="eyebrow">Comece hoje</p>
-          <h2 id="oferta-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl">
-            Acesso completo ao {BRAND}
+          <h2 id="oferta-titulo" className="mt-4 text-2xl leading-snug text-ivory sm:text-3xl">
+            Tudo isso para você ter um lugar para voltar quando precisar.
           </h2>
-          <p className="mt-6 font-display text-5xl text-gold-light sm:text-6xl">{PRICE}</p>
-          <p className="mt-3 text-sm text-sand">
+
+          <ul className="mt-7 grid gap-2 text-left sm:grid-cols-2">
+            {includedCompact.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm text-ivory">
+                <ConfirmBadge />
+                <span className="min-w-0">{item}</span>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-8 font-display text-lg text-sand sm:text-xl">
+            Você não pagará {PRICE} todo mês.
+          </p>
+          <p className="mt-2 font-display text-5xl text-gold-light sm:text-6xl">{PRICE}</p>
+          <p className="mt-2 font-display text-base text-gold sm:text-lg">uma única vez.</p>
+          <p className="mt-4 text-sm text-sand">
             Pagamento único. Sem mensalidade. Acesso vitalício ao conteúdo adquirido.
           </p>
+
           <div className="mt-7">
             <CheckoutButton location="oferta">QUERO TER MEUS 5 MINUTOS DE FÉ</CheckoutButton>
           </div>
@@ -367,15 +606,23 @@ export function Offer() {
   );
 }
 
+/* -------------------------------- guarantee ------------------------------- */
+
 export function Guarantee() {
+  const ref = useTrackInView<HTMLDivElement>("guarantee_view", 0.4);
+
   return (
     <section className={`${container} py-14 lg:py-20`} aria-labelledby="garantia-titulo">
-      <div className="card-premium flex flex-col items-center gap-8 rounded-[26px] p-7 text-center sm:flex-row sm:p-10 sm:text-left">
+      <div
+        ref={ref}
+        className="card-premium flex flex-col items-center gap-8 rounded-[26px] p-7 text-center sm:flex-row sm:p-10 sm:text-left"
+      >
         <div
-          className="grid h-28 w-28 shrink-0 place-items-center rounded-full border font-display text-lg text-ink"
+          className="grid h-28 w-28 shrink-0 place-items-center rounded-full border text-ink"
           style={{ background: "var(--gradient-gold)", borderColor: "var(--gold-light)" }}
         >
-          7 DIAS
+          <ShieldCheck className="h-7 w-7" strokeWidth={1.8} aria-hidden="true" />
+          <span className="mt-1 font-display text-sm font-bold">7 DIAS</span>
         </div>
         <div className="min-w-0">
           <h2 id="garantia-titulo" className="text-2xl text-ivory sm:text-3xl">
@@ -395,39 +642,44 @@ export function Guarantee() {
               5minutosdefeapp@gmail.com
             </a>
           </p>
-
         </div>
       </div>
     </section>
   );
 }
 
+/* -------------------------------- closing -------------------------------- */
+
 export function Closing() {
   return (
     <section
-      className={`${container} py-14 text-center lg:py-20`}
+      className="faith-section-bg border-t py-16 text-center lg:py-24"
+      style={{ borderColor: "oklch(0.76 0.106 79 / 22%)" }}
       aria-labelledby="encerramento-titulo"
     >
-      <BrandLogo width={230} align="center" className="mb-8" />
-      <h2
-
-        id="encerramento-titulo"
-        className="mx-auto max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl"
-      >
-        Talvez você não precise de mais uma promessa para mudar sua vida. Talvez precise apenas de 5
-        minutos para não atravessar tudo sozinho.
-      </h2>
-      <div className="mx-auto mt-9 max-w-sm">
-        <CheckoutButton location="encerramento" subLabel={priceLine}>
-          QUERO TER MEUS 5 MINUTOS DE FÉ
-        </CheckoutButton>
+      <div className={container}>
+        <BrandLogo width={230} align="center" className="mb-8" />
+        <h2
+          id="encerramento-titulo"
+          className="mx-auto max-w-3xl text-2xl leading-snug text-ivory sm:text-3xl lg:text-4xl"
+        >
+          Talvez você não precise de mais uma promessa para mudar sua vida. Talvez precise apenas de
+          5 minutos para não atravessar tudo sozinho.
+        </h2>
+        <p className="mt-6 font-display text-lg text-gold-light sm:text-xl">
+          Uma Palavra. Uma oração. Cinco minutos com Deus.
+        </p>
+        <div className="mx-auto mt-9 max-w-sm">
+          <CheckoutButton location="encerramento" subLabel={priceLine}>
+            QUERO TER MEUS 5 MINUTOS DE FÉ
+          </CheckoutButton>
+        </div>
       </div>
-      <p className="mt-6 font-display text-lg text-gold-light sm:text-xl">
-        Uma Palavra. Uma oração. Cinco minutos com Deus.
-      </p>
     </section>
   );
 }
+
+/* --------------------------------- footer -------------------------------- */
 
 const footerLinks = [
   { to: "/privacidade", label: "Política de Privacidade" },
@@ -476,23 +728,34 @@ export function Footer() {
   );
 }
 
+/* ------------------------------- sales page ------------------------------- */
+
 export function SalesPage() {
+  useScrollDepth();
+
   return (
     <>
-      <Bridge />
       <Hero />
-      <Identification />
-      <HowItWorks />
-      <Features />
+      <Moments />
+      <ProductDemo />
+      <AudioSample />
+      <Verse
+        text="Lancem sobre ele toda a sua ansiedade, porque ele tem cuidado de vocês."
+        reference="1 Pedro 5:7"
+      />
+      <Pillars />
+      <Journey />
       <Emotional />
       <ForWho />
-      <Included />
+      <Trust />
+      <Verse text="Aquietai-vos e sabei que eu sou Deus." reference="Salmos 46:10" />
       <Offer />
       <Guarantee />
       <Faq />
       <Closing />
       <StickyCta />
     </>
-
   );
 }
+
+export { track };
