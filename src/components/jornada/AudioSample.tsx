@@ -51,7 +51,7 @@ export function AudioSample() {
 
         <div className="mx-auto mt-7 max-w-sm">
           <CheckoutButton location="pos_amostra" subLabel="R$ 19,00 • pagamento único">
-            QUERO CONTINUAR MINHA JORNADA NO APP
+            QUERO TER MEUS 5 MINUTOS DE FÉ
           </CheckoutButton>
         </div>
       </div>
