@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
+import { EmotionalBridge } from "@/components/jornada/EmotionalBridge";
 import { ResultHeader } from "@/components/jornada/ResultHeader";
 import { Footer, SalesPage } from "@/components/jornada/SalesPage";
 import { BrandLogo, container } from "@/components/jornada/shared";
-import { hasAnswers, loadAnswers } from "@/lib/jornada";
+import { hasAnswers, loadAnswers, profileFor, type Profile } from "@/lib/jornada";
 
 
 const title = "Sua leitura de hoje — 5 Minutos de Fé";
