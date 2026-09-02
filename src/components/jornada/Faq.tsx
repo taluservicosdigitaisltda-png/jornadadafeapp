@@ -50,13 +50,13 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="faq-titulo">
+    <section className={`${container} py-12 lg:py-16`} aria-labelledby="faq-titulo">
       <p className="eyebrow">Dúvidas frequentes</p>
-      <h2 id="faq-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
+      <h2 id="faq-titulo" className="mt-3 text-2xl text-ivory sm:text-3xl">
         Perguntas que costumam aparecer
       </h2>
 
-      <ul className="mt-9 space-y-4">
+      <ul className="mx-auto mt-7 max-w-3xl space-y-2">
         {faqs.map((item, i) => {
           const isOpen = open === i;
           return (
