@@ -23,8 +23,8 @@ export function EmotionalBridge({ profile }: { profile: Profile }) {
           }}
         >
           <img
-            src="/images/hero-momento-fe-igreja.webp"
-            alt="Mulher sentada em um banco de igreja, olhos fechados em oração, mão sobre o peito e celular na outra mão, sob luz dourada de vitrais"
+            src="/images/ponte-fe-silencio-v2.webp"
+            alt="Mulher sentada em um banco de igreja em oração silenciosa, olhos fechados e mãos unidas, com uma Bíblia aberta ao lado, sob luz dourada de vitrais"
             width={1280}
             height={853}
             loading="lazy"
