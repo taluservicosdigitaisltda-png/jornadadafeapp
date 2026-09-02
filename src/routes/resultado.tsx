@@ -36,9 +36,16 @@ export const Route = createFileRoute("/resultado")({
 
 function ResultPage() {
   const [state, setState] = useState<"loading" | "empty" | "ready">("loading");
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
-    setState(hasAnswers(loadAnswers()) ? "ready" : "empty");
+    const answers = loadAnswers();
+    if (hasAnswers(answers)) {
+      setProfile(profileFor(answers));
+      setState("ready");
+    } else {
+      setState("empty");
+    }
   }, []);
 
   if (state !== "ready") {
@@ -70,6 +77,7 @@ function ResultPage() {
     <>
       <ResultHeader />
       <main>
+        {profile ? <EmotionalBridge profile={profile} /> : null}
         <SalesPage />
       </main>
       <Footer />
