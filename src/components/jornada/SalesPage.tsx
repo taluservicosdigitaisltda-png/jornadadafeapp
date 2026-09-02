@@ -74,33 +74,39 @@ export function Hero() {
 const moments = [
   {
     title: "Antes do dia começar",
-    image: "/images/app-oracao-manha-v2.webp",
-    alt: "Manhã silenciosa com luz suave entrando pela janela durante uma oração",
+    image: "/images/momento-antes-do-dia.webp",
+    alt: "Mulher na mesa da cozinha ao amanhecer, com café e Bíblia aberta, respirando fundo antes de começar o dia",
+    position: "50% 35%",
   },
   {
     title: "Quando a mente não para",
-    image: "/images/app-pausa-trabalho-v2.webp",
-    alt: "Pausa breve no meio do trabalho para uma oração no celular",
+    image: "/images/momento-mente-nao-para.webp",
+    alt: "Pessoa em home office no fim da tarde, notebook fechado e fones nos ouvidos, fazendo uma pausa com os olhos fechados",
+    position: "50% 30%",
   },
   {
     title: "Antes de uma decisão",
-    image: "/images/app-leitura-biblia-v3.webp",
-    alt: "Bíblia aberta sobre a mesa durante uma leitura reflexiva",
+    image: "/images/momento-antes-decisao.webp",
+    alt: "Homem à mesa com Bíblia aberta e caderno, olhar pensativo buscando discernimento",
+    position: "45% 35%",
   },
   {
     title: "Quando o medo do amanhã aperta",
-    image: "/images/app-oracao-igreja-v2.webp",
-    alt: "Momento contemplativo em ambiente de fé, com luz dourada",
+    image: "/images/momento-medo-amanha.webp",
+    alt: "Mulher sentada sozinha em uma igreja quase vazia, mãos juntas em oração sob a luz do vitral",
+    position: "40% 30%",
   },
   {
     title: "Depois de um dia pesado",
-    image: "/images/app-oracao-noite-v2.webp",
-    alt: "Fim de noite com luz quente e um momento de silêncio em oração",
+    image: "/images/momento-dia-pesado.webp",
+    alt: "Mulher à noite no sofá, coberta por um cobertor, com fones e celular na mão sob a luz do abajur",
+    position: "55% 35%",
   },
   {
     title: "Quando você só quer agradecer",
-    image: "/images/app-cafe-manha-v3.webp",
-    alt: "Café da manhã tranquilo com um momento devocional",
+    image: "/images/momento-agradecer.webp",
+    alt: "Mulher na cozinha pela manhã com Bíblia aberta e café, olhos fechados e leve sorriso de gratidão",
+    position: "45% 30%",
   },
 ];
 
@@ -132,6 +138,7 @@ export function Moments() {
               height={768}
               loading="lazy"
               decoding="async"
+              style={{ objectPosition: moment.position }}
               className="h-[220px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] sm:h-[240px]"
             />
             <div
