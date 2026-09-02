@@ -64,10 +64,13 @@ export function Faq() {
               <h3>
                 <button
                   type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
+                  onClick={() => {
+                    if (!isOpen) track("faq_open", { index: i + 1, question: item.q });
+                    setOpen(isOpen ? null : i);
+                  }}
                   aria-expanded={isOpen}
                   aria-controls={`faq-panel-${i}`}
-                  className="flex min-h-14 w-full items-center justify-between gap-4 px-6 py-5 text-left text-base text-ivory transition-colors hover:text-gold-light"
+                  className="flex min-h-14 w-full items-center justify-between gap-4 px-5 py-4 text-left text-[0.95rem] text-ivory transition-colors hover:text-gold-light sm:px-6"
                 >
                   <span className="min-w-0 font-display">{item.q}</span>
                   <span
@@ -84,7 +87,7 @@ export function Faq() {
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
               >
                 <div className="overflow-hidden">
-                  <p className="px-6 pb-5 text-sm leading-relaxed text-sand">{item.a}</p>
+                  <p className="px-5 pb-5 text-sm leading-relaxed text-sand sm:px-6">{item.a}</p>
                 </div>
               </div>
             </li>
