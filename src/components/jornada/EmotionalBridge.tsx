@@ -23,10 +23,10 @@ export function EmotionalBridge({ profile }: { profile: Profile }) {
           }}
         >
           <img
-            src={profile.image}
-            alt={profile.imageAlt}
-            width={1024}
-            height={768}
+            src="/images/hero-momento-fe-igreja.webp"
+            alt="Mulher sentada em um banco de igreja, olhos fechados em oração, mão sobre o peito e celular na outra mão, sob luz dourada de vitrais"
+            width={1280}
+            height={853}
             loading="lazy"
             decoding="async"
             className="h-auto w-full rounded-[18px]"

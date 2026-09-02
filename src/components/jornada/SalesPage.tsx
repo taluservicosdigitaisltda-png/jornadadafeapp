@@ -138,6 +138,7 @@ export function Moments() {
               height={768}
               loading="lazy"
               decoding="async"
+              style={{ objectPosition: moment.position }}
               className="h-[220px] w-full object-cover transition-transform duration-500 group-hover:scale-[1.04] sm:h-[240px]"
             />
             <div
