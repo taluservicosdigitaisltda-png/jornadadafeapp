@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 
+import { EmotionalBridge } from "@/components/jornada/EmotionalBridge";
 import { ResultHeader } from "@/components/jornada/ResultHeader";
 import { Footer, SalesPage } from "@/components/jornada/SalesPage";
 import { BrandLogo, container } from "@/components/jornada/shared";
-import { hasAnswers, loadAnswers } from "@/lib/jornada";
+import { hasAnswers, loadAnswers, profileFor, type Profile } from "@/lib/jornada";
 
 
 const title = "Sua leitura de hoje — 5 Minutos de Fé";
@@ -35,9 +36,16 @@ export const Route = createFileRoute("/resultado")({
 
 function ResultPage() {
   const [state, setState] = useState<"loading" | "empty" | "ready">("loading");
+  const [profile, setProfile] = useState<Profile | null>(null);
 
   useEffect(() => {
-    setState(hasAnswers(loadAnswers()) ? "ready" : "empty");
+    const answers = loadAnswers();
+    if (hasAnswers(answers)) {
+      setProfile(profileFor(answers));
+      setState("ready");
+    } else {
+      setState("empty");
+    }
   }, []);
 
   if (state !== "ready") {
@@ -69,6 +77,7 @@ function ResultPage() {
     <>
       <ResultHeader />
       <main>
+        {profile ? <EmotionalBridge profile={profile} /> : null}
         <SalesPage />
       </main>
       <Footer />

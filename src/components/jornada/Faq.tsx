@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { container } from "./shared";
+import { track } from "@/lib/jornada";
 
 const faqs = [
   {
@@ -49,13 +50,13 @@ export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section className={`${container} py-14 lg:py-20`} aria-labelledby="faq-titulo">
+    <section className={`${container} py-12 lg:py-16`} aria-labelledby="faq-titulo">
       <p className="eyebrow">Dúvidas frequentes</p>
-      <h2 id="faq-titulo" className="mt-4 text-2xl text-ivory sm:text-3xl lg:text-4xl">
+      <h2 id="faq-titulo" className="mt-3 text-2xl text-ivory sm:text-3xl">
         Perguntas que costumam aparecer
       </h2>
 
-      <ul className="mt-9 space-y-4">
+      <ul className="mx-auto mt-7 max-w-3xl space-y-2">
         {faqs.map((item, i) => {
           const isOpen = open === i;
           return (
@@ -63,10 +64,13 @@ export function Faq() {
               <h3>
                 <button
                   type="button"
-                  onClick={() => setOpen(isOpen ? null : i)}
+                  onClick={() => {
+                    if (!isOpen) track("faq_open", { index: i + 1, question: item.q });
+                    setOpen(isOpen ? null : i);
+                  }}
                   aria-expanded={isOpen}
                   aria-controls={`faq-panel-${i}`}
-                  className="flex min-h-14 w-full items-center justify-between gap-4 px-6 py-5 text-left text-base text-ivory transition-colors hover:text-gold-light"
+                  className="flex min-h-14 w-full items-center justify-between gap-4 px-5 py-4 text-left text-[0.95rem] text-ivory transition-colors hover:text-gold-light sm:px-6"
                 >
                   <span className="min-w-0 font-display">{item.q}</span>
                   <span
@@ -83,7 +87,7 @@ export function Faq() {
                 style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
               >
                 <div className="overflow-hidden">
-                  <p className="px-6 pb-5 text-sm leading-relaxed text-sand">{item.a}</p>
+                  <p className="px-5 pb-5 text-sm leading-relaxed text-sand sm:px-6">{item.a}</p>
                 </div>
               </div>
             </li>

@@ -45,6 +45,21 @@ function ObrigadoPage() {
           </p>
         </div>
 
+        <div
+          className="mt-7 rounded-2xl border p-5 text-center"
+          style={{
+            borderColor: "oklch(0.76 0.106 79 / 25%)",
+            background: "oklch(0.16 0.02 60 / 60%)",
+          }}
+        >
+          <p className="font-display text-lg text-gold-light sm:text-xl">
+            Agora separe seus primeiros 5 minutos.
+          </p>
+          <p className="mt-2 text-sm text-sand">
+            Uma boa primeira oração para hoje: “Comece o dia antes da pressa”.
+          </p>
+        </div>
+
         <section
           className="mt-8 rounded-[1.75rem] border p-6 sm:mt-10 sm:p-8"
           style={{

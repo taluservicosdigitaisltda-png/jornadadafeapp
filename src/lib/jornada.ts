@@ -399,3 +399,17 @@ export function track(event: string, payload: Record<string, unknown> = {}) {
   }
 }
 
+/** Fires a dataLayer event at most once per session. */
+export function trackOnce(event: string, payload: Record<string, unknown> = {}) {
+  if (typeof window === "undefined") return;
+  try {
+    const key = `once_${event}`;
+    if (window.sessionStorage.getItem(key)) return;
+    window.sessionStorage.setItem(key, "1");
+  } catch {
+    /* ignore */
+  }
+  track(event, payload);
+}
+
+
