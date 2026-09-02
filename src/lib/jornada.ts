@@ -246,8 +246,8 @@ export const profiles: Record<CategoryId, Profile> = {
     step: "Nomeie o que você não consegue controlar e transforme isso em uma frase curta de entrega a Deus.",
     duration: "pausa de até 5 minutos",
     closing: "Você não precisa segurar tudo sozinho(a) hoje.",
-    image: "/images/app-oracao-igreja-v2.webp",
-    imageAlt: "Momento contemplativo em ambiente de fé, com luz dourada e silêncio",
+    image: "/images/leitura-confianca-vitral-v2.webp",
+    imageAlt: "Mulher em silêncio numa igreja, com a mão sobre uma Bíblia aberta, iluminada pela luz dourada dos vitrais",
   },
   presenca: {
     id: "presenca",
